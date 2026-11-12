@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/laboratorios/mesa-lateral-sombra.png" id="1_sombra"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-mesa.png" id="2_mesa"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/metamorfose-terrario.png" id="3_terrario"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/metamorfose-lagarta.png" id="4_lagarta"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/metamorfose-crisalida.png" id="5_crisalida"]
+
+[node name="LateralMetamorfose" type="Node2D"]
+texture_filter = 1
+metadata/area_mesa = Rect2i(0, 0, 64, 96)
+
+[node name="Sombra" type="Sprite2D" parent="."]
+texture = ExtResource("1_sombra")
+centered = false
+
+[node name="MesaApoio" type="Sprite2D" parent="."]
+texture = ExtResource("2_mesa")
+centered = false
+
+[node name="Terrario" type="Sprite2D" parent="."]
+position = Vector2(5, -2)
+texture = ExtResource("3_terrario")
+centered = false
+
+[node name="Lagarta" type="Sprite2D" parent="Terrario"]
+position = Vector2(8, 28)
+texture = ExtResource("4_lagarta")
+centered = false
+
+[node name="Crisalida" type="Sprite2D" parent="Terrario"]
+position = Vector2(33, 17)
+texture = ExtResource("5_crisalida")
+centered = false

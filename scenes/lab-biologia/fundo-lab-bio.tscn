@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/fundo-janela.png" id="1_janela"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/fundo-quadro.png" id="2_quadro"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/fundo-prateleiras.png" id="3_prateleiras"]
+[ext_resource type="Script" path="res://scenes/lab-fisica/janela_lab.gd" id="4_movimento"]
+[ext_resource type="Texture2D" path="res://assets/lab-fisica/fundo-janela-ceu.png" id="5_ceu"]
+[ext_resource type="Texture2D" path="res://assets/lab-fisica/fundo-janela-nuvens.png" id="6_nuvens"]
+
+[node name="FundoLaboratorio" type="Node2D"]
+texture_filter = 1
+
+[node name="Janela" type="Node2D" parent="."]
+position = Vector2(112, 20)
+script = ExtResource("4_movimento")
+
+[node name="Ceu" type="Sprite2D" parent="Janela"]
+texture_repeat = 2
+position = Vector2(6, 6)
+texture = ExtResource("5_ceu")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 52, 19)
+
+[node name="Nuvens" type="Sprite2D" parent="Janela"]
+texture_repeat = 2
+position = Vector2(6, 6)
+texture = ExtResource("6_nuvens")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 52, 19)
+
+[node name="Moldura" type="Sprite2D" parent="Janela"]
+texture = ExtResource("1_janela")
+centered = false
+
+[node name="QuadroBiologia" type="Sprite2D" parent="."]
+position = Vector2(192, 20)
+texture = ExtResource("2_quadro")
+centered = false
+
+[node name="Prateleiras" type="Sprite2D" parent="."]
+position = Vector2(304, 16)
+texture = ExtResource("3_prateleiras")
+centered = false

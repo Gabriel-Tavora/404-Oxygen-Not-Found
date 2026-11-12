@@ -1,0 +1,154 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://b51yqu2c8dwbe"]
+
+[ext_resource type="Texture2D" uid="uid://t7wu3vebmisi" path="res://assets/astronauta/astronauta.png" id="1_atlas"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_leste_passo_1"]
+atlas = ExtResource("1_atlas")
+region = Rect2(0, 64, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_leste_parado"]
+atlas = ExtResource("1_atlas")
+region = Rect2(24, 64, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_leste_passo_2"]
+atlas = ExtResource("1_atlas")
+region = Rect2(48, 64, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_norte_passo_1"]
+atlas = ExtResource("1_atlas")
+region = Rect2(0, 32, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_norte_parado"]
+atlas = ExtResource("1_atlas")
+region = Rect2(24, 32, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_norte_passo_2"]
+atlas = ExtResource("1_atlas")
+region = Rect2(48, 32, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oeste_passo_1"]
+atlas = ExtResource("1_atlas")
+region = Rect2(0, 96, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oeste_parado"]
+atlas = ExtResource("1_atlas")
+region = Rect2(24, 96, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oeste_passo_2"]
+atlas = ExtResource("1_atlas")
+region = Rect2(48, 96, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sul_passo_1"]
+atlas = ExtResource("1_atlas")
+region = Rect2(0, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sul_parado"]
+atlas = ExtResource("1_atlas")
+region = Rect2(24, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sul_passo_2"]
+atlas = ExtResource("1_atlas")
+region = Rect2(48, 0, 24, 32)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_leste_passo_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_leste_parado")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_leste_passo_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_leste_parado")
+}],
+"loop": 1,
+"name": &"andar_leste",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_norte_passo_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_norte_parado")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_norte_passo_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_norte_parado")
+}],
+"loop": 1,
+"name": &"andar_norte",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oeste_passo_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oeste_parado")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oeste_passo_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oeste_parado")
+}],
+"loop": 1,
+"name": &"andar_oeste",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sul_passo_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sul_parado")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sul_passo_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sul_parado")
+}],
+"loop": 1,
+"name": &"andar_sul",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_leste_parado")
+}],
+"loop": 0,
+"name": &"parado_leste",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_norte_parado")
+}],
+"loop": 0,
+"name": &"parado_norte",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oeste_parado")
+}],
+"loop": 0,
+"name": &"parado_oeste",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sul_parado")
+}],
+"loop": 0,
+"name": &"parado_sul",
+"speed": 1.0
+}]

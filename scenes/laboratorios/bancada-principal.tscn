@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/laboratorios/bancada-sombra.png" id="1_shadow"]
+[ext_resource type="Texture2D" path="res://assets/laboratorios/bancada-estrutura.png" id="2_body"]
+[ext_resource type="Texture2D" path="res://assets/laboratorios/bancada-tampo.png" id="3_top"]
+
+[node name="BancadaPrincipal" type="Node2D"]
+texture_filter = 1
+metadata/secao = "02 - Centro: bancada principal"
+metadata/grade_base = Vector2i(16, 16)
+metadata/tamanho = Vector2i(288, 128)
+
+[node name="Sombra" type="Sprite2D" parent="."]
+texture = ExtResource("1_shadow")
+centered = false
+
+[node name="Estrutura" type="Sprite2D" parent="."]
+texture = ExtResource("2_body")
+centered = false
+
+[node name="Tampo" type="Sprite2D" parent="."]
+texture = ExtResource("3_top")
+centered = false
+
+[node name="AreaAtividade" type="Marker2D" parent="."]
+position = Vector2(16, 16)
+metadata/area_local = Rect2i(0, 0, 256, 64)
+metadata/descricao = "Origem e área limpa para os futuros pontos; não desenha interface."

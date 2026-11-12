@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/lab-fisica/ima/expedicao_magnetica.gd" id="1"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialogo-astronauta.tscn" id="2"]
+
+[node name="ExpedicaoMagnetica" type="Control"]
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1")
+
+[node name="DialogoAstronauta" parent="." instance=ExtResource("2")]

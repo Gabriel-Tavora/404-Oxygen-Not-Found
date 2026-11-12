@@ -1,0 +1,269 @@
+[gd_scene load_steps=17 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/convite_atividade.gd" id="1_dialog"]
+[ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="2_font"]
+[ext_resource type="Texture2D" path="res://assets/ui/resistencia.png" id="3_shield"]
+[ext_resource type="Texture2D" path="res://assets/lab-fisica/magnetismo-ima.png" id="4_magnet"]
+[ext_resource type="Texture2D" path="res://assets/ui/icone-movimento.png" id="5_motion"]
+
+[sub_resource type="AtlasTexture" id="IconeIma"]
+atlas = ExtResource("4_magnet")
+region = Rect2(4, 8, 34, 33)
+
+[sub_resource type="Theme" id="TemaConvite"]
+default_font = ExtResource("2_font")
+default_font_size = 8
+
+[sub_resource type="StyleBoxFlat" id="Janela"]
+bg_color = Color(0.9020, 0.8510, 0.6902, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.1608, 0.2314, 0.2627, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Beneficio"]
+bg_color = Color(0.7490, 0.8235, 0.7529, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4824, 0.6431, 0.6039, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Sim_normal"]
+bg_color = Color(0.2627, 0.4314, 0.4510, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.1608, 0.2314, 0.2627, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Sim_hover"]
+bg_color = Color(0.3451, 0.5451, 0.5333, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.1608, 0.2314, 0.2627, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Sim_pressed"]
+bg_color = Color(0.2000, 0.3098, 0.3373, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.1608, 0.2314, 0.2627, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Nao_normal"]
+bg_color = Color(0.7961, 0.7333, 0.5686, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4706, 0.3765, 0.2941, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Nao_hover"]
+bg_color = Color(0.9529, 0.9137, 0.7922, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4706, 0.3765, 0.2941, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Nao_pressed"]
+bg_color = Color(0.7882, 0.6314, 0.4275, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4706, 0.3765, 0.2941, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Focus"]
+bg_color = Color(0.1608, 0.2314, 0.2627, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.8941, 0.7608, 0.5490, 1)
+antialiasing = false
+draw_center = false
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[node name="ConviteAtividade" type="Control"]
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("TemaConvite")
+script = ExtResource("1_dialog")
+
+[node name="FundoEscuro" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0980, 0.1529, 0.1882, 0.56)
+
+[node name="Sombra" type="ColorRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -148.0
+offset_top = -72.0
+offset_right = 156.0
+offset_bottom = 80.0
+mouse_filter = 2
+color = Color(0.0980, 0.1529, 0.1882, 0.65)
+
+[node name="Janela" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -152.0
+offset_top = -76.0
+offset_right = 152.0
+offset_bottom = 76.0
+theme_override_styles/panel = SubResource("Janela")
+
+[node name="Cabecalho" type="ColorRect" parent="Janela"]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 302.0
+offset_bottom = 38.0
+mouse_filter = 2
+color = Color(0.2627, 0.4314, 0.4510, 1)
+
+[node name="Friso" type="ColorRect" parent="Janela"]
+offset_left = 2.0
+offset_top = 38.0
+offset_right = 302.0
+offset_bottom = 40.0
+mouse_filter = 2
+color = Color(0.7882, 0.6314, 0.4275, 1)
+
+[node name="IconeIma" type="TextureRect" parent="Janela"]
+offset_left = 7.0
+offset_top = 3.0
+offset_right = 41.0
+offset_bottom = 36.0
+mouse_filter = 2
+texture = SubResource("IconeIma")
+
+[node name="IconeMovimento" type="TextureRect" parent="Janela"]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 36.0
+offset_bottom = 32.0
+visible = false
+mouse_filter = 2
+texture = ExtResource("5_motion")
+
+[node name="Titulo" type="Label" parent="Janela"]
+offset_left = 47.0
+offset_top = 6.0
+offset_right = 297.0
+offset_bottom = 36.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.9529, 0.9137, 0.7922, 1)
+theme_override_font_sizes/font_size = 16
+text = "Expedição magnética"
+vertical_alignment = 1
+
+[node name="Descricao" type="Label" parent="Janela"]
+offset_left = 16.0
+offset_top = 45.0
+offset_right = 288.0
+offset_bottom = 59.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.1608, 0.2314, 0.2627, 1)
+theme_override_font_sizes/font_size = 8
+text = "Use o ímã para abrir caminho e pegar moedas."
+vertical_alignment = 1
+
+[node name="Beneficio" type="Panel" parent="Janela"]
+offset_left = 16.0
+offset_top = 63.0
+offset_right = 288.0
+offset_bottom = 95.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Beneficio")
+
+[node name="Escudo" type="TextureRect" parent="Janela"]
+offset_left = 20.0
+offset_top = 69.0
+offset_right = 40.0
+offset_bottom = 89.0
+mouse_filter = 2
+texture = ExtResource("3_shield")
+
+[node name="Recompensa" type="Label" parent="Janela"]
+offset_left = 44.0
+offset_top = 66.0
+offset_right = 282.0
+offset_bottom = 92.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.1608, 0.2314, 0.2627, 1)
+theme_override_font_sizes/font_size = 8
+text = "Faz essa missão que você vai ganhar Conhecimento pra poder ir pro espaço"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Pergunta" type="Label" parent="Janela"]
+offset_left = 16.0
+offset_top = 100.0
+offset_right = 288.0
+offset_bottom = 114.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.1608, 0.2314, 0.2627, 1)
+theme_override_font_sizes/font_size = 8
+text = "Quer participar?"
+vertical_alignment = 1
+
+[node name="AgoraNao" type="Button" parent="Janela"]
+offset_left = 16.0
+offset_top = 118.0
+offset_right = 144.0
+offset_bottom = 142.0
+theme_override_colors/font_color = Color(0.1608, 0.2314, 0.2627, 1)
+theme_override_colors/font_hover_color = Color(0.1608, 0.2314, 0.2627, 1)
+theme_override_colors/font_pressed_color = Color(0.1608, 0.2314, 0.2627, 1)
+theme_override_colors/font_focus_color = Color(0.1608, 0.2314, 0.2627, 1)
+theme_override_styles/normal = SubResource("Nao_normal")
+theme_override_styles/hover = SubResource("Nao_hover")
+theme_override_styles/pressed = SubResource("Nao_pressed")
+theme_override_styles/focus = SubResource("Focus")
+text = "Agora não"
+
+[node name="QueroTentar" type="Button" parent="Janela"]
+offset_left = 160.0
+offset_top = 118.0
+offset_right = 288.0
+offset_bottom = 142.0
+theme_override_colors/font_color = Color(0.9529, 0.9137, 0.7922, 1)
+theme_override_colors/font_hover_color = Color(0.9529, 0.9137, 0.7922, 1)
+theme_override_colors/font_pressed_color = Color(0.9529, 0.9137, 0.7922, 1)
+theme_override_colors/font_focus_color = Color(0.9529, 0.9137, 0.7922, 1)
+theme_override_styles/normal = SubResource("Sim_normal")
+theme_override_styles/hover = SubResource("Sim_hover")
+theme_override_styles/pressed = SubResource("Sim_pressed")
+theme_override_styles/focus = SubResource("Focus")
+text = "Quero tentar!"

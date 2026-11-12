@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Texture2D" path="res://assets/laboratorios/mesa-lateral-sombra.png" id="1_shadow"]
+[ext_resource type="Texture2D" path="res://assets/lab-fisica/magnetismo-mesa.png" id="2_table"]
+[ext_resource type="Texture2D" path="res://assets/lab-fisica/magnetismo-ima.png" id="3_magnet"]
+[ext_resource type="Texture2D" path="res://assets/lab-fisica/magnetismo-pecas.png" id="4_parts"]
+
+[node name="LateralMagnetismo" type="Node2D"]
+texture_filter = 1
+metadata/secao = "04 - Lateral esquerda: magnetismo"
+metadata/grade_base = Vector2i(16, 16)
+metadata/area_mesa = Rect2i(0, 0, 64, 96)
+metadata/descricao = "Ímã em ferradura com polos N/S, prego de ferro, clipes e esfera de aço."
+
+[node name="Sombra" type="Sprite2D" parent="."]
+texture = ExtResource("1_shadow")
+centered = false
+
+[node name="MesaApoio" type="Sprite2D" parent="."]
+texture = ExtResource("2_table")
+centered = false
+
+[node name="ImaFerradura" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+texture = ExtResource("3_magnet")
+centered = false
+
+[node name="PecasMetalicas" type="Sprite2D" parent="."]
+texture = ExtResource("4_parts")
+centered = false

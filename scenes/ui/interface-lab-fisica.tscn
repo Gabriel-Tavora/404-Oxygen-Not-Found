@@ -1,0 +1,45 @@
+[gd_scene format=4]
+
+[ext_resource type="PackedScene" path="res://scenes/ui/convite-atividade.tscn" id="9_dialog"]
+[ext_resource type="FontFile" uid="uid://bmfdvtwavrm3m" path="res://assets/ui/lab-pixel.fnt" id="10_font"]
+[ext_resource type="PackedScene" path="res://scenes/lab-fisica/ima/expedicao-magnetica.tscn" id="11_ima"]
+[ext_resource type="PackedScene" path="res://scenes/lab-fisica/lancamento/lancamento-obliquo.tscn" id="12_lancamento"]
+
+[sub_resource type="StyleBoxFlat" id="Faixa"]
+bg_color = Color(0.2, 0.3098, 0.3373, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.1608, 0.2314, 0.2627, 1)
+
+[node name="Interface" type="CanvasLayer" unique_id=2073860904]
+layer = 10
+
+[node name="Faixa" type="Panel" parent="." unique_id=1297375836]
+offset_left = 59.0
+offset_top = 254.0
+offset_right = 421.0
+offset_bottom = 271.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Faixa")
+
+[node name="Instrucao" type="Label" parent="Faixa" unique_id=564062212]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9529, 0.9137, 0.7922, 1)
+theme_override_fonts/font = ExtResource("10_font")
+theme_override_font_sizes/font_size = 8
+text = "Use WASD ou as setas. Pise em um sinal para começar."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ConviteAtividade" parent="." unique_id=153348710 instance=ExtResource("9_dialog")]
+
+[node name="ExpedicaoMagnetica" parent="." instance=ExtResource("11_ima")]
+
+[node name="LancamentoObliquo" parent="." instance=ExtResource("12_lancamento")]

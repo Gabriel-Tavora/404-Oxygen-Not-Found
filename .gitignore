@@ -1,0 +1,7 @@
+# Godot 4+ specific ignores
+/.godot/
+/android/
+
+# Prévias, logs e cópias de trabalho locais.
+/artifacts/*
+!/artifacts/.gdignore

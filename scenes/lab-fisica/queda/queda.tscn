@@ -1,0 +1,237 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/lab-fisica/queda/queda.gd" id="1_queda"]
+[ext_resource type="Script" path="res://scenes/lab-fisica/queda/camara.gd" id="2_camara"]
+[ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="3_fonte"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialogo-astronauta.tscn" id="4_dialogo"]
+
+[sub_resource type="StyleBoxFlat" id="Painel"]
+bg_color = Color(0.102, 0.153, 0.188, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7255, 0.8235, 0.7686, 1)
+shadow_color = Color(0.0392, 0.0745, 0.098, 0.82)
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Normal"]
+bg_color = Color(0.196, 0.31, 0.337, 1)
+border_width_bottom = 2
+border_color = Color(0.11, 0.21, 0.24, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Hover"]
+bg_color = Color(0.29, 0.45, 0.46, 1)
+border_width_bottom = 2
+border_color = Color(0.16, 0.28, 0.31, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Selecionado"]
+bg_color = Color(0.65, 0.88, 0.78, 1)
+border_width_bottom = 2
+border_color = Color(0.32, 0.57, 0.51, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Desabilitado"]
+bg_color = Color(0.136, 0.215, 0.25, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Foco"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.98, 0.79, 0.48, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Acao"]
+bg_color = Color(0.92, 0.73, 0.44, 1)
+border_width_bottom = 2
+border_color = Color(0.68, 0.47, 0.28, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="AcaoHover"]
+bg_color = Color(0.98, 0.83, 0.57, 1)
+border_width_bottom = 2
+border_color = Color(0.68, 0.47, 0.28, 1)
+antialiasing = false
+
+[sub_resource type="Theme" id="Tema"]
+default_font = ExtResource("3_fonte")
+default_font_size = 12
+Button/colors/font_color = Color(0.9529, 0.9137, 0.7922, 1)
+Button/colors/font_hover_color = Color(1, 0.96, 0.86, 1)
+Button/colors/font_focus_color = Color(0.9529, 0.9137, 0.7922, 1)
+Button/colors/font_pressed_color = Color(0.102, 0.153, 0.188, 1)
+Button/colors/font_hover_pressed_color = Color(0.102, 0.153, 0.188, 1)
+Button/colors/font_disabled_color = Color(0.52, 0.62, 0.62, 1)
+Button/styles/normal = SubResource("Normal")
+Button/styles/hover = SubResource("Hover")
+Button/styles/pressed = SubResource("Selecionado")
+Button/styles/hover_pressed = SubResource("Selecionado")
+Button/styles/disabled = SubResource("Desabilitado")
+Button/styles/focus = SubResource("Foco")
+Label/colors/font_color = Color(0.9529, 0.9137, 0.7922, 1)
+Acao/base_type = &"Button"
+Acao/colors/font_color = Color(0.102, 0.153, 0.188, 1)
+Acao/colors/font_hover_color = Color(0.102, 0.153, 0.188, 1)
+Acao/colors/font_focus_color = Color(0.102, 0.153, 0.188, 1)
+Acao/styles/normal = SubResource("Acao")
+Acao/styles/hover = SubResource("AcaoHover")
+Acao/styles/pressed = SubResource("AcaoHover")
+
+[sub_resource type="ButtonGroup" id="Palpites"]
+
+[node name="Queda" type="Control"]
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Tema")
+script = ExtResource("1_queda")
+
+[node name="Fundo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.04, 0.08, 0.12, 0.75)
+
+[node name="Painel" type="Panel" parent="."]
+layout_mode = 1
+anchor_right = 1.0
+offset_left = 24.0
+offset_top = 12.0
+offset_right = -24.0
+offset_bottom = 206.0
+theme_override_styles/panel = SubResource("Painel")
+
+[node name="Titulo" type="Label" parent="Painel"]
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 264.0
+offset_bottom = 32.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 16
+text = "Qual cai primeiro?"
+vertical_alignment = 1
+
+[node name="Rodada" type="Label" parent="Painel"]
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -120.0
+offset_top = 8.0
+offset_right = -12.0
+offset_bottom = 32.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.65, 0.88, 0.78, 1)
+text = "Com ar"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Camara" type="Control" parent="Painel"]
+anchor_right = 1.0
+offset_left = 12.0
+offset_top = 38.0
+offset_right = -12.0
+offset_bottom = 130.0
+mouse_filter = 2
+script = ExtResource("2_camara")
+
+[node name="NomeBola" type="Label" parent="Painel/Camara"]
+anchor_right = 0.5
+offset_top = 4.0
+offset_bottom = 14.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.79, 0.56, 1)
+theme_override_font_sizes/font_size = 8
+text = "BOLA"
+horizontal_alignment = 1
+
+[node name="NomeFolha" type="Label" parent="Painel/Camara"]
+anchor_left = 0.5
+anchor_right = 1.0
+offset_top = 4.0
+offset_bottom = 14.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 8
+text = "FOLHA DE PAPEL"
+horizontal_alignment = 1
+
+[node name="Pergunta" type="Label" parent="Painel"]
+anchor_right = 1.0
+offset_left = 12.0
+offset_top = 133.0
+offset_right = -12.0
+offset_bottom = 149.0
+mouse_filter = 2
+text = "Qual chega primeiro ao chão?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Palpites" type="HBoxContainer" parent="Painel"]
+anchor_right = 1.0
+offset_left = 12.0
+offset_top = 151.0
+offset_right = -12.0
+offset_bottom = 169.0
+theme_override_constants/separation = 6
+
+[node name="Bola" type="Button" parent="Painel/Palpites"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+toggle_mode = true
+button_group = SubResource("Palpites")
+text = "A bola"
+
+[node name="Folha" type="Button" parent="Painel/Palpites"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+toggle_mode = true
+button_group = SubResource("Palpites")
+text = "A folha"
+
+[node name="Juntas" type="Button" parent="Painel/Palpites"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+toggle_mode = true
+button_group = SubResource("Palpites")
+text = "As duas juntas"
+
+[node name="Acao" type="Button" parent="Painel"]
+anchor_right = 0.5
+offset_left = 12.0
+offset_top = 173.0
+offset_right = -3.0
+offset_bottom = 190.0
+mouse_default_cursor_shape = 2
+theme_type_variation = &"Acao"
+text = "Soltar"
+
+[node name="Voltar" type="Button" parent="Painel"]
+anchor_left = 0.5
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 173.0
+offset_right = -12.0
+offset_bottom = 190.0
+mouse_default_cursor_shape = 2
+text = "Voltar ao laboratório"
+
+[node name="DialogoAstronauta" parent="." instance=ExtResource("4_dialogo")]

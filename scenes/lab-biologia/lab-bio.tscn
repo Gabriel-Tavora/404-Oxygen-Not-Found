@@ -1,0 +1,87 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/lab-biologia/bancada-biologia.tscn" id="1_bancada"]
+[ext_resource type="PackedScene" path="res://scenes/lab-biologia/fundo-lab-bio.tscn" id="2_fundo"]
+[ext_resource type="PackedScene" path="res://scenes/lab-biologia/base-lab-bio.tscn" id="3_base"]
+[ext_resource type="PackedScene" path="res://scenes/lab-biologia/lateral-botanica.tscn" id="4_botanica"]
+[ext_resource type="PackedScene" path="res://scenes/lab-biologia/lateral-metamorfose.tscn" id="5_metamorfose"]
+[ext_resource type="PackedScene" path="res://scenes/laboratorios/sinal-atividade.tscn" id="6_sinal"]
+[ext_resource type="PackedScene" path="res://scenes/astronauta/player.tscn" id="7_player"]
+[ext_resource type="PackedScene" path="res://scenes/ui/barra-conhecimento.tscn" id="8_conhecimento"]
+
+[sub_resource type="RectangleShape2D" id="LimiteHorizontal"]
+size = Vector2(480, 16)
+
+[sub_resource type="RectangleShape2D" id="LimiteVertical"]
+size = Vector2(16, 288)
+
+[sub_resource type="RectangleShape2D" id="ColisaoBancada"]
+size = Vector2(280, 128)
+
+[sub_resource type="RectangleShape2D" id="ColisaoMesa"]
+size = Vector2(56, 96)
+
+[node name="lab-bio" type="Node2D"]
+texture_filter = 1
+metadata/resolucao_base = Vector2i(480, 288)
+metadata/secao_atual = "Lateral direita — metamorfose"
+
+[node name="Cenario" type="Node2D" parent="."]
+
+[node name="BaseCenario" parent="Cenario" instance=ExtResource("3_base")]
+z_index = -4
+
+[node name="FundoLaboratorio" parent="Cenario" instance=ExtResource("2_fundo")]
+
+[node name="BancadaPrincipal" parent="Cenario" instance=ExtResource("1_bancada")]
+position = Vector2(96, 96)
+
+[node name="LateralBotanica" parent="Cenario" instance=ExtResource("4_botanica")]
+position = Vector2(24, 128)
+
+[node name="LateralMetamorfose" parent="Cenario" instance=ExtResource("5_metamorfose")]
+position = Vector2(392, 128)
+
+[node name="Colisoes" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="Fundo" type="CollisionShape2D" parent="Colisoes"]
+position = Vector2(240, 72)
+shape = SubResource("LimiteHorizontal")
+
+[node name="Frente" type="CollisionShape2D" parent="Colisoes"]
+position = Vector2(240, 264)
+shape = SubResource("LimiteHorizontal")
+
+[node name="Esquerda" type="CollisionShape2D" parent="Colisoes"]
+position = Vector2(8, 144)
+shape = SubResource("LimiteVertical")
+
+[node name="Direita" type="CollisionShape2D" parent="Colisoes"]
+position = Vector2(472, 144)
+shape = SubResource("LimiteVertical")
+
+[node name="Bancada" type="CollisionShape2D" parent="Colisoes"]
+position = Vector2(240, 160)
+shape = SubResource("ColisaoBancada")
+
+[node name="MesaBotanica" type="CollisionShape2D" parent="Colisoes"]
+position = Vector2(56, 176)
+shape = SubResource("ColisaoMesa")
+
+[node name="MesaMetamorfose" type="CollisionShape2D" parent="Colisoes"]
+position = Vector2(424, 176)
+shape = SubResource("ColisaoMesa")
+
+[node name="Sinais" type="Node2D" parent="."]
+
+[node name="SinalBorboleta" parent="Sinais" instance=ExtResource("6_sinal")]
+z_index = 4
+position = Vector2(424, 236)
+atividade = &"borboleta"
+
+[node name="Player" parent="." instance=ExtResource("7_player")]
+z_index = 5
+position = Vector2(240, 235)
+
+[node name="BarraConhecimento" parent="." instance=ExtResource("8_conhecimento")]

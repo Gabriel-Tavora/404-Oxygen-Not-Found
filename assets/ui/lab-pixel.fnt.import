@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://bmfdvtwavrm3m"
+path="res://.godot/imported/lab-pixel.fnt-1a1168f4aa2b97814be9859eee27de6a.fontdata"
+
+[deps]
+
+source_file="res://assets/ui/lab-pixel.fnt"
+dest_files=["res://.godot/imported/lab-pixel.fnt-1a1168f4aa2b97814be9859eee27de6a.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2
