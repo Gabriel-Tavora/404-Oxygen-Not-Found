@@ -18,13 +18,11 @@ Use **Esc** para voltar ao laboratório. Para reabrir uma atividade, saia do
 sinal e pise nele novamente. A barra de Conhecimento soma um ponto pela
 primeira conclusão de cada missão durante a partida.
 
-## Cenas em desenvolvimento
+## Laboratório de Biologia
 
-- **Laboratório de Biologia.** Abra [lab-bio.tscn](scenes/lab-biologia/lab-bio.tscn)
-  no editor e pressione **F6** para explorar o cenário com o astronauta.
-  O sinal da borboleta aguarda a integração com a atividade de ligar pontos.
-- **Queda com e sem ar.** A [cena de Queda](scenes/lab-fisica/queda/queda.tscn)
-  é um protótipo independente que aguarda integração com o laboratório de Física.
+Abra [lab-bio.tscn](scenes/lab-biologia/lab-bio.tscn) no editor e pressione
+**F6** para explorar o cenário com o astronauta. O sinal da borboleta aguarda
+a integração com a atividade de ligar pontos.
 
 ## Estrutura do projeto
 
