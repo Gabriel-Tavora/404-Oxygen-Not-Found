@@ -36,10 +36,3 @@ Na árvore de cada fase, abra `Cenario` para editar a base e a decoração. Os
 gatilhos das atividades ficam em `Sinais`. O jogo usa resolução-base de
 480 × 288, tiles de 16 × 16, escala inteira, filtro nearest-neighbor e o
 renderizador Compatibility.
-
-## Guias
-
-- [Direção de arte](docs/DIRECAO_DE_ARTE.md)
-- [Padrão de missão](docs/PADRAO_MISSAO.md)
-- [Planejamento do laboratório de Biologia](docs/PLANEJAMENTO_LAB_BIOLOGIA.md)
-- [Geração de recursos e captura de prévias](docs/FERRAMENTAS.md)
