@@ -1,0 +1,154 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://dokrgi3yphtfr"]
+
+[ext_resource type="Texture2D" uid="uid://bwgukap3nyp8c" path="res://UI/SelecaoPersonagem/personagens/sprites/p3_branco_mochila.png" id="1_tex"]
+
+[sub_resource type="AtlasTexture" id="a_down_1"]
+atlas = ExtResource("1_tex")
+region = Rect2(40, 0, 40, 64)
+
+[sub_resource type="AtlasTexture" id="a_left_1"]
+atlas = ExtResource("1_tex")
+region = Rect2(40, 192, 40, 64)
+
+[sub_resource type="AtlasTexture" id="a_right_1"]
+atlas = ExtResource("1_tex")
+region = Rect2(40, 128, 40, 64)
+
+[sub_resource type="AtlasTexture" id="a_up_1"]
+atlas = ExtResource("1_tex")
+region = Rect2(40, 64, 40, 64)
+
+[sub_resource type="AtlasTexture" id="a_down_0"]
+atlas = ExtResource("1_tex")
+region = Rect2(0, 0, 40, 64)
+
+[sub_resource type="AtlasTexture" id="a_down_2"]
+atlas = ExtResource("1_tex")
+region = Rect2(80, 0, 40, 64)
+
+[sub_resource type="AtlasTexture" id="a_left_0"]
+atlas = ExtResource("1_tex")
+region = Rect2(0, 192, 40, 64)
+
+[sub_resource type="AtlasTexture" id="a_left_2"]
+atlas = ExtResource("1_tex")
+region = Rect2(80, 192, 40, 64)
+
+[sub_resource type="AtlasTexture" id="a_right_0"]
+atlas = ExtResource("1_tex")
+region = Rect2(0, 128, 40, 64)
+
+[sub_resource type="AtlasTexture" id="a_right_2"]
+atlas = ExtResource("1_tex")
+region = Rect2(80, 128, 40, 64)
+
+[sub_resource type="AtlasTexture" id="a_up_0"]
+atlas = ExtResource("1_tex")
+region = Rect2(0, 64, 40, 64)
+
+[sub_resource type="AtlasTexture" id="a_up_2"]
+atlas = ExtResource("1_tex")
+region = Rect2(80, 64, 40, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("a_down_1")
+}],
+"loop": 1,
+"name": &"idle_down",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("a_left_1")
+}],
+"loop": 1,
+"name": &"idle_left",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("a_right_1")
+}],
+"loop": 1,
+"name": &"idle_right",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("a_up_1")
+}],
+"loop": 1,
+"name": &"idle_up",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("a_down_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("a_down_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("a_down_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("a_down_1")
+}],
+"loop": 1,
+"name": &"walk_down",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("a_left_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("a_left_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("a_left_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("a_left_1")
+}],
+"loop": 1,
+"name": &"walk_left",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("a_right_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("a_right_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("a_right_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("a_right_1")
+}],
+"loop": 1,
+"name": &"walk_right",
+"speed": 7.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("a_up_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("a_up_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("a_up_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("a_up_1")
+}],
+"loop": 1,
+"name": &"walk_up",
+"speed": 7.0
+}]

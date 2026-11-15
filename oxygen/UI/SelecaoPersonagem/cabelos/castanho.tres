@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CabeloDados" format=3]
+
+[ext_resource type="Script" path="../scripts/cabelo_dados.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+nome = "Cabelo Castanho"
+indice = 1
+cor = Color(0.45, 0.27, 0.15, 1)

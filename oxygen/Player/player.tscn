@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://ctkssrkoj70u7"]
+
+[ext_resource type="SpriteFrames" uid="uid://b4xm50d881h0n" path="res://Player/tres/astronauta_frames.tres" id="1_l8h54"]
+[ext_resource type="Script" uid="uid://bk212twuabua2" path="res://Player/scripts/player.gd" id="1_p5o4e"]
+[ext_resource type="Script" uid="uid://brbtvpaf18n62" path="res://Player/scripts/state_machine.gd" id="3_gu6f8"]
+[ext_resource type="Script" uid="uid://dotlf6hcvnv7s" path="res://Player/scripts/states/crouch.gd" id="4_dkpta"]
+[ext_resource type="Script" uid="uid://ddkc5gsxl5g6e" path="res://Player/scripts/states/idle.gd" id="5_lfmf2"]
+[ext_resource type="Script" uid="uid://c0boll4fy857k" path="res://Player/scripts/states/walk.gd" id="6_pisgm"]
+[ext_resource type="Script" uid="uid://347ndyca5a1v" path="res://Player/scripts/states/run.gd" id="7_b1ygp"]
+[ext_resource type="Script" uid="uid://u7h8bpe2ktav" path="res://Player/scripts/states/jump.gd" id="8_o28un"]
+[ext_resource type="Script" uid="uid://jvd83gphby1n" path="res://Player/scripts/states/fall.gd" id="9_n471f"]
+[ext_resource type="Script" uid="uid://bpgj10vpjfc4n" path="res://Player/scripts/states/skid.gd" id="10_7emwf"]
+[ext_resource type="Script" uid="uid://daxpwtih7036w" path="res://Player/scripts/states/mine.gd" id="11_hshwv"]
+[ext_resource type="Script" uid="uid://difige218yuf6" path="res://Player/scripts/states/hurt.gd" id="12_gpjlu"]
+[ext_resource type="Script" uid="uid://b38ih4801yh53" path="res://Player/scripts/states/death.gd" id="13_8mwp6"]
+
+[sub_resource type="RectangleShape2D" id="r"]
+size = Vector2(12, 26)
+
+[node name="Player" type="CharacterBody2D" unique_id=439120752]
+script = ExtResource("1_p5o4e")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1440244109]
+sprite_frames = ExtResource("1_l8h54")
+animation = &"jump"
+
+[node name="StateMachine" type="Node" parent="." unique_id=1738955795]
+script = ExtResource("3_gu6f8")
+
+[node name="crouch" type="Node" parent="StateMachine" unique_id=324663995]
+script = ExtResource("4_dkpta")
+
+[node name="idle" type="Node" parent="StateMachine" unique_id=1720957198]
+script = ExtResource("5_lfmf2")
+
+[node name="walk" type="Node" parent="StateMachine" unique_id=1018482198]
+script = ExtResource("6_pisgm")
+
+[node name="run" type="Node" parent="StateMachine" unique_id=1202497447]
+script = ExtResource("7_b1ygp")
+
+[node name="jump" type="Node" parent="StateMachine" unique_id=1546247501]
+script = ExtResource("8_o28un")
+
+[node name="fall" type="Node" parent="StateMachine" unique_id=682875639]
+script = ExtResource("9_n471f")
+
+[node name="skid" type="Node" parent="StateMachine" unique_id=808436621]
+script = ExtResource("10_7emwf")
+
+[node name="mine" type="Node" parent="StateMachine" unique_id=7153667]
+script = ExtResource("11_hshwv")
+
+[node name="hurt" type="Node" parent="StateMachine" unique_id=1522020247]
+script = ExtResource("12_gpjlu")
+
+[node name="death" type="Node" parent="StateMachine" unique_id=706280780]
+script = ExtResource("13_8mwp6")
+
+[node name="SkidParticles" type="GPUParticles2D" parent="." unique_id=959494635]
+
+[node name="Sound" type="Node" parent="." unique_id=1210389907]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1231253047]
+position = Vector2(0, 2)
+shape = SubResource("r")

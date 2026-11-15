@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="PersonagemDados" format=3 uid="uid://ll7i0lrkc5xb"]
+
+[ext_resource type="Script" uid="uid://dd2cceaj1ddmt" path="res://UI/SelecaoPersonagem/scripts/personagem_dados.gd" id="1_script"]
+[ext_resource type="SpriteFrames" path="res://UI/spriteframes/p5_branco.tres" id="f_branco"]
+[ext_resource type="SpriteFrames" path="res://UI/spriteframes/p5_castanho.tres" id="f_castanho"]
+[ext_resource type="SpriteFrames" path="res://UI/spriteframes/p5_loiro.tres" id="f_loiro"]
+[ext_resource type="SpriteFrames" path="res://UI/spriteframes/p5_preto.tres" id="f_preto"]
+[ext_resource type="SpriteFrames" path="res://UI/spriteframes/p5_ruivo.tres" id="f_ruivo"]
+[ext_resource type="SpriteFrames" path="res://UI/spriteframes/p5_branco_mochila.tres" id="m_branco"]
+[ext_resource type="SpriteFrames" path="res://UI/spriteframes/p5_castanho_mochila.tres" id="m_castanho"]
+[ext_resource type="SpriteFrames" path="res://UI/spriteframes/p5_loiro_mochila.tres" id="m_loiro"]
+[ext_resource type="SpriteFrames" path="res://UI/spriteframes/p5_preto_mochila.tres" id="m_preto"]
+[ext_resource type="SpriteFrames" path="res://UI/spriteframes/p5_ruivo_mochila.tres" id="m_ruivo"]
+
+[resource]
+script = ExtResource("1_script")
+nome = "Personagem 5"
+descricao = "Corajoso e inteligente, sonha em explorar as estrelas."
+frames_cabelo = Array[SpriteFrames]([ExtResource("f_preto"), ExtResource("f_castanho"), ExtResource("f_loiro"), ExtResource("f_ruivo"), ExtResource("f_branco")])
+frames_mochila = Array[SpriteFrames]([ExtResource("m_preto"), ExtResource("m_castanho"), ExtResource("m_loiro"), ExtResource("m_ruivo"), ExtResource("m_branco")])

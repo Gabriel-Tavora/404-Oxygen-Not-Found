@@ -1,0 +1,296 @@
+[gd_scene format=3 uid="uid://b2424dkt7xv1u"]
+
+[ext_resource type="Script" uid="uid://bys2jvv2m6yrq" path="res://UI/SelecaoPersonagem/scripts/selecao_personagem.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://y5x5ggv3xc63" path="res://UI/SelecaoPersonagem/art/fundo_limpo.png" id="2_fundo"]
+[ext_resource type="PackedScene" path="res://UI/SelecaoPersonagem/cards/card_personagem.tscn" id="3_card"]
+[ext_resource type="PackedScene" path="res://UI/SelecaoPersonagem/cards/card_mochila.tscn" id="4_mochila"]
+[ext_resource type="PackedScene" path="res://UI/SelecaoPersonagem/cards/card_cabelo.tscn" id="5_cabelo"]
+[ext_resource type="FontFile" uid="uid://hwcurhi8lxuh" path="res://UI/SelecaoPersonagem/fonts/PixelifySans-Medium.woff" id="6_fonte"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/cabelos/branco.tres" id="c_branco"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/cabelos/castanho.tres" id="c_castanho"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/cabelos/loiro.tres" id="c_loiro"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/cabelos/preto.tres" id="c_preto"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/cabelos/ruivo.tres" id="c_ruivo"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/mochilas/amarela.tres" id="m_amarela"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/mochilas/azul.tres" id="m_azul"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/mochilas/laranja.tres" id="m_laranja"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/mochilas/preta.tres" id="m_preta"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/mochilas/rosa.tres" id="m_rosa"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/mochilas/verde.tres" id="m_verde"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/personagens/p6.tres" id="p_ayana"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/personagens/p1.tres" id="p_davi"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/personagens/p2.tres" id="p_kenji"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/personagens/p4.tres" id="p_lia"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/personagens/p5.tres" id="p_mei"]
+[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/personagens/p3.tres" id="p_theo"]
+
+[sub_resource type="LabelSettings" id="ls_titulo"]
+font = ExtResource("6_fonte")
+font_size = 42
+font_color = Color(0.96, 0.88, 0.62, 1)
+
+[node name="SelecaoPersonagem" type="Control" unique_id=1533622202]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="FundoPreto" type="ColorRect" parent="." unique_id=24580871]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.05, 0.07, 0.09, 1)
+
+[node name="Tela" type="Control" parent="." unique_id=1081682802]
+texture_filter = 2
+anchors_preset = 0
+offset_right = 1536.0
+offset_bottom = 1024.0
+mouse_filter = 2
+
+[node name="Imagem" type="TextureRect" parent="Tela" unique_id=1977654227]
+layout_mode = 0
+offset_right = 1536.0
+offset_bottom = 1024.0
+mouse_filter = 2
+texture = ExtResource("2_fundo")
+
+[node name="Cards" type="Control" parent="Tela" unique_id=289521514]
+anchors_preset = 0
+offset_right = 1536.0
+offset_bottom = 1024.0
+mouse_filter = 2
+
+[node name="Card1" parent="Tela/Cards" unique_id=199518195 instance=ExtResource("3_card")]
+layout_mode = 0
+offset_left = 251.0
+offset_top = 267.0
+offset_right = 417.0
+offset_bottom = 557.0
+dados = ExtResource("p_davi")
+
+[node name="Card2" parent="Tela/Cards" unique_id=1201904705 instance=ExtResource("3_card")]
+layout_mode = 0
+offset_left = 426.0
+offset_top = 267.0
+offset_right = 592.0
+offset_bottom = 557.0
+dados = ExtResource("p_kenji")
+
+[node name="Card3" parent="Tela/Cards" unique_id=2072243242 instance=ExtResource("3_card")]
+layout_mode = 0
+offset_left = 600.0
+offset_top = 267.0
+offset_right = 766.0
+offset_bottom = 557.0
+dados = ExtResource("p_theo")
+
+[node name="Card4" parent="Tela/Cards" unique_id=414420919 instance=ExtResource("3_card")]
+layout_mode = 0
+offset_left = 775.0
+offset_top = 267.0
+offset_right = 941.0
+offset_bottom = 557.0
+dados = ExtResource("p_lia")
+
+[node name="Card5" parent="Tela/Cards" unique_id=1303970212 instance=ExtResource("3_card")]
+layout_mode = 0
+offset_left = 949.0
+offset_top = 267.0
+offset_right = 1115.0
+offset_bottom = 557.0
+dados = ExtResource("p_mei")
+
+[node name="Card6" parent="Tela/Cards" unique_id=1939539184 instance=ExtResource("3_card")]
+layout_mode = 0
+offset_left = 1124.0
+offset_top = 267.0
+offset_right = 1290.0
+offset_bottom = 557.0
+dados = ExtResource("p_ayana")
+
+[node name="Mochilas" type="Control" parent="Tela" unique_id=1534747797]
+anchors_preset = 0
+offset_right = 1536.0
+offset_bottom = 1024.0
+mouse_filter = 2
+
+[node name="Mochila1" parent="Tela/Mochilas" unique_id=1851308974 instance=ExtResource("4_mochila")]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 721.0
+offset_right = 445.0
+offset_bottom = 871.0
+tooltip_text = "Mochila Rosa"
+dados = ExtResource("m_rosa")
+
+[node name="Mochila2" parent="Tela/Mochilas" unique_id=651178560 instance=ExtResource("4_mochila")]
+layout_mode = 0
+offset_left = 459.0
+offset_top = 721.0
+offset_right = 604.0
+offset_bottom = 871.0
+tooltip_text = "Mochila Azul"
+dados = ExtResource("m_azul")
+
+[node name="Mochila3" parent="Tela/Mochilas" unique_id=1758051857 instance=ExtResource("4_mochila")]
+layout_mode = 0
+offset_left = 618.0
+offset_top = 721.0
+offset_right = 763.0
+offset_bottom = 871.0
+tooltip_text = "Mochila Verde"
+dados = ExtResource("m_verde")
+
+[node name="Mochila4" parent="Tela/Mochilas" unique_id=86138816 instance=ExtResource("4_mochila")]
+layout_mode = 0
+offset_left = 777.0
+offset_top = 721.0
+offset_right = 922.0
+offset_bottom = 871.0
+tooltip_text = "Mochila Preta"
+dados = ExtResource("m_preta")
+
+[node name="Mochila5" parent="Tela/Mochilas" unique_id=750230937 instance=ExtResource("4_mochila")]
+layout_mode = 0
+offset_left = 936.0
+offset_top = 721.0
+offset_right = 1081.0
+offset_bottom = 871.0
+tooltip_text = "Mochila Amarela"
+dados = ExtResource("m_amarela")
+
+[node name="Mochila6" parent="Tela/Mochilas" unique_id=170199060 instance=ExtResource("4_mochila")]
+layout_mode = 0
+offset_left = 1095.0
+offset_top = 721.0
+offset_right = 1240.0
+offset_bottom = 871.0
+tooltip_text = "Mochila Laranja"
+dados = ExtResource("m_laranja")
+
+[node name="BotaoEsquerda" type="Button" parent="Tela" unique_id=1904128215]
+layout_mode = 0
+offset_left = 110.0
+offset_top = 368.0
+offset_right = 215.0
+offset_bottom = 516.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="Brilho" type="ColorRect" parent="Tela/BotaoEsquerda" unique_id=2098122962]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.96, 0.8, 1)
+
+[node name="BotaoDireita" type="Button" parent="Tela" unique_id=632481132]
+layout_mode = 0
+offset_left = 1309.0
+offset_top = 368.0
+offset_right = 1420.0
+offset_bottom = 519.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="Brilho" type="ColorRect" parent="Tela/BotaoDireita" unique_id=1298049881]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 0.96, 0.8, 1)
+
+[node name="Cabelos" type="Control" parent="Tela" unique_id=1101915534]
+anchors_preset = 0
+offset_right = 1536.0
+offset_bottom = 1024.0
+mouse_filter = 2
+
+[node name="Cabelo1" parent="Tela/Cabelos" unique_id=363790005 instance=ExtResource("5_cabelo")]
+layout_mode = 0
+offset_left = 380.0
+offset_top = 721.0
+offset_right = 525.0
+offset_bottom = 871.0
+dados = ExtResource("c_preto")
+
+[node name="Cabelo2" parent="Tela/Cabelos" unique_id=761133099 instance=ExtResource("5_cabelo")]
+layout_mode = 0
+offset_left = 539.0
+offset_top = 721.0
+offset_right = 684.0
+offset_bottom = 871.0
+dados = ExtResource("c_castanho")
+
+[node name="Cabelo3" parent="Tela/Cabelos" unique_id=340631715 instance=ExtResource("5_cabelo")]
+layout_mode = 0
+offset_left = 698.0
+offset_top = 721.0
+offset_right = 843.0
+offset_bottom = 871.0
+dados = ExtResource("c_loiro")
+
+[node name="Cabelo4" parent="Tela/Cabelos" unique_id=1378018654 instance=ExtResource("5_cabelo")]
+layout_mode = 0
+offset_left = 857.0
+offset_top = 721.0
+offset_right = 1002.0
+offset_bottom = 871.0
+dados = ExtResource("c_ruivo")
+
+[node name="Cabelo5" parent="Tela/Cabelos" unique_id=2041254925 instance=ExtResource("5_cabelo")]
+layout_mode = 0
+offset_left = 1016.0
+offset_top = 721.0
+offset_right = 1161.0
+offset_bottom = 871.0
+dados = ExtResource("c_branco")
+
+[node name="Titulo" type="Label" parent="Tela" unique_id=554533880]
+texture_filter = 1
+layout_mode = 0
+offset_left = 264.0
+offset_top = 630.0
+offset_right = 1270.0
+offset_bottom = 684.0
+text = "— ESCOLHA A COR DO CABELO —"
+label_settings = SubResource("ls_titulo")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fade" type="ColorRect" parent="." unique_id=263371514]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

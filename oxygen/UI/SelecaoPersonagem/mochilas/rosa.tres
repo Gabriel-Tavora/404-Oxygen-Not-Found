@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="MochilaDados" format=3]
+
+[ext_resource type="Script" path="../scripts/mochila_dados.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+nome = "Mochila Rosa"
+cor = Color(0.93, 0.38, 0.62, 1)
