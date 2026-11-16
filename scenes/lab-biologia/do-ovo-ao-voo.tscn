@@ -11,6 +11,7 @@
 [ext_resource type="Shader" path="res://scenes/lab-biologia/cor_asas_borboleta.gdshader" id="shader_asas"]
 [ext_resource type="PackedScene" path="res://scenes/ui/dialogo-astronauta.tscn" id="dialogo"]
 [ext_resource type="StyleBox" path="res://scenes/ui/faixa-instrucao.tres" id="faixa_instrucao"]
+[ext_resource type="PackedScene" path="res://scenes/ui/resultado-missao.tscn" id="resultado"]
 
 [sub_resource type="ShaderMaterial" id="Asas"]
 resource_local_to_scene = true
@@ -478,22 +479,6 @@ toggle_mode = true
 button_group = SubResource("SelecaoDeCor")
 text = "Roxo"
 
-[node name="Voltar" type="Button" parent="Moldura"]
-visible = false
-offset_left = 148.0
-offset_top = 165.0
-offset_right = 300.0
-offset_bottom = 185.0
-theme_override_colors/font_color = Color(0.1529, 0.2471, 0.2431, 1)
-theme_override_colors/font_hover_color = Color(0.1529, 0.2471, 0.2431, 1)
-theme_override_colors/font_pressed_color = Color(0.1529, 0.2471, 0.2431, 1)
-theme_override_colors/font_focus_color = Color(0.1529, 0.2471, 0.2431, 1)
-theme_override_styles/normal = SubResource("Carta")
-theme_override_styles/hover = SubResource("CartaHover")
-theme_override_styles/pressed = SubResource("CartaSelecionada")
-theme_override_styles/focus = SubResource("Foco")
-text = "Voltar ao laboratório"
-
 [node name="DialogoAstronauta" parent="Moldura" instance=ExtResource("dialogo")]
 layout_mode = 1
 offset_left = 14.0
@@ -617,7 +602,7 @@ offset_left = 321.0
 offset_top = 0.0
 offset_right = 419.0
 offset_bottom = 62.0
-accessibility_name = "Crisálida"
+accessibility_name = "Casulo"
 theme_override_styles/normal = SubResource("Carta")
 theme_override_styles/hover = SubResource("CartaHover")
 theme_override_styles/pressed = SubResource("CartaSelecionada")
@@ -641,7 +626,7 @@ offset_right = 96.0
 offset_bottom = 59.0
 mouse_filter = 2
 theme_override_colors/font_color = Color(0.1529, 0.2471, 0.2431, 1)
-text = "Crisálida"
+text = "Casulo"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -649,3 +634,5 @@ vertical_alignment = 1
 visible = false
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Erro")
+
+[node name="Resultado" parent="." instance=ExtResource("resultado")]

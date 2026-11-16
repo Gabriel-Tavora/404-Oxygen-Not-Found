@@ -46,6 +46,27 @@ func get_neighbors() -> Array[MapNode]:
 	return out
 
 
+func caminho_ate(destino: MapNode) -> Array[MapNode]:
+	var fila: Array[MapNode] = [self]
+	var anteriores: Dictionary[MapNode, MapNode] = {self: null}
+	while not fila.is_empty() and not anteriores.has(destino):
+		var atual: MapNode = fila.pop_front()
+		for vizinho in atual.get_neighbors():
+			if anteriores.has(vizinho):
+				continue
+			anteriores[vizinho] = atual
+			fila.append(vizinho)
+
+	var caminho: Array[MapNode] = []
+	if anteriores.has(destino):
+		var ponto := destino
+		while ponto != null:
+			caminho.append(ponto)
+			ponto = anteriores[ponto]
+		caminho.reverse()
+	return caminho
+
+
 ## Vizinho na direção pedida (setas), ou null
 func neighbor_in_direction(dir: Vector2) -> MapNode:
 	var best: MapNode = null

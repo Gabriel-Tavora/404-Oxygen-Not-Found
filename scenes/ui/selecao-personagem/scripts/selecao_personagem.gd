@@ -1,17 +1,18 @@
 extends Control
-## Tela de seleção: personagem -> cor do cabelo -> cor da mochila.
+## Tela de seleção: personagem -> cor do cabelo -> cor da mochila -> nome do jogador.
 ## Cada card é uma cena separada (cards/*.tscn) que puxa o seu .tres
 ## (personagens/*.tres, cabelos/*.tres, mochilas/*.tres).
 ##
 ## Teclado / controle:
 ##   ← → (ou A / D)   troca dentro da etapa ativa
 ##   ↑ ↓ (ou W / S)   muda de etapa
-##   Enter / Espaço   avança para a próxima etapa (na última, confirma)
+##   Enter / Espaço   avança até a tela de nome
 ##   Esc              volta uma etapa
-## Mouse: clicar em uma opção seleciona e avança ou confirma a última etapa.
+## Mouse: clicar em uma opção seleciona e avança.
 
 signal escolha_confirmada(personagem: PersonagemDados, cabelo: CabeloDados, mochila: MochilaDados)
 
+const CENA_COMANDANTE := preload("res://scenes/encerramento/comandante.tscn")
 const TAMANHO := Vector2(1536, 1024)
 const TITULOS := [
 	"ESCOLHA O PERSONAGEM  ·  CLIQUE OU ENTER",
@@ -28,6 +29,9 @@ const TITULOS := [
 @onready var caixa_mochilas: Control = $Tela/Mochilas
 @onready var titulo: Label = $Tela/Titulo
 @onready var fade: ColorRect = $Fade
+@onready var tela_nome: Control = %TelaNome
+@onready var campo_nome: LineEdit = %NomeJogador
+@onready var botao_continuar: Button = %BotaoContinuar
 
 var etapa := 0            ## 0 = personagem, 1 = cabelo, 2 = mochila
 var i_pers := 0
@@ -47,6 +51,12 @@ func _ready() -> void:
 		m.clicado.connect(func(card): _clicar(2, mochilas().find(card)))
 	$Tela/BotaoEsquerda.pressed.connect(func(): etapa = 0; mover(-1))
 	$Tela/BotaoDireita.pressed.connect(func(): etapa = 0; mover(1))
+	campo_nome.text_changed.connect(_atualizar_botao_continuar)
+	campo_nome.text_submitted.connect(_enviar_nome_pelo_teclado)
+	%BotaoVoltar.pressed.connect(_voltar_do_nome)
+	botao_continuar.pressed.connect(_confirmar_nome)
+	campo_nome.text = PersonagemEscolhido.nome_jogador
+	_atualizar_botao_continuar(campo_nome.text)
 	i_pers = clampi(PersonagemEscolhido.indice, 0, cards().size() - 1)
 	i_cab = clampi(PersonagemEscolhido.indice_cabelo, 0, cabelos().size() - 1)
 	i_moch = clampi(PersonagemEscolhido.indice_mochila, 0, mochilas().size() - 1)
@@ -73,8 +83,14 @@ func _ajustar_tela() -> void:
 	tela.position = ((size - TAMANHO * s) / 2.0).round()
 
 
+func _input(event: InputEvent) -> void:
+	if tela_nome.visible and event.is_action_pressed(&"ui_cancel"):
+		get_viewport().set_input_as_handled()
+		_voltar_do_nome()
+
+
 func _unhandled_input(event: InputEvent) -> void:
-	if _travado:
+	if _travado or tela_nome.visible:
 		return
 	if event.is_action_pressed(&"ui_left") or _tecla(event, KEY_A):
 		mover(-1)
@@ -85,6 +101,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	elif event.is_action_pressed(&"ui_down") or _tecla(event, KEY_S):
 		_mudar_etapa(etapa + 1)
 	elif event.is_action_pressed(&"ui_accept"):
+		SomBotoes.tocar_clique()
 		if etapa < 2:
 			_mudar_etapa(etapa + 1)
 		else:
@@ -173,8 +190,36 @@ func _clicar(e: int, i: int) -> void:
 # --- confirmação ---
 
 func confirmar() -> void:
-	if _travado:
+	if _travado or tela_nome.visible:
 		return
+	cards()[i_pers].piscar()
+	mochilas()[i_moch].piscar()
+	tela_nome.show()
+	campo_nome.grab_focus()
+	campo_nome.edit()
+	campo_nome.caret_column = campo_nome.text.length()
+
+
+func _voltar_do_nome() -> void:
+	if not _travado:
+		tela_nome.hide()
+
+
+func _atualizar_botao_continuar(nome: String) -> void:
+	botao_continuar.disabled = nome.strip_edges().is_empty()
+
+
+func _enviar_nome_pelo_teclado(_nome: String) -> void:
+	if not botao_continuar.disabled and not _travado:
+		SomBotoes.tocar_clique()
+		_confirmar_nome()
+
+
+func _confirmar_nome() -> void:
+	var nome := campo_nome.text.strip_edges()
+	if _travado or nome.is_empty():
+		return
+	var primeiro_nome := PersonagemEscolhido.nome_jogador.is_empty()
 	_travado = true
 	var card: CardPersonagem = cards()[i_pers]
 	var cab: CardCabelo = cabelos()[i_cab]
@@ -185,13 +230,17 @@ func confirmar() -> void:
 	PersonagemEscolhido.dados = card.dados
 	PersonagemEscolhido.cabelo = cab.dados
 	PersonagemEscolhido.mochila = moch.dados
+	PersonagemEscolhido.nome_jogador = nome
 	escolha_confirmada.emit(card.dados, cab.dados, moch.dados)
-	card.piscar()
-	await moch.piscar().finished
 	if proxima_cena != "" and ResourceLoader.exists(proxima_cena):
 		var f := create_tween()
 		f.tween_property(fade, "modulate:a", 1.0, 0.35)
 		await f.finished
+		if primeiro_nome:
+			var comandante := CENA_COMANDANTE.instantiate()
+			comandante.apresentacao = true
+			add_child(comandante)
+			await comandante.apresentacao_concluida
 		if get_tree().change_scene_to_file(proxima_cena) == OK:
 			return
 		create_tween().tween_property(fade, "modulate:a", 0.0, 0.35)

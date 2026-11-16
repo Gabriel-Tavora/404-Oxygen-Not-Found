@@ -1,0 +1,156 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/resultado_missao.gd" id="1_resultado"]
+[ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="4_fonte"]
+[ext_resource type="FontFile" path="res://assets/ui/PixelifySans-Medium.woff" id="5_fonte_acentos"]
+
+[sub_resource type="FontVariation" id="FonteResumo"]
+base_font = ExtResource("4_fonte")
+fallbacks = Array[Font]([ExtResource("5_fonte_acentos")])
+
+[sub_resource type="StyleBoxFlat" id="Botao"]
+content_margin_left = 6.0
+content_margin_right = 6.0
+bg_color = Color(0.10, 0.24, 0.28, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.39, 0.59, 0.59, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="BotaoAtivo"]
+content_margin_left = 6.0
+content_margin_right = 6.0
+bg_color = Color(0.23, 0.39, 0.41, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(1, 0.82, 0.53, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Foco"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.84, 0.54, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="PainelResultado"]
+bg_color = Color(0.071, 0.149, 0.184, 1)
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.65, 0.55, 1)
+shadow_color = Color(0.015, 0.031, 0.041, 0.8)
+shadow_size = 3
+shadow_offset = Vector2(0, 4)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="PainelPontuacao"]
+bg_color = Color(0.048, 0.107, 0.135, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.23, 0.41, 0.41, 1)
+antialiasing = false
+
+[sub_resource type="Theme" id="Tema"]
+default_font = ExtResource("4_fonte")
+default_font_size = 8
+Button/colors/font_color = Color(0.98, 0.93, 0.80, 1)
+Button/styles/normal = SubResource("Botao")
+Button/styles/hover = SubResource("BotaoAtivo")
+Button/styles/pressed = SubResource("BotaoAtivo")
+Button/styles/focus = SubResource("Foco")
+Label/colors/font_color = Color(0.98, 0.93, 0.80, 1)
+Panel/styles/panel = SubResource("PainelResultado")
+
+[node name="Resultado" type="ColorRect"]
+visible = false
+z_index = 16
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.04, 0.08, 0.11, 0.80)
+theme = SubResource("Tema")
+script = ExtResource("1_resultado")
+
+[node name="Janela" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -148.0
+offset_top = -88.0
+offset_right = 148.0
+offset_bottom = 96.0
+
+[node name="Emblema" type="Polygon2D" parent="Janela"]
+position = Vector2(148, 1)
+color = Color(0.35, 0.65, 0.55, 1)
+polygon = PackedVector2Array(-11, -17, 11, -17, 11, -14, 15, -14, 15, -10, 18, -10, 18, 10, 15, 10, 15, 14, 11, 14, 11, 17, -11, 17, -11, 14, -15, 14, -15, 10, -18, 10, -18, -10, -15, -10, -15, -14, -11, -14)
+
+[node name="Fundo" type="Polygon2D" parent="Janela/Emblema"]
+color = Color(0.10, 0.26, 0.25, 1)
+polygon = PackedVector2Array(-10, -15, 10, -15, 10, -12, 13, -12, 13, -9, 16, -9, 16, 9, 13, 9, 13, 12, 10, 12, 10, 15, -10, 15, -10, 12, -13, 12, -13, 9, -16, 9, -16, -9, -13, -9, -13, -12, -10, -12)
+
+[node name="Marca" type="Polygon2D" parent="Janela/Emblema"]
+color = Color(0.63, 0.95, 0.79, 1)
+polygon = PackedVector2Array(-10, -1, -6, -1, -6, 2, -3, 2, -3, 0, 0, 0, 0, -3, 3, -3, 3, -6, 6, -6, 6, -8, 10, -8, 10, -4, 7, -4, 7, -1, 4, -1, 4, 2, 1, 2, 1, 5, -2, 5, -2, 8, -5, 8, -5, 5, -8, 5, -8, 2, -10, 2)
+
+[node name="Titulo" type="Label" parent="Janela"]
+offset_left = 12.0
+offset_top = 24.0
+offset_right = 284.0
+offset_bottom = 49.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.63, 0.95, 0.79, 1)
+theme_override_font_sizes/font_size = 16
+text = "Missão concluída!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Atividade" type="Label" parent="Janela"]
+offset_left = 12.0
+offset_top = 50.0
+offset_right = 284.0
+offset_bottom = 64.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.71, 0.84, 0.83, 1)
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Cartao" type="Panel" parent="Janela"]
+offset_left = 20.0
+offset_top = 72.0
+offset_right = 276.0
+offset_bottom = 140.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("PainelPontuacao")
+
+[node name="Resumo" type="Label" parent="Janela"]
+offset_left = 30.0
+offset_top = 76.0
+offset_right = 266.0
+offset_bottom = 136.0
+mouse_filter = 2
+theme_override_fonts/font = SubResource("FonteResumo")
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Voltar" type="Button" parent="Janela"]
+offset_left = 55.0
+offset_top = 150.0
+offset_right = 241.0
+offset_bottom = 174.0
+theme_override_font_sizes/font_size = 10
+text = "Voltar ao laboratório"

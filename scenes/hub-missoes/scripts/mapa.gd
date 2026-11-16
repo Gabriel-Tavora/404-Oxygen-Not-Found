@@ -20,6 +20,7 @@ const MOVE_DIRECTIONS := {
 const VIEW_HEIGHT := 360.0
 const SELECAO := "res://scenes/ui/selecao-personagem/selecao_personagem.tscn"
 const CENA_ENCERRAMENTO := preload("res://scenes/encerramento/encerramento.tscn")
+const REDUCAO_AMBIENTE_MENU_DB := 4.0
 
 @export var world_name := "MAPA DE MISSÕES"
 @export var start_node: StringName = &"casa_azul"
@@ -31,8 +32,11 @@ const CENA_ENCERRAMENTO := preload("res://scenes/encerramento/encerramento.tscn"
 @onready var menu: MenuFase = $Menu/MenuFase
 @onready var _foguete: MapNode = $Nodes/foguete
 @onready var _rota_foguete: Node2D = $RotaFoguete
+@onready var _ambiente: AudioStreamPlayer = $AmbienteHub
+@onready var _volume_ambiente_base := _ambiente.volume_db
 
 var _busy := false
+var _tween_volume_ambiente: Tween
 
 
 func _ready() -> void:
@@ -48,10 +52,21 @@ func _ready() -> void:
 	player.arrived.connect(_on_arrived)
 	player.departed.connect(func(): hud.set_location("", ""))
 	menu.escolhido.connect(_on_menu)
+	menu.treino_escolhido.connect(_ir_para_treino)
+	menu.visibility_changed.connect(_ajustar_volume_ambiente)
 	hud.world_name = world_name
 	_atualizar_rota_foguete(start)
 	_mostrar_placa(start)
 	hud.fade_in()
+	ProgressoConhecimento.apresentar_comandante()
+
+
+func _ajustar_volume_ambiente() -> void:
+	if _tween_volume_ambiente:
+		_tween_volume_ambiente.kill()
+	var reducao := REDUCAO_AMBIENTE_MENU_DB if menu.is_visible_in_tree() else 0.0
+	_tween_volume_ambiente = create_tween()
+	_tween_volume_ambiente.tween_property(_ambiente, "volume_db", _volume_ambiente_base - reducao, 0.15)
 
 
 func _fit_camera() -> void:
@@ -64,6 +79,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _busy or menu.aberto:
 		return
 	if player.moving:
+		if event.is_action_pressed(&"ui_cancel") and player.cancelar_caminhada_automatica():
+			get_viewport().set_input_as_handled()
+			return
 		for action: StringName in MOVE_DIRECTIONS:
 			if event.is_action_pressed(action) and player.try_move(MOVE_DIRECTIONS[action]):
 				get_viewport().set_input_as_handled()
@@ -137,6 +155,18 @@ func _progresso_da_area(laboratorio: StringName) -> String:
 	]
 
 
+func _ir_para_treino(laboratorio: StringName) -> void:
+	# No hub, a entrada para Física é a mesma da Biologia.
+	var area := &"biologia" if laboratorio == &"fisica" else laboratorio
+	for ponto in nodes.get_children():
+		if ponto is MapNode and ponto.kind == MapNode.Kind.LEVEL and ponto.laboratorio == area:
+			if player.caminhar_ate(ponto):
+				return
+			break
+	_mostrar_placa(player.current)
+	hud.flash("Treino sem acesso pelo mapa.")
+
+
 func _on_menu(comecar: bool) -> void:
 	var node := player.current
 	_mostrar_placa(node)
@@ -146,6 +176,7 @@ func _on_menu(comecar: bool) -> void:
 		_busy = true
 		ProgressoConhecimento.lancamento_iniciado = true
 		_rota_foguete.hide()
+		_ambiente.stop()
 		add_child(CENA_ENCERRAMENTO.instantiate())
 		return
 	if node.kind != MapNode.Kind.LEVEL:

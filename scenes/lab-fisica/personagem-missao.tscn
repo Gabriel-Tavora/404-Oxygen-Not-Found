@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/lab-fisica/personagem_missao.gd" id="1"]
+[ext_resource type="Shader" path="res://scenes/ui/selecao-personagem/shaders/tinge_mochila.gdshader" id="2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mochila"]
+shader = ExtResource("2")
+
+[node name="Personagem" type="Node2D"]
+visible = false
+scale = Vector2(0.18, 0.18)
+script = ExtResource("1")
+
+[node name="Corpo" type="AnimatedSprite2D" parent="."]
+offset = Vector2(0, -88)
+
+[node name="Mochila" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_mochila")
+offset = Vector2(0, -88)

@@ -1,7 +1,8 @@
 [gd_scene format=3]
 
 [ext_resource type="Script" path="res://scenes/lab-fisica/ima/expedicao_magnetica.gd" id="1"]
-[ext_resource type="PackedScene" path="res://scenes/ui/dialogo-astronauta.tscn" id="2"]
+[ext_resource type="PackedScene" path="res://scenes/ui/resultado-missao.tscn" id="resultado"]
+[ext_resource type="PackedScene" path="res://scenes/lab-fisica/personagem-missao.tscn" id="personagem"]
 
 [node name="ExpedicaoMagnetica" type="Control"]
 visible = false
@@ -12,4 +13,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource("1")
 
-[node name="DialogoAstronauta" parent="." instance=ExtResource("2")]
+[node name="Personagem" parent="." instance=ExtResource("personagem")]
+
+[node name="PrimeiroPlano" type="Node2D" parent="."]
+
+[node name="Resultado" parent="." instance=ExtResource("resultado")]

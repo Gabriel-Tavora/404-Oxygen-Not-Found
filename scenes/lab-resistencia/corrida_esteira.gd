@@ -12,7 +12,6 @@ const CENTRO := 240.0
 const ESPACAMENTO := 0.19
 const PROFUNDIDADE_CORREDOR := 0.91
 const DURACAO_SALTO := 0.66
-const TEMPO_TROPECO := 0.58
 
 class Fileira:
 	var profundidade: float
@@ -22,11 +21,17 @@ class Fileira:
 
 @onready var _contador: Label = $Placar/Contador
 @onready var _objetivo: Label = $Placar/Objetivo
+@onready var _cor_objetivo_inicial := _objetivo.get_theme_color("font_color")
 @onready var _pausar: Button = $Pausar
 @onready var _pausa: Control = $Pausa
 @onready var _continuar: Button = $Pausa/Janela/Continuar
 @onready var _total_pausa: Label = $Pausa/Janela/Total
+@onready var _falha: Control = $Falha
+@onready var _total_falha: Label = $Falha/Janela/Total
+@onready var _tentar_de_novo: Button = $Falha/Janela/TentarDeNovo
 @onready var _som_moeda: AudioStreamPlayer = $SomMoeda
+@onready var _som_impacto: AudioStreamPlayer = $SomImpacto
+@onready var _resultado: ResultadoMissao = $Resultado
 
 var _fileiras: Array[Fileira] = []
 var _faixa := 1
@@ -37,7 +42,6 @@ var _ate_proxima := 0.0
 var _rolagem := 0.0
 var _tempo := 0.0
 var _salto := 0.0
-var _tropeco := 0.0
 var _brilho := 0.0
 var _moedas := 0
 
@@ -46,13 +50,43 @@ func _ready() -> void:
 	_pausar.pressed.connect(_pausar_corrida)
 	_continuar.pressed.connect(_retomar)
 	$Pausa/Janela/Voltar.pressed.connect(func() -> void: fechado.emit())
+	$Falha/Janela/Voltar.pressed.connect(func() -> void: fechado.emit())
+	_tentar_de_novo.pressed.connect(_reiniciar_corrida)
+	_resultado.voltar_solicitado.connect(func() -> void: fechado.emit())
+	_reiniciar_corrida()
+
+
+func _reiniciar_corrida() -> void:
+	_fileiras.clear()
+	_faixa = 1
+	_faixa_visual = 1.0
+	_faixa_moedas = 1
+	_numero_fileiras = 0
+	_rolagem = 0.0
+	_tempo = 0.0
+	_salto = 0.0
+	_brilho = 0.0
+	_moedas = 0
+	_contador.remove_theme_color_override("font_color")
+	_contador.text = "0 / %d" % META_MOEDAS
+	_objetivo.add_theme_color_override("font_color", _cor_objetivo_inicial)
+	_objetivo.text = "Pegue %d moedas" % META_MOEDAS
+	_som_impacto.stop()
+	_falha.hide()
 	# As primeiras moedas chegam pelo meio para a criança aprender o ritmo.
 	for indice in range(4):
 		_criar_fileira(0.60 - indice * ESPACAMENTO)
 	_ate_proxima = ESPACAMENTO - _fileiras.back().profundidade
+	queue_redraw()
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if _resultado.visible:
+		return
+	if _falha.visible:
+		if event.is_action_pressed(&"ui_cancel"):
+			get_viewport().set_input_as_handled()
+		return
 	if event.is_action_pressed(&"ui_cancel"):
 		if _pausa.visible:
 			_retomar()
@@ -73,18 +107,15 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if _pausa.visible:
+	if _pausa.visible or _falha.visible:
 		return
 
 	_tempo += delta
 	_salto = maxf(0.0, _salto - delta)
-	_tropeco = maxf(0.0, _tropeco - delta)
 	_brilho = maxf(0.0, _brilho - delta)
 	_faixa_visual = move_toward(_faixa_visual, _faixa, 7.5 * delta)
 
 	var velocidade := minf(0.43, 0.27 + _tempo * 0.0028)
-	if _tropeco > 0.0:
-		velocidade *= 0.56
 	var avanco := velocidade * delta
 	_rolagem = fposmod(_rolagem + avanco, ESPACAMENTO)
 	for fileira in _fileiras:
@@ -92,6 +123,8 @@ func _physics_process(delta: float) -> void:
 		fileira.profundidade += avanco
 		if anterior < PROFUNDIDADE_CORREDOR and fileira.profundidade >= PROFUNDIDADE_CORREDOR:
 			_cruzar_fileira(fileira)
+			if _falha.visible or _resultado.visible:
+				return
 	while not _fileiras.is_empty() and _fileiras[0].profundidade > 1.05:
 		_fileiras.pop_front()
 
@@ -122,7 +155,8 @@ func _criar_fileira(profundidade: float) -> void:
 
 func _cruzar_fileira(fileira: Fileira) -> void:
 	if fileira.barreira >= 0 and absf(_faixa_visual - fileira.barreira) < 0.43 and _altura_salto() < 10.0:
-		_tropeco = TEMPO_TROPECO
+		_encerrar_por_colisao()
+		return
 	var faixa := roundi(_faixa_visual)
 	if absf(_faixa_visual - faixa) < 0.44 and faixa in fileira.moedas:
 		fileira.moedas.erase(faixa)
@@ -132,22 +166,39 @@ func _cruzar_fileira(fileira: Fileira) -> void:
 func _pegar_moeda() -> void:
 	_moedas += 1
 	_brilho = 0.30
-	_contador.text = "%d / %d" % [_moedas, META_MOEDAS] if _moedas < META_MOEDAS else str(_moedas)
+	_contador.text = "%d / %d" % [_moedas, META_MOEDAS]
 	_som_moeda.pitch_scale = 1.35 if _moedas == META_MOEDAS else 1.0
 	_som_moeda.play()
 	if _moedas == META_MOEDAS:
 		_contador.add_theme_color_override("font_color", Color("#aff0c1"))
 		_objetivo.add_theme_color_override("font_color", Color("#aff0c1"))
 		_objetivo.text = "Missão concluída!"
+		_pausar.hide()
+		set_physics_process(false)
+		queue_redraw()
+		_resultado.mostrar("Corrida na esteira", "Você coletou as %d moedas!" % META_MOEDAS)
 		concluido.emit()
 
 
 func _pausar_corrida() -> void:
-	_total_pausa.text = "Moedas: %d / %d" % [_moedas, META_MOEDAS]
-	if _moedas >= META_MOEDAS:
-		_total_pausa.text = "Missão concluída! %d moedas" % _moedas
+	if _falha.visible:
+		return
+	_total_pausa.text = _resumo_moedas()
 	_pausa.show()
 	_continuar.grab_focus()
+
+
+func _encerrar_por_colisao() -> void:
+	_total_falha.text = _resumo_moedas()
+	_som_moeda.stop()
+	_som_impacto.play()
+	_falha.show()
+	_tentar_de_novo.grab_focus()
+	queue_redraw()
+
+
+func _resumo_moedas() -> String:
+	return "Moedas: %d / %d" % [_moedas, META_MOEDAS]
 
 
 func _retomar() -> void:
@@ -225,7 +276,7 @@ func _desenhar_corredor() -> void:
 	var altura := _altura_salto()
 	var quadro := 0 if altura > 0.0 else int(_tempo * 15.0) % CORREDOR.get_frame_count(&"andar_norte")
 	var textura := CORREDOR.get_frame_texture(&"andar_norte", quadro)
-	var tinta := Color("#ffd09f") if _tropeco > 0.0 else Color.WHITE
+	var tinta := Color("#ffad8c") if _falha.visible else Color.WHITE
 	draw_texture_rect(textura, Rect2((pes - Vector2(19, 49 + altura)).round(), Vector2(38, 50)), false, tinta)
 	if _brilho > 0.0:
 		var brilho := pes + Vector2(19, -26 - altura - (0.30 - _brilho) * 42.0)

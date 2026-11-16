@@ -1,0 +1,73 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/menu-inicial/menu_inicial.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/ui/ad-astra-menu.png" id="2_arte"]
+
+[sub_resource type="AtlasTexture" id="ArteIniciar"]
+atlas = ExtResource("2_arte")
+region = Rect2(620, 714, 440, 134)
+filter_clip = true
+
+[sub_resource type="StyleBoxEmpty" id="BotaoSemSobreposicao"]
+
+[sub_resource type="StyleBoxTexture" id="BotaoHover"]
+texture = SubResource("ArteIniciar")
+modulate_color = Color(1.07, 1.07, 1.07, 1)
+
+[sub_resource type="StyleBoxTexture" id="BotaoPressionado"]
+texture = SubResource("ArteIniciar")
+modulate_color = Color(0.87, 0.87, 0.87, 1)
+
+[node name="MenuInicial" type="Control"]
+accessibility_name = "Ad Astra"
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Fundo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.0627, 0.0706, 0.1137, 1)
+
+[node name="Tela" type="Control" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_right = 1619.0
+offset_bottom = 971.0
+mouse_filter = 2
+
+[node name="Arte" type="TextureRect" parent="Tela"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_arte")
+expand_mode = 1
+
+[node name="Iniciar" type="Button" parent="Tela"]
+accessibility_name = "Iniciar"
+layout_mode = 0
+offset_left = 620.0
+offset_top = 714.0
+offset_right = 1060.0
+offset_bottom = 848.0
+mouse_default_cursor_shape = 2
+theme_override_styles/normal = SubResource("BotaoSemSobreposicao")
+theme_override_styles/hover = SubResource("BotaoHover")
+theme_override_styles/pressed = SubResource("BotaoPressionado")
+theme_override_styles/hover_pressed = SubResource("BotaoPressionado")
+theme_override_styles/focus = SubResource("BotaoSemSobreposicao")
+
+[connection signal="pressed" from="Tela/Iniciar" to="." method="_abrir_selecao"]

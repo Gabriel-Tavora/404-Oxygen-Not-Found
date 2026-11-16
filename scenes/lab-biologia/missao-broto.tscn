@@ -8,8 +8,10 @@
 [ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-icones-missao.png" id="10_icones"]
 [ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-crescimento.png" id="6_crescimento"]
 [ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-lupa.png" id="7_lupa"]
-[ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-bandeja.png" id="8_bandeja"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-bandeja-vazia.svg" id="8_bandeja"]
 [ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-muda-feijao.png" id="9_muda"]
+[ext_resource type="PackedScene" path="res://scenes/ui/resultado-missao.tscn" id="resultado"]
+[ext_resource type="Script" path="res://scenes/lab-biologia/area_de_arraste_broto.gd" id="area_arraste"]
 
 [sub_resource type="AtlasTexture" id="Vaso"]
 atlas = ExtResource("3_plantio")
@@ -239,6 +241,20 @@ border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1.0, 0.9137, 0.6392, 0.8627)
 antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="ContornoBandeja"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.94, 0.67, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_left = 4
+corner_radius_bottom_right = 4
+shadow_color = Color(1, 0.77, 0.29, 0.55)
+shadow_size = 5
 
 [sub_resource type="StyleBoxFlat" id="Ampliacao"]
 bg_color = Color(0.1529, 0.302, 0.2824, 1)
@@ -549,8 +565,10 @@ offset_left = 24.0
 offset_top = 22.0
 offset_right = 118.0
 offset_bottom = 84.0
+script = ExtResource("area_arraste")
 accessibility_name = "Feijão"
-toggle_mode = true
+focus_mode = 0
+mouse_default_cursor_shape = 6
 theme_override_styles/normal = SubResource("Cartao")
 theme_override_styles/hover = SubResource("FerramentaAtiva")
 theme_override_styles/hover_pressed = SubResource("FerramentaAtiva")
@@ -590,9 +608,11 @@ offset_left = 24.0
 offset_top = 22.0
 offset_right = 118.0
 offset_bottom = 84.0
+script = ExtResource("area_arraste")
 visible = false
 accessibility_name = "Terra"
-toggle_mode = true
+focus_mode = 0
+mouse_default_cursor_shape = 6
 theme_override_styles/normal = SubResource("Cartao")
 theme_override_styles/hover = SubResource("FerramentaAtiva")
 theme_override_styles/hover_pressed = SubResource("FerramentaAtiva")
@@ -623,7 +643,9 @@ offset_left = 158.0
 offset_top = 20.0
 offset_right = 238.0
 offset_bottom = 89.0
+script = ExtResource("area_arraste")
 accessibility_name = "Vaso"
+focus_mode = 0
 theme_override_styles/normal = SubResource("Ferramenta")
 theme_override_styles/hover = SubResource("VasoAtivo")
 theme_override_styles/pressed = SubResource("VasoAtivo")
@@ -651,6 +673,7 @@ offset_left = 14.0
 offset_top = -23.0
 offset_right = 66.0
 mouse_filter = 1
+script = ExtResource("area_arraste")
 
 [node name="Feijao" type="TextureRect" parent="Janela/Bancada/Vaso"]
 visible = false
@@ -718,35 +741,29 @@ rotation = -0.28
 mouse_filter = 2
 texture = SubResource("Regador")
 
-[node name="ObservarRaiz" type="Button" parent="Janela/Bancada/Vaso"]
+[node name="ObservarRaiz" type="Panel" parent="Janela/Bancada/Vaso"]
 visible = false
 offset_left = 25.0
 offset_top = 43.0
 offset_right = 57.0
 offset_bottom = 65.0
-accessibility_name = "Observar raiz"
-theme_override_styles/normal = SubResource("AlvoLupa")
-theme_override_styles/hover = SubResource("VasoAtivo")
+theme_override_styles/panel = SubResource("AlvoLupa")
 
-[node name="ObservarBroto" type="Button" parent="Janela/Bancada/Vaso"]
+[node name="ObservarBroto" type="Panel" parent="Janela/Bancada/Vaso"]
 visible = false
 offset_left = 27.0
 offset_top = -9.0
 offset_right = 59.0
 offset_bottom = 41.0
-accessibility_name = "Observar broto"
-theme_override_styles/normal = SubResource("AlvoLupa")
-theme_override_styles/hover = SubResource("VasoAtivo")
+theme_override_styles/panel = SubResource("AlvoLupa")
 
-[node name="ObservarFolhas" type="Button" parent="Janela/Bancada/Vaso"]
+[node name="ObservarFolhas" type="Panel" parent="Janela/Bancada/Vaso"]
 visible = false
 offset_left = 20.0
 offset_top = -7.0
 offset_right = 71.0
 offset_bottom = 17.0
-accessibility_name = "Observar folhas"
-theme_override_styles/normal = SubResource("AlvoLupa")
-theme_override_styles/hover = SubResource("VasoAtivo")
+theme_override_styles/panel = SubResource("AlvoLupa")
 
 [node name="Luz" type="TextureRect" parent="Janela/Bancada"]
 offset_left = 69.0
@@ -805,6 +822,41 @@ mouse_filter = 2
 texture = SubResource("IconeGota")
 stretch_mode = 5
 
+[node name="AreaDeLuz" type="Panel" parent="Janela/Bancada"]
+visible = false
+offset_left = 55.0
+offset_top = 0.0
+offset_right = 153.0
+offset_bottom = 94.0
+theme_override_styles/panel = SubResource("AlvoLupa")
+script = ExtResource("area_arraste")
+
+[node name="Drenagem" type="Panel" parent="Janela"]
+visible = false
+offset_left = 317.0
+offset_top = 101.0
+offset_right = 396.0
+offset_bottom = 163.0
+theme_override_styles/panel = SubResource("Cartao")
+script = ExtResource("area_arraste")
+
+[node name="Icone" type="TextureRect" parent="Janela/Drenagem"]
+offset_left = 27.0
+offset_top = 9.0
+offset_right = 51.0
+offset_bottom = 33.0
+mouse_filter = 2
+texture = SubResource("IconeGota")
+
+[node name="Nome" type="Label" parent="Janela/Drenagem"]
+offset_top = 39.0
+offset_right = 79.0
+offset_bottom = 56.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.16, 0.24, 0.23, 1)
+text = "Escorra aqui"
+horizontal_alignment = 1
+
 [node name="Regador" type="Button" parent="Janela"]
 offset_left = 317.0
 offset_top = 101.0
@@ -812,7 +864,8 @@ offset_right = 396.0
 offset_bottom = 163.0
 accessibility_name = "Regador"
 disabled = true
-toggle_mode = true
+focus_mode = 0
+mouse_default_cursor_shape = 6
 theme_override_styles/normal = SubResource("Cartao")
 theme_override_styles/hover = SubResource("FerramentaAtiva")
 theme_override_styles/hover_pressed = SubResource("FerramentaAtiva")
@@ -846,8 +899,18 @@ offset_top = 103.0
 offset_right = 388.0
 offset_bottom = 159.0
 visible = false
-mouse_filter = 2
 texture = ExtResource("8_bandeja")
+script = ExtResource("area_arraste")
+margem_extra_acima = 32.0
+
+[node name="Contorno" type="Panel" parent="Janela/Bandeja"]
+visible = false
+offset_left = -2.0
+offset_top = 10.0
+offset_right = 62.0
+offset_bottom = 54.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("ContornoBandeja")
 
 [node name="MudaFeijao" type="TextureRect" parent="Janela/Bandeja"]
 visible = false
@@ -865,7 +928,8 @@ offset_right = 307.0
 offset_bottom = 163.0
 visible = false
 accessibility_name = "Lupa"
-toggle_mode = true
+focus_mode = 0
+mouse_default_cursor_shape = 6
 theme_override_styles/normal = SubResource("Cartao")
 theme_override_styles/hover = SubResource("FerramentaAtiva")
 theme_override_styles/hover_pressed = SubResource("FerramentaAtiva")
@@ -899,14 +963,6 @@ offset_bottom = 171.0
 visible = false
 mouse_filter = 2
 theme_override_styles/panel = SubResource("Ampliacao")
-
-[node name="Ponto" type="ColorRect" parent="Janela/Ampliacao"]
-offset_left = 45.0
-offset_top = 43.0
-offset_right = 49.0
-offset_bottom = 47.0
-mouse_filter = 2
-color = Color(0.61, 0.69, 0.57, 1)
 
 [node name="Raiz" type="TextureRect" parent="Janela/Ampliacao"]
 offset_left = 23.0
@@ -947,50 +1003,6 @@ text = "Lupa"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Plantar" type="Button" parent="Janela"]
-offset_left = 10.0
-offset_top = 219.0
-offset_right = 270.0
-offset_bottom = 242.0
-text = "Plantar feijão"
-theme_override_font_sizes/font_size = 12
-
-[node name="Regar" type="Button" parent="Janela"]
-offset_left = 10.0
-offset_top = 219.0
-offset_right = 270.0
-offset_bottom = 242.0
-visible = false
-text = "Regar o vaso"
-theme_override_font_sizes/font_size = 12
-
-[node name="Cobrir" type="Button" parent="Janela"]
-offset_left = 10.0
-offset_top = 219.0
-offset_right = 270.0
-offset_bottom = 242.0
-visible = false
-text = "Cobrir com terra"
-theme_override_font_sizes/font_size = 12
-
-[node name="Escorrer" type="Button" parent="Janela"]
-offset_left = 10.0
-offset_top = 219.0
-offset_right = 270.0
-offset_bottom = 242.0
-visible = false
-text = "Escorrer excesso"
-theme_override_font_sizes/font_size = 12
-
-[node name="MoverParaLuz" type="Button" parent="Janela"]
-offset_left = 10.0
-offset_top = 219.0
-offset_right = 270.0
-offset_bottom = 242.0
-visible = false
-text = "Mover para a luz"
-theme_override_font_sizes/font_size = 12
-
 [node name="ProximoDia" type="Button" parent="Janela"]
 offset_left = 10.0
 offset_top = 219.0
@@ -998,15 +1010,6 @@ offset_right = 270.0
 offset_bottom = 242.0
 visible = false
 text = "Próximo dia"
-theme_override_font_sizes/font_size = 12
-
-[node name="GuardarMuda" type="Button" parent="Janela"]
-offset_left = 10.0
-offset_top = 219.0
-offset_right = 270.0
-offset_bottom = 242.0
-visible = false
-text = "Colocar na bandeja"
 theme_override_font_sizes/font_size = 12
 
 [node name="Voltar" type="Button" parent="Janela"]
@@ -1026,3 +1029,5 @@ theme_override_styles/hover = SubResource("VoltarHover")
 
 
 [node name="Efeitos" type="Node2D" parent="Janela"]
+
+[node name="Resultado" parent="." instance=ExtResource("resultado")]

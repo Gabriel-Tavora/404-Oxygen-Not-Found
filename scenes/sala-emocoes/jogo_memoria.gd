@@ -14,6 +14,7 @@ const AVISO := Color("#ffd69c")
 
 @onready var _grade: GridContainer = $Painel/Tabuleiro/Grade
 @onready var _voltar: Button = $Painel/Voltar
+@onready var _resultado: ResultadoMissao = $Resultado
 @onready var _contador: Label = $Painel/Contador
 @onready var _feedback: Label = $Painel/Rodape/Feedback
 @onready var _tempo_de_revelacao: Timer = $TempoDeRevelacao
@@ -47,6 +48,7 @@ func _ready() -> void:
 
 	_pareadas.resize(_cartas.size())
 	_voltar.pressed.connect(_fechar)
+	_resultado.voltar_solicitado.connect(_fechar)
 	_tempo_de_revelacao.timeout.connect(_recolher_cartas)
 
 
@@ -61,16 +63,14 @@ func abrir() -> void:
 		_atualizar_carta(indice)
 	_atualizar_contador()
 	_mostrar_feedback("Vire duas cartas para comparar os rostos.", INSTRUCAO)
+	_resultado.hide()
+	_voltar.show()
 	show()
 	_cartas[0].grab_focus()
 
 
-func mostrar_recompensa() -> void:
-	_mostrar_feedback("Todos os pares! Você ganhou 1 ponto em Mental.", ACERTO)
-
-
 func _input(event: InputEvent) -> void:
-	if visible and event.is_action_pressed(&"ui_cancel"):
+	if visible and not _resultado.visible and event.is_action_pressed(&"ui_cancel"):
 		get_viewport().set_input_as_handled()
 		_fechar()
 
@@ -109,8 +109,9 @@ func _registrar_par() -> void:
 	_atualizar_carta(segunda)
 	_atualizar_contador()
 	if _pares == EMOCOES.size():
-		_mostrar_feedback("Você encontrou todos os pares. Parabéns!", ACERTO)
-		_voltar.grab_focus()
+		_mostrar_feedback("Você encontrou todos os pares.", ACERTO)
+		_voltar.hide()
+		_resultado.mostrar("Jogo da memória", "Uma mente pensante é uma mente saudável")
 		concluido.emit()
 		return
 

@@ -1,6 +1,6 @@
 class_name PersonagemEscolhido
 extends Node
-## Guarda a escolha entre as trocas de cena. Não precisa colocar em nenhum nó.
+## Guarda a aparência e o nome do jogador entre as trocas de cena.
 ## Em qualquer script:
 ##   PersonagemEscolhido.dados    -> PersonagemDados
 ##   PersonagemEscolhido.cabelo   -> CabeloDados
@@ -13,6 +13,7 @@ static var indice_mochila := 1
 static var dados: PersonagemDados
 static var cabelo: CabeloDados
 static var mochila: MochilaDados
+static var nome_jogador := ""
 
 
 ## Aplica personagem + cor do cabelo + cor da mochila num par de AnimatedSprite2D.

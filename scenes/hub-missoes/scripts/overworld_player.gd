@@ -19,6 +19,7 @@ var facing := "down"
 
 var _from: MapNode
 var _target: MapNode
+var _caminho_automatico: Array[MapNode] = []
 
 
 func _ready() -> void:
@@ -42,6 +43,7 @@ func _vestir() -> void:
 
 
 func place_at(node: MapNode) -> void:
+	_caminho_automatico.clear()
 	current = node
 	position = node.position
 	moving = false
@@ -50,28 +52,52 @@ func place_at(node: MapNode) -> void:
 
 func try_move(dir: Vector2) -> bool:
 	if moving:
+		_caminho_automatico.clear()
 		var return_direction := (_from.position - _target.position).normalized()
 		if return_direction.dot(dir.normalized()) <= 0.7:
 			return false
-		var previous := _from
-		_from = _target
-		_target = previous
-		_face(return_direction)
-		_play("walk")
+		_seguir_trecho(_target, _from)
 		return true
 	if current == null:
 		return false
 	var nb := current.neighbor_in_direction(dir)
 	if nb == null:
 		return false
-	_from = current
-	_target = nb
+	_iniciar_caminhada(nb)
+	return true
+
+
+func caminhar_ate(destino: MapNode) -> bool:
+	if moving or current == null:
+		return false
+	var caminho := current.caminho_ate(destino)
+	if caminho.size() < 2:
+		return false
+	caminho.pop_front()
+	_caminho_automatico = caminho
+	_iniciar_caminhada(_caminho_automatico.front())
+	return true
+
+
+func cancelar_caminhada_automatica() -> bool:
+	if _caminho_automatico.is_empty():
+		return false
+	_caminho_automatico.clear()
+	return true
+
+
+func _iniciar_caminhada(destino: MapNode) -> void:
+	_seguir_trecho(current, destino)
 	current = null
 	moving = true
-	_face(_target.position - position)
-	_play("walk")
 	departed.emit()
-	return true
+
+
+func _seguir_trecho(origem: MapNode, destino: MapNode) -> void:
+	_from = origem
+	_target = destino
+	_face(_target.position - _from.position)
+	_play("walk")
 
 
 func _process(delta: float) -> void:
@@ -81,14 +107,16 @@ func _process(delta: float) -> void:
 	if position != _target.position:
 		return
 	var node := _target
-	if node.kind == MapNode.Kind.PATH:
+	if not _caminho_automatico.is_empty():
+		_caminho_automatico.pop_front()
+		if not _caminho_automatico.is_empty():
+			_seguir_trecho(node, _caminho_automatico.front())
+			return
+	elif node.kind == MapNode.Kind.PATH:
 		var nbs := node.get_neighbors()
 		if nbs.size() == 2:
 			var nxt: MapNode = nbs[0] if nbs[1] == _from else nbs[1]
-			_from = node
-			_target = nxt
-			_face(_target.position - position)
-			_play("walk")
+			_seguir_trecho(node, nxt)
 			return
 	moving = false
 	current = node

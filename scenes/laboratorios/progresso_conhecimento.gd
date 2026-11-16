@@ -4,7 +4,6 @@ signal atualizado(total_concluido: int)
 signal missao_finalizada(laboratorio: StringName, premiada: bool)
 
 const CENA_COMANDANTE := preload("res://scenes/encerramento/comandante.tscn")
-const TEMPO_RESULTADO_FINAL := 2.8
 const TAREFAS_POR_LABORATORIO := {
 	&"fisica": [&"fisica/ima", &"fisica/movimento"],
 	&"biologia": [&"biologia/borboleta", &"biologia/botanica"],
@@ -16,6 +15,7 @@ var embarque_liberado := false
 var lancamento_iniciado := false
 
 var _concluidas: Dictionary[StringName, bool] = {}
+var _comandante_apresentado := false
 
 
 func total_tarefas(laboratorio: StringName) -> int:
@@ -60,12 +60,12 @@ func concluir_tarefa(tarefa: StringName) -> void:
 	var premiada := not tarefa_concluida(tarefa)
 	if premiada:
 		_concluidas[tarefa] = true
-		if treinamento_completo():
-			_abrir_comandante.call_deferred()
 		atualizado.emit(total_concluido())
 	missao_finalizada.emit(laboratorio, premiada)
 
 
-func _abrir_comandante() -> void:
-	await get_tree().create_timer(TEMPO_RESULTADO_FINAL).timeout
-	get_tree().root.add_child(CENA_COMANDANTE.instantiate())
+func apresentar_comandante() -> void:
+	if _comandante_apresentado or not treinamento_completo():
+		return
+	_comandante_apresentado = true
+	get_tree().root.add_child.call_deferred(CENA_COMANDANTE.instantiate())

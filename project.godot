@@ -11,13 +11,15 @@ config_version=5
 [application]
 
 config/name="Astronauta-prep"
-run/main_scene="res://scenes/ui/selecao-personagem/selecao_personagem.tscn"
+run/main_scene="res://scenes/ui/menu-inicial/menu-inicial.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [autoload]
 
 ProgressoConhecimento="*res://scenes/laboratorios/progresso_conhecimento.gd"
 BorboletaSolta="*res://scenes/lab-biologia/borboleta_solta.gd"
+SomBotoes="*res://scenes/ui/som_botoes.gd"
+TrilhaAmbiente="*res://scenes/ui/trilha_ambiente.gd"
 
 [display]
 

@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" path="res://assets/lab-resistencia/esteira.png" id="1_arte"]
 [ext_resource type="PackedScene" path="res://scenes/laboratorios/sinal-atividade.tscn" id="2_sinal"]
-[ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="3_fonte"]
 
 [sub_resource type="ConvexPolygonShape2D" id="ColisaoEsteira"]
 points = PackedVector2Array(7, 39, 14, 16, 78, 16, 87, 38, 91, 83, 91, 97, 86, 102, 8, 102, 3, 97, 3, 86)
@@ -15,26 +14,6 @@ texture = ExtResource("1_arte")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 94, 107)
-
-[node name="Placa" type="Sprite2D" parent="."]
-position = Vector2(0, -22)
-texture = ExtResource("1_arte")
-centered = false
-region_enabled = true
-region_rect = Rect2(0, 107, 94, 19)
-
-[node name="Nome" type="Label" parent="Placa"]
-offset_left = 23.0
-offset_top = 3.0
-offset_right = 71.0
-offset_bottom = 13.0
-mouse_filter = 2
-theme_override_colors/font_color = Color(0.957, 0.888, 0.714, 1)
-theme_override_fonts/font = ExtResource("3_fonte")
-theme_override_font_sizes/font_size = 8
-text = "ESTEIRA"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="Marcador" parent="." instance=ExtResource("2_sinal")]
 position = Vector2(47, 122)

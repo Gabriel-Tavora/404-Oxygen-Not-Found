@@ -29,6 +29,61 @@ font = ExtResource("6_fonte")
 font_size = 42
 font_color = Color(0.96, 0.88, 0.62, 1)
 
+[sub_resource type="StyleBoxFlat" id="PainelNome"]
+content_margin_left = 56.0
+content_margin_top = 48.0
+content_margin_right = 56.0
+content_margin_bottom = 48.0
+bg_color = Color(0.043, 0.102, 0.16, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.36, 0.68, 0.84, 1)
+shadow_color = Color(0, 0, 0, 0.4)
+shadow_size = 16
+shadow_offset = Vector2(0, 10)
+
+[sub_resource type="StyleBoxFlat" id="CampoNome"]
+content_margin_left = 24.0
+content_margin_right = 24.0
+bg_color = Color(0.024, 0.055, 0.098, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.3, 0.48, 0.61, 1)
+
+[sub_resource type="StyleBoxFlat" id="FocoNome"]
+draw_center = false
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.55, 0.85, 0.98, 1)
+
+[sub_resource type="StyleBoxFlat" id="BotaoNome"]
+bg_color = Color(0.11, 0.26, 0.4, 1)
+
+[sub_resource type="StyleBoxFlat" id="BotaoNomeHover"]
+bg_color = Color(0.16, 0.37, 0.52, 1)
+
+[sub_resource type="StyleBoxFlat" id="BotaoNomeDesabilitado"]
+bg_color = Color(0.09, 0.15, 0.22, 1)
+
+[sub_resource type="Theme" id="TemaNome"]
+default_font = ExtResource("6_fonte")
+default_font_size = 44
+Button/colors/font_disabled_color = Color(0.59, 0.68, 0.75, 1)
+Button/styles/disabled = SubResource("BotaoNomeDesabilitado")
+Button/styles/focus = SubResource("FocoNome")
+Button/styles/normal = SubResource("BotaoNome")
+Button/styles/hover = SubResource("BotaoNomeHover")
+Button/styles/pressed = SubResource("BotaoNomeHover")
+LineEdit/colors/font_placeholder_color = Color(0.66, 0.77, 0.85, 1)
+LineEdit/styles/focus = SubResource("FocoNome")
+LineEdit/styles/normal = SubResource("CampoNome")
+
 [node name="SelecaoPersonagem" type="Control" unique_id=1533622202]
 layout_mode = 3
 anchors_preset = 15
@@ -283,6 +338,77 @@ text = "— ESCOLHA A COR DO CABELO —"
 label_settings = SubResource("ls_titulo")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TelaNome" type="ColorRect" parent="Tela"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("TemaNome")
+color = Color(0.012, 0.025, 0.05, 0.86)
+
+[node name="Painel" type="PanelContainer" parent="Tela/TelaNome"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -456.0
+offset_top = -199.0
+offset_right = 456.0
+offset_bottom = 199.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("PainelNome")
+
+[node name="Formulario" type="VBoxContainer" parent="Tela/TelaNome/Painel"]
+layout_mode = 2
+theme_override_constants/separation = 32
+alignment = 1
+
+[node name="Pergunta" type="Label" parent="Tela/TelaNome/Painel/Formulario"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.88, 0.62, 1)
+theme_override_font_sizes/font_size = 62
+text = "Qual é o seu nome?"
+horizontal_alignment = 1
+
+[node name="NomeJogador" type="LineEdit" parent="Tela/TelaNome/Painel/Formulario"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 92)
+layout_mode = 2
+accessibility_name = "Seu nome"
+theme_override_font_sizes/font_size = 50
+placeholder_text = "Digite seu nome"
+keep_editing_on_text_submit = true
+virtual_keyboard_show_on_focus = true
+
+[node name="Acoes" type="HBoxContainer" parent="Tela/TelaNome/Painel/Formulario"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="BotaoVoltar" type="Button" parent="Tela/TelaNome/Painel/Formulario/Acoes"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Voltar"
+
+[node name="BotaoContinuar" type="Button" parent="Tela/TelaNome/Painel/Formulario/Acoes"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.4
+mouse_default_cursor_shape = 2
+disabled = true
+text = "Continuar"
 
 [node name="Fade" type="ColorRect" parent="." unique_id=263371514]
 visible = false

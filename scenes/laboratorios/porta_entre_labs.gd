@@ -1,5 +1,7 @@
 extends Area2D
 
+const TRANSICAO := preload("res://scenes/ui/transicao_escurecida.gd")
+
 @export_file("*.tscn") var destino: String
 @export var porta_de_chegada: NodePath = ^"PortaEntreLabs"
 
@@ -44,11 +46,32 @@ func _atravessar(jogador: CharacterBody2D) -> void:
 		return
 
 	var chegada := sala.instantiate()
-	if not porta_de_chegada.is_empty():
-		var porta_chegada: Area2D = chegada.get_node(porta_de_chegada)
-		var ponto_chegada: Marker2D = porta_chegada.get_node("Chegada")
-		chegada.get_node("Player").position = porta_chegada.transform * ponto_chegada.position
-	var erro := get_tree().change_scene_to_node(chegada)
+	var arvore := get_tree()
+	if porta_de_chegada.is_empty():
+		if arvore.change_scene_to_node(chegada) != OK:
+			chegada.free()
+			jogador.controles_bloqueados = false
+		return
+
+	var porta_chegada: Area2D = chegada.get_node(porta_de_chegada)
+	var ponto_chegada: Marker2D = porta_chegada.get_node("Chegada")
+	var jogador_chegada: CharacterBody2D = chegada.get_node("Player")
+	jogador_chegada.position = porta_chegada.transform * ponto_chegada.position
+	jogador_chegada.controles_bloqueados = true
+
+	var transicao := TRANSICAO.new()
+	transicao.name = "TransicaoEscurecida"
+	transicao.layer = 100
+	# O fade precisa continuar visível enquanto a sala de origem é removida.
+	arvore.root.add_child(transicao)
+	await transicao.animar_para(1.0).finished
+	var erro := arvore.change_scene_to_node(chegada)
 	if erro != OK:
 		chegada.free()
+		await transicao.animar_para(0.0).finished
+		transicao.queue_free()
 		jogador.controles_bloqueados = false
+		return
+
+	transicao.tree_exited.connect(jogador_chegada.set.bind(&"controles_bloqueados", false))
+	arvore.scene_changed.connect(transicao.revelar_e_remover, CONNECT_ONE_SHOT)

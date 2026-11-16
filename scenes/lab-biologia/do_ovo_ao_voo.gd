@@ -11,7 +11,7 @@ const DICAS := [
 	"Dica: tudo começa com algo pequeno sobre uma folha.",
 	"Dica: quem sai do ovo e come folhas?",
 	"Dica: em que etapa a lagarta muda de forma?",
-	"Dica: quem sai da crisálida e abre as asas?",
+	"Dica: quem sai do casulo e abre as asas?",
 ]
 
 @onready var _cartas: Control = $Cartas
@@ -22,8 +22,8 @@ const DICAS := [
 @onready var _soltar: Button = $Moldura/Terrario/Soltar
 @onready var _escolhas: HBoxContainer = $Moldura/Escolhas
 @onready var _dialogo = $Moldura/DialogoAstronauta
-@onready var _voltar: Button = $Moldura/Voltar
 @onready var _sair: Button = $Moldura/Sair
+@onready var _resultado: ResultadoMissao = $Resultado
 @onready var _sequencia: Array[Button] = [
 	$Cartas/Ovo, $Cartas/Lagarta, $Cartas/Crisalida, $Cartas/Borboleta,
 ]
@@ -56,7 +56,7 @@ func _ready() -> void:
 	_terrario.borboleta_pronta.connect(_mostrar_escolhas)
 	_terrario.voo_terminado.connect(_mostrar_final)
 	_soltar.pressed.connect(_soltar_borboleta)
-	_voltar.pressed.connect(_voltar_ao_laboratorio)
+	_resultado.voltar_solicitado.connect(_voltar_ao_laboratorio)
 	_sair.pressed.connect(_voltar_ao_laboratorio)
 	for i in range(CORES_ASAS.size()):
 		var botao: Button = _escolhas.get_child(i)
@@ -64,7 +64,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed(&"ui_cancel"):
+	if not _resultado.visible and event.is_action_pressed(&"ui_cancel"):
 		get_viewport().set_input_as_handled()
 		_voltar_ao_laboratorio()
 
@@ -143,10 +143,9 @@ func _soltar_borboleta() -> void:
 
 func _mostrar_final() -> void:
 	BorboletaSolta.soltar(_cor_escolhida)
-	_dialogo.mostrar("A lagarta muda de forma dentro da crisálida e sai como borboleta.")
+	_dialogo.hide()
 	_sair.hide()
-	_voltar.show()
-	_voltar.grab_focus()
+	_resultado.mostrar("Do ovo ao voo", "A lagarta muda de forma dentro do casulo e sai como borboleta.")
 	concluido.emit()
 
 

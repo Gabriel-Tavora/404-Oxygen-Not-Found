@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/sala-emocoes/jogo_memoria.gd" id="1_script"]
 [ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="2_fonte"]
+[ext_resource type="PackedScene" path="res://scenes/ui/resultado-missao.tscn" id="resultado"]
 
 [sub_resource type="StyleBoxFlat" id="Moldura"]
 bg_color = Color(0.101, 0.185, 0.219, 1)
@@ -200,3 +201,5 @@ vertical_alignment = 1
 [node name="TempoDeRevelacao" type="Timer" parent="."]
 wait_time = 1.2
 one_shot = true
+
+[node name="Resultado" parent="." instance=ExtResource("resultado")]

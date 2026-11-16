@@ -63,6 +63,7 @@ const LETRAS_INICIAIS := {
 @onready var _resposta: LineEdit = $Painel/Resposta
 @onready var _conferir: Button = $Painel/Conferir
 @onready var _voltar: Button = $Painel/Voltar
+@onready var _resultado: ResultadoMissao = $Resultado
 @onready var _subtitulo: Label = $Painel/Subtitulo
 @onready var _contador: Label = $Painel/Contador
 @onready var _feedback: Label = $Painel/Rodape/Feedback
@@ -78,6 +79,7 @@ var _pista_atual := -1
 func _ready() -> void:
 	_montar_tabuleiro()
 	_voltar.pressed.connect(_fechar)
+	_resultado.voltar_solicitado.connect(_fechar)
 	_conferir.pressed.connect(_conferir_resposta)
 	_resposta.text_submitted.connect(func(_texto: String) -> void: _conferir_resposta())
 
@@ -90,16 +92,14 @@ func abrir() -> void:
 	_subtitulo.text = "Escolha uma pista e complete o quadro."
 	_resposta.show()
 	_conferir.show()
+	_resultado.hide()
+	_voltar.show()
 	show()
 	_selecionar_pista(0)
 
 
-func mostrar_recompensa() -> void:
-	_mostrar_feedback("Quadro completo! Você ganhou 1 ponto em Mental.", ACERTO)
-
-
 func _input(event: InputEvent) -> void:
-	if visible and event.is_action_pressed(&"ui_cancel"):
+	if visible and not _resultado.visible and event.is_action_pressed(&"ui_cancel"):
 		get_viewport().set_input_as_handled()
 		_fechar()
 
@@ -238,7 +238,8 @@ func _concluir() -> void:
 	_dica.text = "Dar nome ao que sentimos ajuda a falar sobre isso."
 	_atualizar_tabuleiro()
 	_mostrar_feedback("Você encontrou todas as palavras. Parabéns!", ACERTO)
-	_voltar.grab_focus()
+	_voltar.hide()
+	_resultado.mostrar("Palavras cruzadas", "Parabéns, saber o nome das emoções ajuda a falar sobre elas")
 	concluido.emit()
 
 

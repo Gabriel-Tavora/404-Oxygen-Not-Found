@@ -25,7 +25,7 @@ func _ready() -> void:
 	fonte_aviso.fallbacks = [ThemeDB.fallback_font]
 	_mensagem.add_theme_font_override(&"font", fonte_aviso)
 	ProgressoConhecimento.missao_finalizada.connect(_registrar_resultado)
-	_tempo_aviso.timeout.connect(_aviso.hide)
+	_tempo_aviso.timeout.connect(_encerrar_aviso)
 	$VoltarAoMapa.pressed.connect(_voltar_ao_mapa)
 
 
@@ -57,6 +57,13 @@ func restaurar_apos_missao() -> void:
 	if not _laboratorio_pendente.is_empty():
 		_mostrar_resultado(_laboratorio_pendente, _premiada_pendente)
 		_laboratorio_pendente = &""
+	elif _tempo_aviso.is_stopped():
+		ProgressoConhecimento.apresentar_comandante()
+
+
+func _encerrar_aviso() -> void:
+	_aviso.hide()
+	ProgressoConhecimento.apresentar_comandante()
 
 
 func _registrar_resultado(laboratorio: StringName, premiada: bool) -> void:

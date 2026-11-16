@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://1tpdpaun84av"]
 
+[ext_resource type="AudioStream" path="res://assets/hub-missoes/ambiente-hub.ogg" id="a_ambiente"]
 [ext_resource type="FontFile" uid="uid://dhpfe25h7xenb" path="res://assets/ui/PixelifySans-Medium.woff" id="f_med"]
 [ext_resource type="Texture2D" uid="uid://na2yfe4rh0qx" path="res://assets/hub-missoes/hologramas/academia_0.png" id="h_academia_0"]
 [ext_resource type="Texture2D" uid="uid://dd3raadlsge2n" path="res://assets/hub-missoes/hologramas/academia_1.png" id="h_academia_1"]
@@ -149,6 +150,11 @@ font_color = Color(0.16, 0.22, 0.27, 1)
 texture_filter = 1
 script = ExtResource("s_mapa")
 
+[node name="AmbienteHub" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("a_ambiente")
+volume_db = -13.0
+autoplay = true
+
 [node name="Fundo" type="Sprite2D" parent="." unique_id=1094964776]
 texture = ExtResource("t_mapa")
 centered = false
@@ -292,7 +298,7 @@ connections = Array[NodePath]([NodePath("../biblioteca")])
 position = Vector2(310, 1203)
 script = ExtResource("s_node")
 display_name = "BIBLIOTECA · BIOLOGIA"
-descricao = "Cultive um broto e descubra como a borboleta se transforma."
+descricao = "Cultive um broto e observe a metamorfose.\nA porta interna leva à Física."
 laboratorio = &"biologia"
 kind = 0
 level_scene = "res://scenes/lab-biologia/lab-bio.tscn"
@@ -520,6 +526,7 @@ offset_left = 98.0
 offset_top = 261.0
 offset_right = 422.0
 offset_bottom = 383.0
+mouse_filter = 2
 texture = ExtResource("t_sel")
 patch_margin_left = 20
 patch_margin_top = 20

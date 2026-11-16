@@ -17,24 +17,8 @@ func _ready() -> void:
 
 func tracar(origem: MapNode, destino: MapNode) -> void:
 	_pontos.clear()
-	var fila: Array[MapNode] = [origem]
-	var anteriores: Dictionary[MapNode, MapNode] = {}
-	anteriores[origem] = null
-
-	while not fila.is_empty() and not anteriores.has(destino):
-		var atual: MapNode = fila.pop_front()
-		for vizinho in atual.get_neighbors():
-			if anteriores.has(vizinho):
-				continue
-			anteriores[vizinho] = atual
-			fila.append(vizinho)
-
-	if anteriores.has(destino):
-		var ponto := destino
-		while ponto != null:
-			_pontos.append(to_local(ponto.global_position))
-			ponto = anteriores[ponto]
-		_pontos.reverse()
+	for ponto in origem.caminho_ate(destino):
+		_pontos.append(to_local(ponto.global_position))
 	queue_redraw()
 
 

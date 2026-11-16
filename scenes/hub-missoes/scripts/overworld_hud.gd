@@ -3,19 +3,22 @@ extends Control
 ## HUD do mapa: nome do mundo, placa com o nome do ponto atual, avisos e fade.
 
 const px := 1.0
+const TRANSICAO := preload("res://scenes/ui/transicao_escurecida.gd")
 
 var world_name := "MAPA DE MISSÕES"
 var location := ""
 var hint := ""
 var _flash := ""
 var _flash_t := 0.0
-var _fade := 1.0
 var _t := 0.0
+var _transicao := TRANSICAO.new()
 
 
 func _ready() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT)
 	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_transicao.layer = 2
+	add_child(_transicao)
 
 
 func set_location(n: String, h: String) -> void:
@@ -30,15 +33,11 @@ func flash(msg: String) -> void:
 
 
 func fade_in() -> void:
-	_fade = 1.0
-	var tw := create_tween()
-	tw.tween_property(self, "_fade", 0.0, 0.4)
+	_transicao.revelar()
 
 
 func fade_out() -> void:
-	var tw := create_tween()
-	tw.tween_property(self, "_fade", 1.0, 0.4)
-	await tw.finished
+	await _transicao.animar_para(1.0).finished
 
 
 func _process(delta: float) -> void:
@@ -74,9 +73,6 @@ func _draw() -> void:
 		var fs2 := int(12 * px)
 		var fw := font.get_string_size(_flash, HORIZONTAL_ALIGNMENT_LEFT, -1, fs2).x
 		_text(font, Vector2((w - fw) / 2.0, hgt * 0.4), _flash, fs2, Color("ffd45a"))
-	# Fade preto nas trocas de cena
-	if _fade > 0.0:
-		draw_rect(Rect2(Vector2.ZERO, size), Color(0, 0, 0, _fade))
 
 
 func _panel(r: Rect2) -> void:

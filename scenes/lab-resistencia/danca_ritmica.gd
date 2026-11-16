@@ -46,8 +46,7 @@ class Movimento:
 @onready var _dica: Label = $Dica
 @onready var _pausa: ColorRect = $Pausa
 @onready var _continuar: Button = $Pausa/Janela/Continuar
-@onready var _resultado: ColorRect = $Resultado
-@onready var _voltar: Button = $Resultado/Janela/Voltar
+@onready var _resultado: ResultadoMissao = $Resultado
 
 var _movimentos: Array[Movimento] = []
 var _proximo_movimento := 0
@@ -72,7 +71,7 @@ func _ready() -> void:
 		alvo.pressed.connect(_tentar_movimento.bind(faixa))
 	$Pausar.pressed.connect(_alternar_pausa)
 	_continuar.pressed.connect(_alternar_pausa)
-	_voltar.pressed.connect(_fechar)
+	_resultado.voltar_solicitado.connect(_fechar)
 	$Pausa/Janela/Voltar.pressed.connect(_fechar)
 
 	var musica := _batida.stream.duplicate() as AudioStreamWAV
@@ -81,6 +80,7 @@ func _ready() -> void:
 	musica.loop_end = roundi(_duracao_musica * musica.mix_rate)
 	_batida.stream = musica
 	_latencia_audio = AudioServer.get_output_latency()
+	TrilhaAmbiente.silenciar_durante(self)
 	_batida.play()
 
 
@@ -163,9 +163,7 @@ func _encerrar_rodada() -> void:
 	$Pausar.hide()
 	$Instrucao.hide()
 	_dica.hide()
-	$Resultado/Janela/Total.text = _contador.text
-	_resultado.show()
-	_voltar.grab_focus()
+	_resultado.mostrar("Dança no ritmo", "Você acertou %d passos no ritmo!" % META)
 	queue_redraw()
 	concluido.emit()
 

@@ -29,7 +29,8 @@ const VELOCIDADE_RAJADAS := 92.0
 const MARINHO := Color("#142734")
 const AZUL := Color("#a2cbd8")
 
-@onready var _dialogo = $DialogoAstronauta
+@onready var _resultado: ResultadoMissao = $Resultado
+@onready var _personagem := $Personagem
 var _estado := Estado.PREPARANDO
 var _rodada := 0
 var _angulo := ANGULO_INICIAL
@@ -45,14 +46,16 @@ var _aviso := ""
 
 func _ready() -> void:
 	set_process(false)
+	_resultado.voltar_solicitado.connect(_fechar)
 	get_window().focus_exited.connect(_cancelar_mouse)
 
 
 func abrir() -> void:
+	_personagem.aplicar_selecao()
 	_rodada = 0
 	_angulo = ANGULO_INICIAL
 	_tempo_vento = 0.0
-	_dialogo.hide()
+	_resultado.hide()
 	_preparar("Acerte a caixa verde com a bola verde.")
 	show()
 	set_process(true)
@@ -101,14 +104,16 @@ func _mirar(ponto: Vector2) -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if not visible:
-		return
-	if event.is_action_pressed(&"ui_cancel") or (_estado == Estado.CONCLUIDO and event.is_action_pressed(&"ui_accept")):
+	if visible and _estado != Estado.CONCLUIDO and event.is_action_pressed(&"ui_cancel"):
 		get_viewport().set_input_as_handled()
-		_cancelar_mouse()
-		set_process(false)
-		hide()
-		fechado.emit()
+		_fechar()
+
+
+func _fechar() -> void:
+	_cancelar_mouse()
+	set_process(false)
+	hide()
+	fechado.emit()
 
 
 func _velocidade_inicial() -> Vector2:
@@ -164,11 +169,18 @@ func _atualizar_bola(delta: float) -> void:
 	if _tempo < fim and _bola.x < size.x + RAIO_BOLA:
 		return
 	if caixa == _rodada:
-		_estado = Estado.ACERTOU
-		_tempo = 0.0
-		_aviso = "Acertou a caixa %s!" % NOMES[_rodada]
 		if _rodada == CAIXAS.size() - 1:
+			_estado = Estado.CONCLUIDO
+			set_process(false)
+			_resultado.mostrar(
+				"Lançamento oblíquo",
+				"Três caixas! O vento a favor aumenta o alcance. O vento contrário reduz."
+			)
 			concluido.emit()
+		else:
+			_estado = Estado.ACERTOU
+			_tempo = 0.0
+			_aviso = "Acertou a caixa %s!" % NOMES[_rodada]
 	elif caixa >= 0:
 		_preparar("Essa caixa é %s. Mire na caixa %s." % [NOMES[caixa], NOMES[_rodada]])
 	else:
@@ -176,11 +188,6 @@ func _atualizar_bola(delta: float) -> void:
 
 
 func _avancar() -> void:
-	if _rodada == CAIXAS.size() - 1:
-		_estado = Estado.CONCLUIDO
-		set_process(false)
-		_dialogo.mostrar("Três caixas! O vento contrário encurtou a trajetória, e o vento a favor levou a bola mais longe. Enter para voltar.")
-		return
 	_rodada += 1
 	if _rodada == 1:
 		_preparar("Vento contrário: a bola perde alcance. Use a prévia para ajustar a força.")
@@ -193,8 +200,9 @@ func _draw() -> void:
 	_desenhar_rajadas()
 	for i in CAIXAS.size():
 		_desenhar_caixa(i)
-	var retrato := SPRITES.get_frame_texture(&"parado_leste", 0)
-	draw_texture(retrato, Vector2(38, 162))
+	if not _personagem.visible:
+		var retrato := SPRITES.get_frame_texture(&"parado_leste", 0)
+		draw_texture(retrato, Vector2(38, 162))
 	if _estado == Estado.PREPARANDO:
 		_desenhar_trajetoria()
 	if _estado in [Estado.PREPARANDO, Estado.EM_VOO]:

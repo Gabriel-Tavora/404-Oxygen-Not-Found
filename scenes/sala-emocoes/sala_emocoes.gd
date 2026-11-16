@@ -17,7 +17,7 @@ func _ready() -> void:
 		if missao == null:
 			continue
 		sinal.convite_solicitado.connect(_abrir_convite.bind(sinal.tarefa))
-		missao.concluido.connect(_concluir_missao.bind(sinal.tarefa, missao))
+		missao.concluido.connect(ProgressoConhecimento.concluir_tarefa.bind(sinal.tarefa))
 		missao.fechado.connect(_liberar_controles)
 	_convite.respondido.connect(_responder_convite)
 	ProgressoConhecimento.atualizado.connect(_atualizar_quadro.unbind(1))
@@ -33,13 +33,6 @@ func _abrir_convite(atividade: StringName, tarefa: StringName) -> void:
 		return
 	if _convite.abrir(atividade, ProgressoConhecimento.tarefa_concluida(tarefa)):
 		_player.controles_bloqueados = true
-
-
-func _concluir_missao(tarefa: StringName, missao: Control) -> void:
-	var pontos_anteriores := ProgressoConhecimento.pontos_mental()
-	ProgressoConhecimento.concluir_tarefa(tarefa)
-	if ProgressoConhecimento.pontos_mental() > pontos_anteriores:
-		missao.mostrar_recompensa()
 
 
 func _responder_convite(atividade: StringName, aceitou: bool) -> void:
