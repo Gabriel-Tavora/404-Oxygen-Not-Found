@@ -1,0 +1,148 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/encerramento/comandante.gd" id="1_script"]
+[ext_resource type="FontFile" path="res://assets/ui/PixelifySans-Medium.woff" id="2_fonte"]
+[ext_resource type="AudioStream" path="res://assets/ui/balao-fala.wav" id="3_som"]
+[ext_resource type="Texture2D" path="res://assets/encerramento/comandante.png" id="4_retrato"]
+
+[sub_resource type="StyleBoxFlat" id="Painel"]
+bg_color = Color(0.055, 0.11, 0.16, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.21, 0.46, 0.55, 1)
+shadow_color = Color(0.008, 0.023, 0.043, 0.86)
+shadow_size = 4
+shadow_offset = Vector2(0, 4)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Botao"]
+bg_color = Color(0.99, 0.78, 0.31, 1)
+border_width_bottom = 3
+border_color = Color(0.73, 0.47, 0.13, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="BotaoHover"]
+bg_color = Color(1, 0.88, 0.5, 1)
+border_width_bottom = 3
+border_color = Color(0.85, 0.58, 0.22, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="BotaoPressionado"]
+bg_color = Color(0.86, 0.6, 0.22, 1)
+border_width_top = 2
+border_color = Color(0.65, 0.38, 0.11, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Foco"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.95, 0.76, 1)
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
+antialiasing = false
+
+[node name="Comandante" type="CanvasLayer"]
+process_mode = 3
+layer = 100
+script = ExtResource("1_script")
+
+[node name="Tela" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.025, 0.052, 0.08, 1)
+
+[node name="Painel" type="Panel" parent="Tela"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -204.0
+offset_top = -97.0
+offset_right = 204.0
+offset_bottom = 97.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Painel")
+
+[node name="Faixa" type="ColorRect" parent="Tela/Painel"]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 406.0
+offset_bottom = 6.0
+mouse_filter = 2
+color = Color(0.33, 0.78, 0.78, 1)
+
+[node name="Moldura" type="ColorRect" parent="Tela/Painel"]
+offset_left = 18.0
+offset_top = 31.0
+offset_right = 150.0
+offset_bottom = 163.0
+mouse_filter = 2
+color = Color(0.16, 0.34, 0.41, 1)
+
+[node name="Retrato" type="TextureRect" parent="Tela/Painel/Moldura"]
+texture_filter = 1
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 130.0
+offset_bottom = 130.0
+mouse_filter = 2
+texture = ExtResource("4_retrato")
+expand_mode = 1
+
+[node name="Nome" type="Label" parent="Tela/Painel"]
+offset_left = 168.0
+offset_top = 22.0
+offset_right = 390.0
+offset_bottom = 46.0
+theme_override_colors/font_color = Color(0.58, 0.89, 0.89, 1)
+theme_override_fonts/font = ExtResource("2_fonte")
+theme_override_font_sizes/font_size = 20
+text = "Comandante"
+
+[node name="Divisoria" type="ColorRect" parent="Tela/Painel"]
+offset_left = 168.0
+offset_top = 50.0
+offset_right = 390.0
+offset_bottom = 51.0
+mouse_filter = 2
+color = Color(0.21, 0.40, 0.47, 1)
+
+[node name="Fala" type="Label" parent="Tela/Painel"]
+offset_left = 168.0
+offset_top = 60.0
+offset_right = 390.0
+offset_bottom = 132.0
+theme_override_colors/font_color = Color(0.96, 0.97, 0.99, 1)
+theme_override_font_sizes/font_size = 16
+autowrap_mode = 3
+
+[node name="Pular" type="Button" parent="Tela/Painel"]
+offset_left = 292.0
+offset_top = 140.0
+offset_right = 390.0
+offset_bottom = 173.0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(0.10, 0.094, 0.075, 1)
+theme_override_colors/font_focus_color = Color(0.10, 0.094, 0.075, 1)
+theme_override_colors/font_hover_color = Color(0.10, 0.094, 0.075, 1)
+theme_override_colors/font_pressed_color = Color(0.10, 0.094, 0.075, 1)
+theme_override_fonts/font = ExtResource("2_fonte")
+theme_override_font_sizes/font_size = 17
+theme_override_styles/normal = SubResource("Botao")
+theme_override_styles/hover = SubResource("BotaoHover")
+theme_override_styles/pressed = SubResource("BotaoPressionado")
+theme_override_styles/focus = SubResource("Foco")
+text = "Pular"
+
+[node name="Som" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_som")
+volume_db = -8.0

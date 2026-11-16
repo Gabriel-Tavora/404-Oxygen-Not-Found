@@ -1,6 +1,7 @@
 extends Area2D
 
 @export_file("*.tscn") var destino: String
+@export var porta_de_chegada: NodePath = ^"PortaEntreLabs"
 
 @onready var _dica: Control = $Dica
 
@@ -43,9 +44,10 @@ func _atravessar(jogador: CharacterBody2D) -> void:
 		return
 
 	var chegada := sala.instantiate()
-	var porta_chegada: Area2D = chegada.get_node("PortaEntreLabs")
-	var ponto_chegada: Marker2D = porta_chegada.get_node("Chegada")
-	chegada.get_node("Player").position = porta_chegada.transform * ponto_chegada.position
+	if not porta_de_chegada.is_empty():
+		var porta_chegada: Area2D = chegada.get_node(porta_de_chegada)
+		var ponto_chegada: Marker2D = porta_chegada.get_node("Chegada")
+		chegada.get_node("Player").position = porta_chegada.transform * ponto_chegada.position
 	var erro := get_tree().change_scene_to_node(chegada)
 	if erro != OK:
 		chegada.free()

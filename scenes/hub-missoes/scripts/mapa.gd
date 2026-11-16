@@ -19,6 +19,7 @@ const MOVE_DIRECTIONS := {
 ## Altura visível do cenário, independente da resolução lógica dos laboratórios.
 const VIEW_HEIGHT := 360.0
 const SELECAO := "res://scenes/ui/selecao-personagem/selecao_personagem.tscn"
+const CENA_ENCERRAMENTO := preload("res://scenes/encerramento/encerramento.tscn")
 
 @export var world_name := "MAPA DE MISSÕES"
 @export var start_node: StringName = &"casa_azul"
@@ -28,6 +29,8 @@ const SELECAO := "res://scenes/ui/selecao-personagem/selecao_personagem.tscn"
 @onready var camera: Camera2D = $Player/Camera2D
 @onready var hud: OverworldHUD = $HUD/HUDControl
 @onready var menu: MenuFase = $Menu/MenuFase
+@onready var _foguete: MapNode = $Nodes/foguete
+@onready var _rota_foguete: Node2D = $RotaFoguete
 
 var _busy := false
 
@@ -46,6 +49,7 @@ func _ready() -> void:
 	player.departed.connect(func(): hud.set_location("", ""))
 	menu.escolhido.connect(_on_menu)
 	hud.world_name = world_name
+	_atualizar_rota_foguete(start)
 	_mostrar_placa(start)
 	hud.fade_in()
 
@@ -84,8 +88,16 @@ func _process(_delta: float) -> void:
 
 func _on_arrived(node: MapNode) -> void:
 	OverworldState.current_node = node.name
+	_atualizar_rota_foguete(node)
 	_mostrar_placa(node)
 	_abrir_menu(node)
+
+
+func _atualizar_rota_foguete(origem: MapNode) -> void:
+	var mostrar := ProgressoConhecimento.embarque_liberado and not ProgressoConhecimento.lancamento_iniciado
+	_rota_foguete.visible = mostrar
+	if mostrar:
+		_rota_foguete.tracar(origem, _foguete)
 
 
 func _mostrar_placa(node: MapNode) -> void:
@@ -96,7 +108,7 @@ func _mostrar_placa(node: MapNode) -> void:
 		MapNode.Kind.LEVEL:
 			hint = "%s missões concluídas  ·  Espaço para abrir" % _progresso_da_area(node.laboratorio)
 		MapNode.Kind.EMBARQUE:
-			hint = "Espaço para ver os treinos"
+			hint = "Espaço para embarcar" if ProgressoConhecimento.embarque_liberado else "Espaço para ver os treinos"
 		MapNode.Kind.LOCKED:
 			hint = "bloqueado"
 	hud.set_location(node.display_name, hint)
@@ -112,10 +124,10 @@ func _abrir_menu(node: MapNode) -> void:
 			menu.abrir(node.display_name, texto)
 		MapNode.Kind.EMBARQUE:
 			hud.set_location("", "")
-			var mensagem := "Leve Conhecimento, Resistência e Mental ao máximo."
-			if ProgressoConhecimento.treinamento_completo():
-				mensagem = "Treinamento completo!"
-			menu.abrir(node.display_name, mensagem, true)
+			if ProgressoConhecimento.embarque_liberado:
+				menu.abrir(node.display_name, "Tudo pronto! Vamos decolar?", false, "EMBARCAR")
+			else:
+				menu.abrir(node.display_name, "Termine todos os treinos para liberar o foguete.", true)
 
 
 func _progresso_da_area(laboratorio: StringName) -> String:
@@ -128,7 +140,15 @@ func _progresso_da_area(laboratorio: StringName) -> String:
 func _on_menu(comecar: bool) -> void:
 	var node := player.current
 	_mostrar_placa(node)
-	if not comecar or node == null or node.kind != MapNode.Kind.LEVEL:
+	if not comecar or node == null:
+		return
+	if node.kind == MapNode.Kind.EMBARQUE and ProgressoConhecimento.embarque_liberado:
+		_busy = true
+		ProgressoConhecimento.lancamento_iniciado = true
+		_rota_foguete.hide()
+		add_child(CENA_ENCERRAMENTO.instantiate())
+		return
+	if node.kind != MapNode.Kind.LEVEL:
 		return
 	if node.level_scene == "" or not ResourceLoader.exists(node.level_scene):
 		hud.flash("EM BREVE!")

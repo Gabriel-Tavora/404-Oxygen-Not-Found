@@ -76,7 +76,10 @@ func _draw() -> void:
 		Kind.STOP, Kind.START:
 			_pad(Color("2c5a9a"), Color("78c8ff"), 0.8)
 		Kind.EMBARQUE:
-			_pad(Color("a92840"), Color("ff4a59"), 1.0)
+			if not Engine.is_editor_hint() and ProgressoConhecimento.embarque_liberado:
+				_pad(Color("886020"), Color("ffdf77"), 1.0)
+			else:
+				_pad(Color("a92840"), Color("ff4a59"), 1.0)
 		Kind.LEVEL:
 			if is_completed():
 				_pad(Color("1c6246"), Color("65ffc4"), 1.0)

@@ -22,6 +22,7 @@
 [ext_resource type="Script" uid="uid://c7kmw3fe14tt" path="res://scenes/hub-missoes/scripts/menu_fase.gd" id="s_menu"]
 [ext_resource type="Script" uid="uid://cun1omg3jvqiv" path="res://scenes/hub-missoes/scripts/map_node.gd" id="s_node"]
 [ext_resource type="Script" uid="uid://jv2dcxvk6kl1" path="res://scenes/hub-missoes/scripts/overworld_player.gd" id="s_player"]
+[ext_resource type="Script" path="res://scenes/hub-missoes/scripts/rota_foguete.gd" id="s_rota"]
 [ext_resource type="Texture2D" uid="uid://belqrtap4odbs" path="res://assets/hub-missoes/menu_botao.png" id="t_botao"]
 [ext_resource type="Texture2D" uid="uid://17ijdjn8vpfs" path="res://assets/hub-missoes/mapa.png" id="t_mapa"]
 [ext_resource type="Texture2D" uid="uid://d0fn1qp25jdec" path="res://assets/hub-missoes/menu_painel.png" id="t_painel"]
@@ -173,6 +174,10 @@ sprite_frames = SubResource("sf_biblioteca")
 autoplay = "default"
 frame_progress = 0.6
 centered = false
+
+[node name="RotaFoguete" type="Node2D" parent="."]
+visible = false
+script = ExtResource("s_rota")
 
 [node name="Nodes" type="Node2D" parent="." unique_id=1453497104]
 

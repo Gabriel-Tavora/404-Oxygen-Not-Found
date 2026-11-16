@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/laboratorios/porta-entre-labs.tscn" id="1_porta"]
+
+[node name="PortaHub" instance=ExtResource("1_porta")]
+destino = "res://scenes/hub-missoes/mapa.tscn"
+porta_de_chegada = NodePath("")
+
+[node name="Destino" parent="." index="1"]
+text = "HUB"
+
+[node name="Acao" parent="Dica" index="3"]
+text = "Voltar"

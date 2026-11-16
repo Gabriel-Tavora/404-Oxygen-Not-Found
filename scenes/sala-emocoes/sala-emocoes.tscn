@@ -16,6 +16,8 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/convite-atividade.tscn" id="14_convite"]
 [ext_resource type="PackedScene" path="res://scenes/sala-emocoes/palavras-cruzadas.tscn" id="15_cruzadas"]
 [ext_resource type="PackedScene" path="res://scenes/sala-emocoes/jogo-memoria.tscn" id="16_memoria"]
+[ext_resource type="PackedScene" path="res://scenes/laboratorios/porta-hub.tscn" id="17_porta_hub"]
+[ext_resource type="Texture2D" path="res://assets/sala-emocoes/letras-quadro-resolvido.png" id="18_letras_resolvidas"]
 
 [sub_resource type="RectangleShape2D" id="LimiteHorizontal"]
 size = Vector2(454, 16)
@@ -71,6 +73,11 @@ centered = false
 [node name="QuadroPalavrasCruzadas" type="Sprite2D" parent="Cenario"]
 position = Vector2(27, 72)
 texture = ExtResource("7_quadro")
+centered = false
+
+[node name="LetrasResolvidas" type="Sprite2D" parent="Cenario/QuadroPalavrasCruzadas"]
+visible = false
+texture = ExtResource("18_letras_resolvidas")
 centered = false
 
 [node name="LimitesDaSala" type="StaticBody2D" parent="."]
@@ -156,6 +163,10 @@ tarefa = &"emocoes/palavras_cruzadas"
 position = Vector2(406, 240)
 atividade = &"memoria"
 tarefa = &"emocoes/memoria"
+
+[node name="PortaHub" parent="." instance=ExtResource("17_porta_hub")]
+position = Vector2(240, 178)
+scale = Vector2(0.75, 0.75)
 
 [node name="Player" parent="." instance=ExtResource("4_player")]
 position = Vector2(240, 258)

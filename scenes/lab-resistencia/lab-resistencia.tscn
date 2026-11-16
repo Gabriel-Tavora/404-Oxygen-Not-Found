@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" path="res://scenes/lab-resistencia/pista-de-danca.tscn" id="7_pista"]
 [ext_resource type="Script" uid="uid://cnp2ovih0ugqe" path="res://scenes/lab-resistencia/lab_resistencia.gd" id="8_lab"]
 [ext_resource type="PackedScene" path="res://scenes/ui/convite-atividade.tscn" id="9_convite"]
+[ext_resource type="PackedScene" path="res://scenes/laboratorios/porta-hub.tscn" id="10_porta_hub"]
 
 [sub_resource type="RectangleShape2D" id="LimiteHorizontal"]
 size = Vector2(448, 16)
@@ -31,7 +32,8 @@ script = ExtResource("8_lab")
 position = Vector2(116, 98)
 
 [node name="PistaDeDanca" parent="." unique_id=177379443 instance=ExtResource("7_pista")]
-position = Vector2(17, 123)
+position = Vector2(42, 140)
+scale = Vector2(0.85, 0.85)
 
 [node name="Esteira" parent="." unique_id=2106653348 instance=ExtResource("6_esteira")]
 position = Vector2(369, 123)
@@ -59,6 +61,9 @@ shape = SubResource("LimiteVertical")
 position = Vector2(240, 158)
 shape = SubResource("LimitePainel")
 
+[node name="PortaHub" parent="." instance=ExtResource("10_porta_hub")]
+position = Vector2(50, 100)
+
 [node name="Player" parent="." unique_id=1841814596 instance=ExtResource("2_player")]
 position = Vector2(240, 237)
 
@@ -67,3 +72,12 @@ position = Vector2(240, 237)
 [node name="PainelTreinamento" parent="Interface" unique_id=980862131 instance=ExtResource("5_treinamento")]
 
 [node name="ConviteAtividade" parent="Interface" unique_id=107857305 instance=ExtResource("9_convite")]
+
+[node name="Luminaria66" parent="BaseCenario/Luminarias" index="0"]
+visible = false
+
+[node name="FlamulaEsquerda" parent="FundoLaboratorio" index="0"]
+visible = false
+
+[editable path="BaseCenario"]
+[editable path="FundoLaboratorio"]

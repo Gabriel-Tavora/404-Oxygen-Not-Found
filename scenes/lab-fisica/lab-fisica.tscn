@@ -12,6 +12,7 @@
 [ext_resource type="FontFile" uid="uid://bmfdvtwavrm3m" path="res://assets/ui/lab-pixel.fnt" id="11_fonte"]
 [ext_resource type="PackedScene" path="res://scenes/laboratorios/porta-entre-labs.tscn" id="12_porta"]
 [ext_resource type="StyleBoxFlat" path="res://scenes/ui/placa-interacao.tres" id="13_placa"]
+[ext_resource type="PackedScene" path="res://scenes/laboratorios/porta-hub.tscn" id="14_porta_hub"]
 
 [sub_resource type="RectangleShape2D" id="LimiteHorizontal"]
 size = Vector2(477, 1)
@@ -121,6 +122,10 @@ destino = "res://scenes/lab-biologia/lab-bio.tscn"
 
 [node name="Destino" parent="PortaEntreLabs" index="1"]
 text = "BIOLOGIA"
+
+[node name="PortaHub" parent="." instance=ExtResource("14_porta_hub")]
+z_index = 4
+position = Vector2(426, 82)
 
 [node name="Player" parent="." unique_id=128682092 instance=ExtResource("7_player")]
 z_index = 5

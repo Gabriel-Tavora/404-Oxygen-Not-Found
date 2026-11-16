@@ -3,7 +3,7 @@ extends Node
 signal atualizado(total_concluido: int)
 signal missao_finalizada(laboratorio: StringName, premiada: bool)
 
-const CENA_ENCERRAMENTO := preload("res://scenes/encerramento/encerramento.tscn")
+const CENA_COMANDANTE := preload("res://scenes/encerramento/comandante.tscn")
 const TEMPO_RESULTADO_FINAL := 2.8
 const TAREFAS_POR_LABORATORIO := {
 	&"fisica": [&"fisica/ima", &"fisica/movimento"],
@@ -11,6 +11,9 @@ const TAREFAS_POR_LABORATORIO := {
 	&"resistencia": [&"resistencia/esteira", &"resistencia/danca"],
 	&"emocoes": [&"emocoes/palavras_cruzadas", &"emocoes/memoria"],
 }
+
+var embarque_liberado := false
+var lancamento_iniciado := false
 
 var _concluidas: Dictionary[StringName, bool] = {}
 
@@ -58,11 +61,11 @@ func concluir_tarefa(tarefa: StringName) -> void:
 	if premiada:
 		_concluidas[tarefa] = true
 		if treinamento_completo():
-			_abrir_encerramento.call_deferred()
+			_abrir_comandante.call_deferred()
 		atualizado.emit(total_concluido())
 	missao_finalizada.emit(laboratorio, premiada)
 
 
-func _abrir_encerramento() -> void:
+func _abrir_comandante() -> void:
 	await get_tree().create_timer(TEMPO_RESULTADO_FINAL).timeout
-	get_tree().root.add_child(CENA_ENCERRAMENTO.instantiate())
+	get_tree().root.add_child(CENA_COMANDANTE.instantiate())

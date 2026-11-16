@@ -24,6 +24,7 @@ const FOTOS_TREINOS := {
 @onready var mensagem_treinos: Label = $Caixa/Painel/GaleriaTreinos/Mensagem
 @onready var fotos_treinos: GridContainer = $Caixa/Painel/GaleriaTreinos/Fotos
 @onready var botoes: Array[Control] = [$Caixa/Painel/Comecar, $Caixa/Painel/Sair]
+@onready var acao_principal: Label = $Caixa/Painel/Comecar/Texto
 @onready var selecao: NinePatchRect = $Caixa/Painel/Selecao
 @onready var seta: TextureRect = $Caixa/Painel/Seta
 @onready var fundo: ColorRect = $Escurecer
@@ -50,8 +51,8 @@ func _ready() -> void:
 		b.pressed.connect(func(): _selecionar(i); _confirmar())
 	for laboratorio: StringName in FOTOS_TREINOS:
 		var foto := FOTO_LABORATORIO.instantiate()
-		foto.get_node("Conteudo/Imagem").texture = FOTOS_TREINOS[laboratorio][1]
-		_legendas_treinos[laboratorio] = foto.get_node("Conteudo/Legenda")
+		foto.get_node("Moldura/Conteudo/Imagem").texture = FOTOS_TREINOS[laboratorio][1]
+		_legendas_treinos[laboratorio] = foto.get_node("Moldura/Conteudo/Legenda")
 		fotos_treinos.add_child(foto)
 	_ajustar()
 
@@ -62,7 +63,7 @@ func _ajustar() -> void:
 	caixa.position = ((size - TAMANHO * s) / 2.0).round()
 
 
-func abrir(nome: String, texto: String, somente_aviso := false) -> void:
+func abrir(nome: String, texto: String, somente_aviso := false, acao := "ENTRAR") -> void:
 	_somente_aviso = somente_aviso
 	painel.size = TAMANHO_AVISO if somente_aviso else _painel_original.size
 	painel.position = _painel_original.get_center() - painel.size / 2.0
@@ -75,6 +76,7 @@ func abrir(nome: String, texto: String, somente_aviso := false) -> void:
 	else:
 		descricao.text = texto
 	botoes[0].visible = not somente_aviso
+	acao_principal.text = acao
 	var voltar := botoes[1]
 	voltar.position.x = (painel.size.x - voltar.size.x) / 2.0 if somente_aviso else _voltar_x
 	_seta_y = voltar.position.y - seta.size.y - 11.0

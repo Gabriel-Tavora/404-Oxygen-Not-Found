@@ -3,6 +3,8 @@ extends Node2D
 @onready var _player = $Player
 @onready var _convite = $Interface/ConviteAtividade
 @onready var _treinamento = $Interface/PainelTreinamento
+@onready var _letras_quadro: Sprite2D = $Cenario/QuadroPalavrasCruzadas/LetrasResolvidas
+@onready var _tarefa_quadro: StringName = $Sinais/SinalPalavrasCruzadas.tarefa
 @onready var _missoes: Dictionary[StringName, Control] = {
 	&"palavras_cruzadas": $Interface/PalavrasCruzadas,
 	&"memoria": $Interface/JogoMemoria,
@@ -18,6 +20,12 @@ func _ready() -> void:
 		missao.concluido.connect(_concluir_missao.bind(sinal.tarefa, missao))
 		missao.fechado.connect(_liberar_controles)
 	_convite.respondido.connect(_responder_convite)
+	ProgressoConhecimento.atualizado.connect(_atualizar_quadro.unbind(1))
+	_atualizar_quadro()
+
+
+func _atualizar_quadro() -> void:
+	_letras_quadro.visible = ProgressoConhecimento.tarefa_concluida(_tarefa_quadro)
 
 
 func _abrir_convite(atividade: StringName, tarefa: StringName) -> void:
