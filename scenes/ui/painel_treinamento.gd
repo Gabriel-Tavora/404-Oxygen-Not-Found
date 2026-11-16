@@ -26,6 +26,22 @@ func _ready() -> void:
 	_mensagem.add_theme_font_override(&"font", fonte_aviso)
 	ProgressoConhecimento.missao_finalizada.connect(_registrar_resultado)
 	_tempo_aviso.timeout.connect(_aviso.hide)
+	$VoltarAoMapa.pressed.connect(_voltar_ao_mapa)
+
+
+func _unhandled_input(evento: InputEvent) -> void:
+	if evento.is_action_pressed(&"ui_cancel"):
+		_voltar_ao_mapa()
+
+
+func _voltar_ao_mapa() -> void:
+	if not is_visible_in_tree():
+		return
+	var jogador := get_tree().get_first_node_in_group(&"jogador")
+	if jogador == null or jogador.controles_bloqueados:
+		return
+	get_viewport().set_input_as_handled()
+	get_tree().change_scene_to_file(OverworldState.MAPA)
 
 
 func ocultar_durante_missao() -> void:

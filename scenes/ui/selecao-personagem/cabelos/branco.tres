@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CabeloDados" format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/selecao-personagem/scripts/cabelo_dados.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+nome = "Cabelo Branco"
+indice = 4
+cor = Color(0.9, 0.9, 0.92, 1)

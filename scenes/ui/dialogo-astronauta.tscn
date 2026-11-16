@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Script" path="res://scenes/ui/dialogo_astronauta.gd" id="1_dialogo"]
 [ext_resource type="Texture2D" path="res://assets/astronauta/astronauta.png" id="2_astronauta"]
 [ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="3_fonte"]
+[ext_resource type="Script" path="res://scenes/ui/retrato_astronauta.gd" id="4_retrato"]
 
 [sub_resource type="StyleBoxFlat" id="Caixa"]
 bg_color = Color(0.102, 0.153, 0.188, 1)
@@ -64,6 +65,9 @@ offset_right = 51.0
 offset_bottom = 44.0
 mouse_filter = 2
 texture = SubResource("Retrato")
+expand_mode = 1
+stretch_mode = 5
+script = ExtResource("4_retrato")
 
 [node name="Nome" type="Label" parent="."]
 layout_mode = 0

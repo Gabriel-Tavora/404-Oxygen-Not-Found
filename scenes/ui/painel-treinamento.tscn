@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" path="res://assets/ui/icones-treinamento.svg" id="4_icones"]
 [ext_resource type="Texture2D" path="res://assets/astronauta/astronauta.png" id="5_astronauta"]
 [ext_resource type="AudioStream" path="res://assets/ui/balao-fala.wav" id="6_som"]
+[ext_resource type="StyleBox" path="res://scenes/ui/placa-interacao.tres" id="7_placa"]
+[ext_resource type="Script" path="res://scenes/ui/retrato_astronauta.gd" id="8_retrato"]
 
 [sub_resource type="Theme" id="Tema"]
 default_font = ExtResource("2_fonte")
@@ -135,6 +137,7 @@ mouse_filter = 2
 texture = SubResource("Rosto")
 expand_mode = 1
 stretch_mode = 5
+script = ExtResource("8_retrato")
 
 [node name="Balao" type="Panel" parent="Aviso"]
 offset_left = 43.0
@@ -164,6 +167,20 @@ vertical_alignment = 1
 
 [node name="TempoAviso" type="Timer" parent="."]
 one_shot = true
+
+[node name="VoltarAoMapa" type="Button" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -104.0
+offset_top = -21.0
+offset_right = -5.0
+offset_bottom = -5.0
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = ExtResource("7_placa")
+text = "Esc para o mapa"
 
 [node name="SomAviso" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_som")

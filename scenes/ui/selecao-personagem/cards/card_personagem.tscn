@@ -1,0 +1,81 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/selecao-personagem/scripts/card_personagem.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/selecao-personagem/card_moldura.png" id="2_moldura"]
+[ext_resource type="Texture2D" path="res://assets/selecao-personagem/sombra.png" id="3_sombra"]
+[ext_resource type="Texture2D" path="res://assets/selecao-personagem/selecao_card.png" id="4_selecao"]
+[ext_resource type="Texture2D" path="res://assets/selecao-personagem/seta.png" id="5_seta"]
+[ext_resource type="Shader" path="res://scenes/ui/selecao-personagem/shaders/tinge_mochila.gdshader" id="6_shader"]
+
+[sub_resource type="ShaderMaterial" id="mat_mochila"]
+shader = ExtResource("6_shader")
+shader_parameter/cor = Color(0.27, 0.47, 0.86, 1)
+
+[node name="CardPersonagem" type="Control"]
+custom_minimum_size = Vector2(166, 290)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 166.0
+offset_bottom = 290.0
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="Moldura" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 166.0
+offset_bottom = 290.0
+mouse_filter = 2
+texture = ExtResource("2_moldura")
+
+[node name="Sombra" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.9)
+texture_filter = 1
+layout_mode = 0
+offset_left = 29.0
+offset_top = 262.0
+offset_right = 137.0
+offset_bottom = 284.0
+mouse_filter = 2
+texture = ExtResource("3_sombra")
+expand_mode = 1
+
+[node name="Corpo" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+position = Vector2(83, 278)
+scale = Vector2(1.6, 1.6)
+offset = Vector2(0, -88)
+
+[node name="Mochila" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+material = SubResource("mat_mochila")
+position = Vector2(83, 278)
+scale = Vector2(1.6, 1.6)
+offset = Vector2(0, -88)
+
+[node name="Selecao" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = -9.0
+offset_top = -9.0
+offset_right = 175.0
+offset_bottom = 299.0
+mouse_filter = 2
+texture = ExtResource("4_selecao")
+
+[node name="Seta" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 53.0
+offset_top = -46.0
+offset_right = 113.0
+offset_bottom = -2.0
+mouse_filter = 2
+texture = ExtResource("5_seta")
+
+[node name="Botao" type="Button" parent="."]
+layout_mode = 0
+offset_right = 166.0
+offset_bottom = 290.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+flat = true

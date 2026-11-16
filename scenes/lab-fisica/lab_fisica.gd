@@ -29,6 +29,7 @@ func _iniciar_atividade(atividade: StringName) -> void:
 
 func _liberar_controles() -> void:
 	_player.controles_bloqueados = false
+	_player.definir_visual_de_missao(false)
 	_treinamento.restaurar_apos_missao()
 
 
@@ -44,6 +45,7 @@ func _responder_convite(atividade: StringName, aceitou: bool) -> void:
 	if not aceitou:
 		_liberar_controles()
 		return
+	_player.definir_visual_de_missao(true)
 	_treinamento.ocultar_durante_missao()
 	match atividade:
 		&"ima":

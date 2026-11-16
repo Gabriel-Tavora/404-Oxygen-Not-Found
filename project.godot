@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Astronauta-prep"
-run/main_scene="res://scenes/lab-biologia/lab-bio.tscn"
+run/main_scene="res://scenes/ui/selecao-personagem/selecao_personagem.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [autoload]

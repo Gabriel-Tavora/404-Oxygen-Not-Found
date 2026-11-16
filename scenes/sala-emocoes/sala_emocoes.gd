@@ -36,6 +36,7 @@ func _concluir_missao(tarefa: StringName, missao: Control) -> void:
 
 func _responder_convite(atividade: StringName, aceitou: bool) -> void:
 	if aceitou:
+		_player.definir_visual_de_missao(true)
 		_treinamento.ocultar_durante_missao()
 		_missoes[atividade].abrir()
 	else:
@@ -44,4 +45,5 @@ func _responder_convite(atividade: StringName, aceitou: bool) -> void:
 
 func _liberar_controles() -> void:
 	_player.controles_bloqueados = false
+	_player.definir_visual_de_missao(false)
 	_treinamento.restaurar_apos_missao()

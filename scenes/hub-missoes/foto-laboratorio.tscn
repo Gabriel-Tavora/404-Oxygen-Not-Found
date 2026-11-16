@@ -1,0 +1,46 @@
+[gd_scene format=3]
+
+[ext_resource type="FontFile" path="res://assets/ui/PixelifySans-Medium.woff" id="1_fonte"]
+
+[sub_resource type="StyleBoxFlat" id="Moldura"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.102, 0.204, 0.25, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.52, 0.33, 0.208, 1)
+shadow_color = Color(0.29, 0.18, 0.12, 0.35)
+shadow_size = 4
+shadow_offset = Vector2(0, 3)
+antialiasing = false
+
+[node name="FotoLaboratorio" type="PanelContainer"]
+custom_minimum_size = Vector2(440, 262)
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Moldura")
+
+[node name="Conteudo" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 0
+
+[node name="Imagem" type="TextureRect" parent="Conteudo"]
+texture_filter = 1
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Legenda" type="Label" parent="Conteudo"]
+custom_minimum_size = Vector2(0, 41)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.96, 0.88, 0.62, 1)
+theme_override_fonts/font = ExtResource("1_fonte")
+theme_override_font_sizes/font_size = 28
+horizontal_alignment = 1
+vertical_alignment = 1

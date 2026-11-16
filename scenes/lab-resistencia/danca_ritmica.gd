@@ -5,7 +5,7 @@ signal fechado
 
 const PISTA := preload("res://assets/lab-resistencia/pista-de-danca.png")
 const ASTRONAUTA := preload("res://assets/astronauta/astronauta-animacoes.tres")
-const META := 40
+const META := 25
 # A música marca os passos com um acento a cada duas batidas.
 const BATIDA := 0.9
 const INTERVALO_MOVIMENTOS := 2 * BATIDA
@@ -146,7 +146,7 @@ func _tentar_movimento(faixa: int) -> void:
 	_faixa_ativa = faixa
 	_ultimo_passo = _tempo
 	_acertos += 1
-	_som_acerto.pitch_scale = NOTAS_ACERTO[faixa]
+	_som_acerto.pitch_scale = 1.35 if _acertos == META else NOTAS_ACERTO[faixa]
 	_som_acerto.play()
 	_contador.text = "%d / %d" % [_acertos, META]
 	if _acertos == META:
@@ -159,6 +159,7 @@ func _encerrar_rodada() -> void:
 	set_process(false)
 	set_process_input(false)
 	_batida.stop()
+	_alvos.hide()
 	$Pausar.hide()
 	$Instrucao.hide()
 	_dica.hide()

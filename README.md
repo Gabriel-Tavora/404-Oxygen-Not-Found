@@ -5,11 +5,15 @@ ganha pontos de Conhecimento ao completar experiências.
 
 ## Como jogar
 
-Importe `project.godot` no **Godot 4.7** e pressione **F5** para abrir o
-laboratório de Biologia. Use **WASD** ou as **setas** para andar e pise em um sinal
-luminoso para receber o convite de uma atividade. Para ir à Física, aproxime-se
-da porta à direita no fundo da Biologia e pressione **E**. Na Física, use a porta
-à esquerda no fundo para voltar.
+Importe `project.godot` no **Godot 4.7** e pressione **F5**. Escolha o personagem,
+o cabelo e a mochila com o mouse ou as setas e **Enter**. No mapa, use **WASD**
+ou as **setas** para chegar à Base de Lançamento, à Biblioteca (Biologia),
+à Academia (Resistência) ou à Sala das Emoções. O sinal vermelho da Base de
+Lançamento mostra os treinos e o progresso necessários para o embarque.
+
+Pise em um sinal luminoso para receber o convite de uma atividade. Fora de uma
+missão, use **Esc** ou o botão **Mapa** para voltar ao hub. As portas no fundo de
+Física e Biologia também ligam os dois laboratórios com **E**.
 
 ## Laboratório de Física
 

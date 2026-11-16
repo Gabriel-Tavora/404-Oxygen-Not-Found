@@ -1,0 +1,531 @@
+[gd_scene format=3 uid="uid://1tpdpaun84av"]
+
+[ext_resource type="FontFile" uid="uid://dhpfe25h7xenb" path="res://assets/ui/PixelifySans-Medium.woff" id="f_med"]
+[ext_resource type="Texture2D" uid="uid://na2yfe4rh0qx" path="res://assets/hub-missoes/hologramas/academia_0.png" id="h_academia_0"]
+[ext_resource type="Texture2D" uid="uid://dd3raadlsge2n" path="res://assets/hub-missoes/hologramas/academia_1.png" id="h_academia_1"]
+[ext_resource type="Texture2D" uid="uid://bt6hhh3jwyyqi" path="res://assets/hub-missoes/hologramas/academia_2.png" id="h_academia_2"]
+[ext_resource type="Texture2D" uid="uid://bx3mtgi8vodgt" path="res://assets/hub-missoes/hologramas/academia_3.png" id="h_academia_3"]
+[ext_resource type="Texture2D" uid="uid://bsolpg70wf0ea" path="res://assets/hub-missoes/hologramas/academia_4.png" id="h_academia_4"]
+[ext_resource type="Texture2D" uid="uid://cxntl6b0baix8" path="res://assets/hub-missoes/hologramas/biblioteca_0.png" id="h_biblioteca_0"]
+[ext_resource type="Texture2D" uid="uid://6kbp38kgpye2" path="res://assets/hub-missoes/hologramas/biblioteca_1.png" id="h_biblioteca_1"]
+[ext_resource type="Texture2D" uid="uid://bfg8k35a7rsx7" path="res://assets/hub-missoes/hologramas/biblioteca_2.png" id="h_biblioteca_2"]
+[ext_resource type="Texture2D" uid="uid://cfx6q5u0du8td" path="res://assets/hub-missoes/hologramas/biblioteca_3.png" id="h_biblioteca_3"]
+[ext_resource type="Texture2D" uid="uid://dxh0kffsptsyr" path="res://assets/hub-missoes/hologramas/biblioteca_4.png" id="h_biblioteca_4"]
+[ext_resource type="Texture2D" uid="uid://dab8nhh144ycb" path="res://assets/hub-missoes/hologramas/felicidade_0.png" id="h_felicidade_0"]
+[ext_resource type="Texture2D" uid="uid://ckxypkmj36u8e" path="res://assets/hub-missoes/hologramas/felicidade_1.png" id="h_felicidade_1"]
+[ext_resource type="Texture2D" uid="uid://csmgtk6mkidfr" path="res://assets/hub-missoes/hologramas/felicidade_2.png" id="h_felicidade_2"]
+[ext_resource type="Texture2D" uid="uid://mvyg5usj0eeq" path="res://assets/hub-missoes/hologramas/felicidade_3.png" id="h_felicidade_3"]
+[ext_resource type="Texture2D" uid="uid://dybxxce6jymvp" path="res://assets/hub-missoes/hologramas/felicidade_4.png" id="h_felicidade_4"]
+[ext_resource type="Shader" uid="uid://bgcpff1donl3m" path="res://scenes/ui/selecao-personagem/shaders/tinge_mochila.gdshader" id="sh_moch"]
+[ext_resource type="Script" uid="uid://dcxn7kv43a3y0" path="res://scenes/hub-missoes/scripts/overworld_hud.gd" id="s_hud"]
+[ext_resource type="Script" uid="uid://degu0lcff5f5v" path="res://scenes/hub-missoes/scripts/mapa.gd" id="s_mapa"]
+[ext_resource type="Script" uid="uid://c7kmw3fe14tt" path="res://scenes/hub-missoes/scripts/menu_fase.gd" id="s_menu"]
+[ext_resource type="Script" uid="uid://cun1omg3jvqiv" path="res://scenes/hub-missoes/scripts/map_node.gd" id="s_node"]
+[ext_resource type="Script" uid="uid://jv2dcxvk6kl1" path="res://scenes/hub-missoes/scripts/overworld_player.gd" id="s_player"]
+[ext_resource type="Texture2D" uid="uid://belqrtap4odbs" path="res://assets/hub-missoes/menu_botao.png" id="t_botao"]
+[ext_resource type="Texture2D" uid="uid://17ijdjn8vpfs" path="res://assets/hub-missoes/mapa.png" id="t_mapa"]
+[ext_resource type="Texture2D" uid="uid://d0fn1qp25jdec" path="res://assets/hub-missoes/menu_painel.png" id="t_painel"]
+[ext_resource type="Texture2D" uid="uid://digqwp6c6i4pa" path="res://assets/hub-missoes/menu_selecao.png" id="t_sel"]
+[ext_resource type="Texture2D" uid="uid://b4vejsg6yw4jh" path="res://assets/hub-missoes/menu_seta.png" id="t_seta"]
+
+[sub_resource type="SpriteFrames" id="sf_academia"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("h_academia_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_academia_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_academia_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_academia_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_academia_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_academia_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_academia_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_academia_1")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="SpriteFrames" id="sf_felicidade"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("h_felicidade_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_felicidade_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_felicidade_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_felicidade_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_felicidade_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_felicidade_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_felicidade_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_felicidade_1")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="SpriteFrames" id="sf_biblioteca"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("h_biblioteca_0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_biblioteca_1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_biblioteca_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_biblioteca_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_biblioteca_4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_biblioteca_3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_biblioteca_2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("h_biblioteca_1")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="ShaderMaterial" id="mat_moch"]
+shader = ExtResource("sh_moch")
+shader_parameter/cor = Color(0.27, 0.47, 0.86, 1)
+
+[sub_resource type="LabelSettings" id="ls_tit"]
+font = ExtResource("f_med")
+font_size = 46
+font_color = Color(0.96, 0.88, 0.62, 1)
+
+[sub_resource type="LabelSettings" id="ls_desc"]
+line_spacing = 6.0
+font = ExtResource("f_med")
+font_size = 34
+font_color = Color(0.16, 0.22, 0.27, 1)
+
+[sub_resource type="LabelSettings" id="ls_bot"]
+font = ExtResource("f_med")
+font_size = 40
+font_color = Color(0.16, 0.22, 0.27, 1)
+
+[node name="Mapa" type="Node2D" unique_id=891038564]
+texture_filter = 1
+script = ExtResource("s_mapa")
+
+[node name="Fundo" type="Sprite2D" parent="." unique_id=1094964776]
+texture = ExtResource("t_mapa")
+centered = false
+
+[node name="Hologramas" type="Node2D" parent="." unique_id=1777684535]
+
+[node name="academia" type="AnimatedSprite2D" parent="Hologramas" unique_id=405674962]
+position = Vector2(246, 87)
+sprite_frames = SubResource("sf_academia")
+autoplay = "default"
+centered = false
+
+[node name="felicidade" type="AnimatedSprite2D" parent="Hologramas" unique_id=951237233]
+position = Vector2(228, 444)
+sprite_frames = SubResource("sf_felicidade")
+autoplay = "default"
+frame_progress = 0.3
+centered = false
+
+[node name="biblioteca" type="AnimatedSprite2D" parent="Hologramas" unique_id=1008367321]
+position = Vector2(226, 838)
+sprite_frames = SubResource("sf_biblioteca")
+autoplay = "default"
+frame_progress = 0.6
+centered = false
+
+[node name="Nodes" type="Node2D" parent="." unique_id=1453497104]
+
+[node name="academia" type="Marker2D" parent="Nodes" unique_id=1755858466]
+position = Vector2(395, 437)
+script = ExtResource("s_node")
+display_name = "ACADEMIA · RESISTÊNCIA"
+descricao = "Corra na esteira e acompanhe o ritmo na pista de dança."
+laboratorio = &"resistencia"
+kind = 0
+level_scene = "res://scenes/lab-resistencia/lab-resistencia.tscn"
+connections = Array[NodePath]([NodePath("../curva_a")])
+
+[node name="curva_a" type="Marker2D" parent="Nodes" unique_id=1139342464]
+position = Vector2(500, 437)
+script = ExtResource("s_node")
+connections = Array[NodePath]([NodePath("../curva_a2")])
+
+[node name="curva_a2" type="Marker2D" parent="Nodes" unique_id=795425564]
+position = Vector2(542, 452)
+script = ExtResource("s_node")
+connections = Array[NodePath]([NodePath("../curva_a3")])
+
+[node name="curva_a3" type="Marker2D" parent="Nodes" unique_id=423946139]
+position = Vector2(585, 478)
+script = ExtResource("s_node")
+connections = Array[NodePath]([NodePath("../cruz_1")])
+
+[node name="cruz_1" type="Marker2D" parent="Nodes" unique_id=779896749]
+position = Vector2(625, 492)
+script = ExtResource("s_node")
+connections = Array[NodePath]([NodePath("../foguete"), NodePath("../cruz_2")])
+
+[node name="foguete" type="Marker2D" parent="Nodes" unique_id=380965211]
+position = Vector2(1150, 490)
+script = ExtResource("s_node")
+display_name = "BASE DE LANÇAMENTO"
+kind = 5
+
+[node name="felicidade" type="Marker2D" parent="Nodes" unique_id=1876587994]
+position = Vector2(525, 660)
+script = ExtResource("s_node")
+display_name = "SALA DAS EMOÇÕES"
+descricao = "Reconheça emoções nas palavras cruzadas e no jogo da memória."
+laboratorio = &"emocoes"
+kind = 0
+level_scene = "res://scenes/sala-emocoes/sala-emocoes.tscn"
+connections = Array[NodePath]([NodePath("../cruz_2")])
+
+[node name="cruz_2" type="Marker2D" parent="Nodes" unique_id=284229108]
+position = Vector2(625, 660)
+script = ExtResource("s_node")
+connections = Array[NodePath]([NodePath("../cruz_3")])
+
+[node name="cruz_3" type="Marker2D" parent="Nodes" unique_id=1465164476]
+position = Vector2(625, 800)
+script = ExtResource("s_node")
+connections = Array[NodePath]([NodePath("../casa_azul"), NodePath("../cruz_4")])
+
+[node name="casa_azul" type="Marker2D" parent="Nodes" unique_id=1786535804]
+position = Vector2(785, 792)
+script = ExtResource("s_node")
+display_name = "CASA AZUL"
+kind = 3
+
+[node name="cruz_4" type="Marker2D" parent="Nodes" unique_id=992402391]
+position = Vector2(625, 885)
+script = ExtResource("s_node")
+connections = Array[NodePath]([NodePath("../curva_b")])
+
+[node name="curva_b" type="Marker2D" parent="Nodes" unique_id=284461959]
+position = Vector2(614, 915)
+script = ExtResource("s_node")
+connections = Array[NodePath]([NodePath("../curva_b2")])
+
+[node name="curva_b2" type="Marker2D" parent="Nodes" unique_id=947876999]
+position = Vector2(588, 932)
+script = ExtResource("s_node")
+connections = Array[NodePath]([NodePath("../curva_b3")])
+
+[node name="curva_b3" type="Marker2D" parent="Nodes" unique_id=1497871144]
+position = Vector2(550, 937)
+script = ExtResource("s_node")
+connections = Array[NodePath]([NodePath("../curva_b4")])
+
+[node name="curva_b4" type="Marker2D" parent="Nodes" unique_id=203694312]
+position = Vector2(528, 960)
+script = ExtResource("s_node")
+connections = Array[NodePath]([NodePath("../curva_c")])
+
+[node name="curva_c" type="Marker2D" parent="Nodes" unique_id=907212014]
+position = Vector2(522, 1000)
+script = ExtResource("s_node")
+connections = Array[NodePath]([NodePath("../curva_d")])
+
+[node name="curva_d" type="Marker2D" parent="Nodes" unique_id=2099868192]
+position = Vector2(522, 1150)
+script = ExtResource("s_node")
+connections = Array[NodePath]([NodePath("../curva_d2")])
+
+[node name="curva_d2" type="Marker2D" parent="Nodes" unique_id=255555737]
+position = Vector2(512, 1183)
+script = ExtResource("s_node")
+connections = Array[NodePath]([NodePath("../curva_d3")])
+
+[node name="curva_d3" type="Marker2D" parent="Nodes" unique_id=1863673106]
+position = Vector2(482, 1202)
+script = ExtResource("s_node")
+connections = Array[NodePath]([NodePath("../biblioteca")])
+
+[node name="biblioteca" type="Marker2D" parent="Nodes" unique_id=754700933]
+position = Vector2(310, 1203)
+script = ExtResource("s_node")
+display_name = "BIBLIOTECA · BIOLOGIA"
+descricao = "Cultive um broto e descubra como a borboleta se transforma."
+laboratorio = &"biologia"
+kind = 0
+level_scene = "res://scenes/lab-biologia/lab-bio.tscn"
+
+[node name="Player" type="Node2D" parent="." unique_id=1603270392]
+position = Vector2(785, 792)
+script = ExtResource("s_player")
+
+[node name="Corpo" type="AnimatedSprite2D" parent="Player" unique_id=1369522822]
+texture_filter = 2
+scale = Vector2(0.46875, 0.46875)
+offset = Vector2(0, -84)
+
+[node name="Mochila" type="AnimatedSprite2D" parent="Player" unique_id=697802065]
+texture_filter = 2
+material = SubResource("mat_moch")
+scale = Vector2(0.46875, 0.46875)
+offset = Vector2(0, -84)
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=91157966]
+zoom = Vector2(2, 2)
+limit_left = 0
+limit_top = 0
+limit_right = 1254
+limit_bottom = 1254
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=9424280]
+
+[node name="HUDControl" type="Control" parent="HUD" unique_id=996198568]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("s_hud")
+
+[node name="Menu" type="CanvasLayer" parent="." unique_id=392734023]
+layer = 5
+
+[node name="MenuFase" type="Control" parent="Menu" unique_id=1968279703]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("s_menu")
+
+[node name="Escurecer" type="ColorRect" parent="Menu/MenuFase" unique_id=576100198]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.03, 0.05, 0.08, 0.55)
+
+[node name="Caixa" type="Control" parent="Menu/MenuFase" unique_id=124920192]
+texture_filter = 2
+anchors_preset = 0
+offset_right = 1536.0
+offset_bottom = 1024.0
+mouse_filter = 2
+
+[node name="Painel" type="NinePatchRect" parent="Menu/MenuFase/Caixa" unique_id=982342681]
+layout_mode = 0
+offset_left = 328.0
+offset_top = 300.0
+offset_right = 1208.0
+offset_bottom = 710.0
+pivot_offset = Vector2(440, 205)
+texture = ExtResource("t_painel")
+patch_margin_left = 18
+patch_margin_top = 84
+patch_margin_right = 18
+patch_margin_bottom = 22
+
+[node name="Titulo" type="Label" parent="Menu/MenuFase/Caixa/Painel" unique_id=1780558329]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 20.0
+offset_top = 12.0
+offset_right = -20.0
+offset_bottom = 74.0
+text = "FASE"
+label_settings = SubResource("ls_tit")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Descricao" type="Label" parent="Menu/MenuFase/Caixa/Painel" unique_id=1543779095]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 86.0
+offset_right = -50.0
+offset_bottom = -186.0
+label_settings = SubResource("ls_desc")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="GaleriaTreinos" type="Control" parent="Menu/MenuFase/Caixa/Painel" unique_id=2090360889]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Mensagem" type="Label" parent="Menu/MenuFase/Caixa/Painel/GaleriaTreinos" unique_id=1767636601]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 50.0
+offset_top = 89.0
+offset_right = -50.0
+offset_bottom = 148.0
+label_settings = SubResource("ls_desc")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fotos" type="GridContainer" parent="Menu/MenuFase/Caixa/Painel/GaleriaTreinos" unique_id=71331330]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -452.0
+offset_top = 156.0
+offset_right = 452.0
+offset_bottom = 698.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/h_separation = 24
+theme_override_constants/v_separation = 18
+columns = 2
+
+[node name="Comecar" type="Button" parent="Menu/MenuFase/Caixa/Painel" unique_id=927200354]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 90.0
+offset_top = -138.0
+offset_right = 420.0
+offset_bottom = -38.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="Fundo" type="NinePatchRect" parent="Menu/MenuFase/Caixa/Painel/Comecar" unique_id=2028746836]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("t_botao")
+patch_margin_left = 14
+patch_margin_top = 14
+patch_margin_right = 14
+patch_margin_bottom = 14
+
+[node name="Texto" type="Label" parent="Menu/MenuFase/Caixa/Painel/Comecar" unique_id=175148320]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "ENTRAR"
+label_settings = SubResource("ls_bot")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sair" type="Button" parent="Menu/MenuFase/Caixa/Painel" unique_id=364393936]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 460.0
+offset_top = -138.0
+offset_right = 790.0
+offset_bottom = -38.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+flat = true
+
+[node name="Fundo" type="NinePatchRect" parent="Menu/MenuFase/Caixa/Painel/Sair" unique_id=1373115435]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("t_botao")
+patch_margin_left = 14
+patch_margin_top = 14
+patch_margin_right = 14
+patch_margin_bottom = 14
+
+[node name="Texto" type="Label" parent="Menu/MenuFase/Caixa/Painel/Sair" unique_id=1769891183]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "VOLTAR"
+label_settings = SubResource("ls_bot")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Selecao" type="NinePatchRect" parent="Menu/MenuFase/Caixa/Painel" unique_id=615707861]
+layout_mode = 0
+offset_left = 98.0
+offset_top = 261.0
+offset_right = 422.0
+offset_bottom = 383.0
+texture = ExtResource("t_sel")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="Seta" type="TextureRect" parent="Menu/MenuFase/Caixa/Painel" unique_id=606734094]
+layout_mode = 0
+offset_left = 237.0
+offset_top = 228.0
+offset_right = 282.0
+offset_bottom = 261.0
+mouse_filter = 2
+texture = ExtResource("t_seta")

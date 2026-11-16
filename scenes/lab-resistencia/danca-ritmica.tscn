@@ -47,6 +47,27 @@ border_width_bottom = 2
 border_color = Color(1, 0.84, 0.54, 1)
 anti_aliasing = false
 
+[sub_resource type="StyleBoxFlat" id="PainelResultado"]
+bg_color = Color(0.071, 0.149, 0.184, 1)
+border_width_left = 2
+border_width_top = 3
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.35, 0.65, 0.55, 1)
+shadow_color = Color(0.015, 0.031, 0.041, 0.8)
+shadow_size = 3
+shadow_offset = Vector2(0, 4)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="PainelPontuacao"]
+bg_color = Color(0.048, 0.107, 0.135, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.23, 0.41, 0.41, 1)
+anti_aliasing = false
+
 [sub_resource type="Theme" id="Tema"]
 default_font = ExtResource("4_fonte")
 default_font_size = 8
@@ -224,23 +245,37 @@ visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color(0.04, 0.08, 0.11, 0.76)
+color = Color(0.04, 0.08, 0.11, 0.80)
 
 [node name="Janela" type="Panel" parent="Resultado"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -137.0
-offset_top = -74.0
-offset_right = 137.0
-offset_bottom = 74.0
+offset_left = -148.0
+offset_top = -82.0
+offset_right = 148.0
+offset_bottom = 90.0
+theme_override_styles/panel = SubResource("PainelResultado")
+
+[node name="Emblema" type="Polygon2D" parent="Resultado/Janela"]
+position = Vector2(148, 1)
+color = Color(0.35, 0.65, 0.55, 1)
+polygon = PackedVector2Array(-11, -17, 11, -17, 11, -14, 15, -14, 15, -10, 18, -10, 18, 10, 15, 10, 15, 14, 11, 14, 11, 17, -11, 17, -11, 14, -15, 14, -15, 10, -18, 10, -18, -10, -15, -10, -15, -14, -11, -14)
+
+[node name="Fundo" type="Polygon2D" parent="Resultado/Janela/Emblema"]
+color = Color(0.10, 0.26, 0.25, 1)
+polygon = PackedVector2Array(-10, -15, 10, -15, 10, -12, 13, -12, 13, -9, 16, -9, 16, 9, 13, 9, 13, 12, 10, 12, 10, 15, -10, 15, -10, 12, -13, 12, -13, 9, -16, 9, -16, -9, -13, -9, -13, -12, -10, -12)
+
+[node name="Marca" type="Polygon2D" parent="Resultado/Janela/Emblema"]
+color = Color(0.63, 0.95, 0.79, 1)
+polygon = PackedVector2Array(-10, -1, -6, -1, -6, 2, -3, 2, -3, 0, 0, 0, 0, -3, 3, -3, 3, -6, 6, -6, 6, -8, 10, -8, 10, -4, 7, -4, 7, -1, 4, -1, 4, 2, 1, 2, 1, 5, -2, 5, -2, 8, -5, 8, -5, 5, -8, 5, -8, 2, -10, 2)
 
 [node name="Titulo" type="Label" parent="Resultado/Janela"]
-offset_left = 11.0
-offset_top = 12.0
-offset_right = 263.0
-offset_bottom = 39.0
+offset_left = 12.0
+offset_top = 24.0
+offset_right = 284.0
+offset_bottom = 49.0
 mouse_filter = 2
 theme_override_colors/font_color = Color(0.63, 0.95, 0.79, 1)
 theme_override_font_sizes/font_size = 16
@@ -248,39 +283,50 @@ text = "Missão concluída!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Divisor" type="ColorRect" parent="Resultado/Janela"]
-offset_left = 19.0
-offset_top = 44.0
-offset_right = 255.0
-offset_bottom = 45.0
+[node name="Atividade" type="Label" parent="Resultado/Janela"]
+offset_left = 12.0
+offset_top = 50.0
+offset_right = 284.0
+offset_bottom = 64.0
 mouse_filter = 2
-color = Color(0.22, 0.37, 0.4, 1)
+theme_override_colors/font_color = Color(0.71, 0.84, 0.83, 1)
+text = "Dança no ritmo"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Pontuacao" type="Panel" parent="Resultado/Janela"]
+offset_left = 55.0
+offset_top = 72.0
+offset_right = 241.0
+offset_bottom = 128.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("PainelPontuacao")
 
 [node name="Total" type="Label" parent="Resultado/Janela"]
-offset_left = 11.0
-offset_top = 53.0
-offset_right = 263.0
-offset_bottom = 83.0
+offset_left = 56.0
+offset_top = 76.0
+offset_right = 240.0
+offset_bottom = 107.0
 mouse_filter = 2
 theme_override_font_sizes/font_size = 24
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Legenda" type="Label" parent="Resultado/Janela"]
-offset_left = 11.0
-offset_top = 89.0
-offset_right = 263.0
-offset_bottom = 103.0
+offset_left = 56.0
+offset_top = 108.0
+offset_right = 240.0
+offset_bottom = 122.0
 mouse_filter = 2
 text = "Passos certos"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Voltar" type="Button" parent="Resultado/Janela"]
-offset_left = 58.0
-offset_top = 113.0
-offset_right = 216.0
-offset_bottom = 135.0
+offset_left = 55.0
+offset_top = 138.0
+offset_right = 241.0
+offset_bottom = 160.0
 text = "Voltar ao laboratório"
 
 [node name="Batida" type="AudioStreamPlayer" parent="."]

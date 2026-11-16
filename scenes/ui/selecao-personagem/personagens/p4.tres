@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="PersonagemDados" format=3 uid="uid://bpvxweca7tm1i"]
+
+[ext_resource type="Script" uid="uid://dd2cceaj1ddmt" path="res://scenes/ui/selecao-personagem/scripts/personagem_dados.gd" id="1_script"]
+[ext_resource type="Shader" path="res://scenes/ui/selecao-personagem/shaders/tom_de_pele.gdshader" id="2_pele"]
+[ext_resource type="SpriteFrames" path="res://assets/selecao-personagem/frames/p4_branco.tres" id="f_branco"]
+[ext_resource type="SpriteFrames" path="res://assets/selecao-personagem/frames/p4_castanho.tres" id="f_castanho"]
+[ext_resource type="SpriteFrames" path="res://assets/selecao-personagem/frames/p4_loiro.tres" id="f_loiro"]
+[ext_resource type="SpriteFrames" path="res://assets/selecao-personagem/frames/p4_preto.tres" id="f_preto"]
+[ext_resource type="SpriteFrames" path="res://assets/selecao-personagem/frames/p4_ruivo.tres" id="f_ruivo"]
+[ext_resource type="SpriteFrames" path="res://assets/selecao-personagem/frames/p4_branco_mochila.tres" id="m_branco"]
+[ext_resource type="SpriteFrames" path="res://assets/selecao-personagem/frames/p4_castanho_mochila.tres" id="m_castanho"]
+[ext_resource type="SpriteFrames" path="res://assets/selecao-personagem/frames/p4_loiro_mochila.tres" id="m_loiro"]
+[ext_resource type="SpriteFrames" path="res://assets/selecao-personagem/frames/p4_preto_mochila.tres" id="m_preto"]
+[ext_resource type="SpriteFrames" path="res://assets/selecao-personagem/frames/p4_ruivo_mochila.tres" id="m_ruivo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pele"]
+shader = ExtResource("2_pele")
+
+[resource]
+script = ExtResource("1_script")
+nome = "Personagem 4"
+descricao = "Atleta incansável, nunca recua diante de um bom desafio."
+material_corpo = SubResource("ShaderMaterial_pele")
+frames_cabelo = Array[SpriteFrames]([ExtResource("f_preto"), ExtResource("f_castanho"), ExtResource("f_loiro"), ExtResource("f_ruivo"), ExtResource("f_branco")])
+frames_mochila = Array[SpriteFrames]([ExtResource("m_preto"), ExtResource("m_castanho"), ExtResource("m_loiro"), ExtResource("m_ruivo"), ExtResource("m_branco")])

@@ -48,6 +48,7 @@ func _responder_convite(atividade: StringName, aceitou: bool) -> void:
 	var dados: Dictionary = ATIVIDADES[atividade]
 	var cena: PackedScene = dados["cena"]
 	_minigame = cena.instantiate()
+	_player.definir_visual_de_missao(true)
 	_treinamento.ocultar_durante_missao()
 	if _minigame.has_signal(&"concluido"):
 		_minigame.connect(&"concluido", ProgressoConhecimento.concluir_tarefa.bind(dados["tarefa"]))
@@ -60,4 +61,5 @@ func _fechar_minigame() -> void:
 	_minigame.queue_free()
 	_minigame = null
 	_player.controles_bloqueados = false
+	_player.definir_visual_de_missao(false)
 	_treinamento.restaurar_apos_missao()

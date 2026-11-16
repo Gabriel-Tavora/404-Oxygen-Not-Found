@@ -2,6 +2,8 @@ extends Control
 
 signal respondido(atividade: StringName, aceitou: bool)
 
+const DANCA_RITMICA := preload("res://scenes/lab-resistencia/danca_ritmica.gd")
+
 const ATIVIDADES := {
 	&"ima": {
 		"titulo": "Expedição magnética",
@@ -28,7 +30,7 @@ const ATIVIDADES := {
 	},
 	&"danca": {
 		"titulo": "Dança no ritmo",
-		"descricao": "Siga as setas e acerte 40 passos.",
+		"descricao": "Siga as setas e acerte %d passos." % DANCA_RITMICA.META,
 		"beneficio": "Complete a missão e ganhe 1 ponto em Resistência.",
 		"atributo": "Resistência",
 	},
