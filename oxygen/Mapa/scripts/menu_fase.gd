@@ -1,6 +1,6 @@
 class_name MenuFase
 extends Control
-## Menu que aparece quando o personagem para numa fase: "COMEÇAR FASE" ou "SAIR".
+## Menu da missão: só o nome e dois botões grandes, "JOGAR" ou "VOLTAR".
 ## Mesmo estilo da tela de seleção (painel de madeira, moldura azul, seta).
 ## ← → escolhem, Enter/Espaço confirmam, Esc = sair. Mouse também funciona.
 
@@ -24,6 +24,11 @@ var _seta_y := 0.0
 
 func _ready() -> void:
 	visible = false
+	# menos coisa na tela: sem texto de descrição, botões com uma palavra só
+	descricao.visible = false
+	titulo.position.y += 70.0
+	($Caixa/Painel/Comecar/Texto as Label).text = "JOGAR"
+	($Caixa/Painel/Sair/Texto as Label).text = "VOLTAR"
 	_seta_y = seta.position.y
 	resized.connect(_ajustar)
 	for i in botoes.size():

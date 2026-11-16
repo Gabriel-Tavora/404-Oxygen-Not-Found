@@ -64,7 +64,9 @@ func is_completed() -> bool:
 func _draw() -> void:
 	match kind:
 		Kind.PATH:
-			_ellipse(Vector2.ZERO, Vector2(3, 2), Color(1, 1, 1, 0.55))
+			# pontos de caminho só aparecem no editor (no jogo o personagem anda livre)
+			if Engine.is_editor_hint():
+				_ellipse(Vector2.ZERO, Vector2(3, 2), Color(1, 1, 1, 0.55))
 		Kind.LOCKED:
 			_pad(Color("8a4a5a"), Color("c86478"), 0.6)
 			draw_line(Vector2(-3, -2), Vector2(3, 2), Color("ffd6dc"), 1.0)

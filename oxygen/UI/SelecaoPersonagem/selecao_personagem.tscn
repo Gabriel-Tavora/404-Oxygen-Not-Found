@@ -17,12 +17,12 @@
 [ext_resource type="Resource" path="res://UI/SelecaoPersonagem/mochilas/preta.tres" id="m_preta"]
 [ext_resource type="Resource" path="res://UI/SelecaoPersonagem/mochilas/rosa.tres" id="m_rosa"]
 [ext_resource type="Resource" path="res://UI/SelecaoPersonagem/mochilas/verde.tres" id="m_verde"]
-[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/personagens/p6.tres" id="p_ayana"]
-[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/personagens/p1.tres" id="p_davi"]
-[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/personagens/p2.tres" id="p_kenji"]
-[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/personagens/p4.tres" id="p_lia"]
-[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/personagens/p5.tres" id="p_mei"]
-[ext_resource type="Resource" path="res://UI/SelecaoPersonagem/personagens/p3.tres" id="p_theo"]
+[ext_resource type="Resource" uid="uid://t2vy6s35i7tq" path="res://UI/SelecaoPersonagem/personagens/p6.tres" id="p_ayana"]
+[ext_resource type="Resource" uid="uid://fkrnkqc68tf2" path="res://UI/SelecaoPersonagem/personagens/p1.tres" id="p_davi"]
+[ext_resource type="Resource" uid="uid://ds6qmf0fm5xk" path="res://UI/SelecaoPersonagem/personagens/p2.tres" id="p_kenji"]
+[ext_resource type="Resource" uid="uid://bpvxweca7tm1i" path="res://UI/SelecaoPersonagem/personagens/p4.tres" id="p_lia"]
+[ext_resource type="Resource" uid="uid://ll7i0lrkc5xb" path="res://UI/SelecaoPersonagem/personagens/p5.tres" id="p_mei"]
+[ext_resource type="Resource" uid="uid://cwc5tjj1511j4" path="res://UI/SelecaoPersonagem/personagens/p3.tres" id="p_theo"]
 
 [sub_resource type="LabelSettings" id="ls_titulo"]
 font = ExtResource("6_fonte")
