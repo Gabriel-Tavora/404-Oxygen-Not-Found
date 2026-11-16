@@ -1,0 +1,205 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/lab-resistencia/corrida_esteira.gd" id="1_corrida"]
+[ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="2_fonte"]
+[ext_resource type="Texture2D" path="res://assets/lab-resistencia/corrida-moeda.png" id="3_moeda"]
+[ext_resource type="AudioStream" path="res://assets/lab-resistencia/corrida-moeda.wav" id="4_som"]
+
+[sub_resource type="StyleBoxFlat" id="Placa"]
+bg_color = Color(0.086, 0.174, 0.217, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.271, 0.435, 0.471, 1)
+shadow_color = Color(0.035, 0.094, 0.125, 0.82)
+shadow_size = 1
+shadow_offset = Vector2(1, 2)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Botao"]
+content_margin_left = 7.0
+content_margin_top = 4.0
+content_margin_right = 7.0
+content_margin_bottom = 4.0
+bg_color = Color(0.176, 0.349, 0.38, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.365, 0.573, 0.577, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="BotaoHover"]
+content_margin_left = 7.0
+content_margin_top = 4.0
+content_margin_right = 7.0
+content_margin_bottom = 4.0
+bg_color = Color(0.234, 0.447, 0.456, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.517, 0.716, 0.707, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Foco"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.824, 0.463, 1)
+anti_aliasing = false
+
+[sub_resource type="Theme" id="Tema"]
+default_font = ExtResource("2_fonte")
+default_font_size = 8
+Label/colors/font_color = Color(0.976, 0.93, 0.8, 1)
+Panel/styles/panel = SubResource("Placa")
+Button/colors/font_color = Color(0.976, 0.93, 0.8, 1)
+Button/styles/normal = SubResource("Botao")
+Button/styles/hover = SubResource("BotaoHover")
+Button/styles/pressed = SubResource("BotaoHover")
+Button/styles/focus = SubResource("Foco")
+
+[node name="CorridaEsteira" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Tema")
+script = ExtResource("1_corrida")
+
+[node name="Placar" type="Panel" parent="."]
+offset_left = 12.0
+offset_top = 10.0
+offset_right = 133.0
+offset_bottom = 53.0
+mouse_filter = 2
+
+[node name="Moeda" type="TextureRect" parent="Placar"]
+offset_left = 9.0
+offset_top = 6.0
+offset_right = 29.0
+offset_bottom = 26.0
+mouse_filter = 2
+texture = ExtResource("3_moeda")
+
+[node name="Contador" type="Label" parent="Placar"]
+offset_left = 37.0
+offset_top = 3.0
+offset_right = 114.0
+offset_bottom = 28.0
+theme_override_font_sizes/font_size = 16
+text = "0 / 30"
+vertical_alignment = 1
+
+[node name="Objetivo" type="Label" parent="Placar"]
+offset_left = 9.0
+offset_top = 26.0
+offset_right = 115.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(0.7, 0.85, 0.86, 1)
+text = "Pegue 30 moedas"
+vertical_alignment = 1
+
+[node name="Pausar" type="Button" parent="."]
+offset_left = 382.0
+offset_top = 10.0
+offset_right = 468.0
+offset_bottom = 30.0
+focus_mode = 0
+text = "Esc  Pausar"
+
+[node name="Controles" type="PanelContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -47.0
+offset_right = 12.0
+offset_bottom = -11.0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Margens" type="MarginContainer" parent="Controles"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="Linhas" type="VBoxContainer" parent="Controles/Margens"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="Mover" type="Label" parent="Controles/Margens/Linhas"]
+layout_mode = 2
+text = "A/D  Trocar de faixa"
+
+[node name="Pular" type="Label" parent="Controles/Margens/Linhas"]
+layout_mode = 2
+text = "Espaço/W  Pular"
+
+[node name="Pausa" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.085, 0.11, 0.67)
+
+[node name="Janela" type="Panel" parent="Pausa"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -50.0
+offset_right = 132.0
+offset_bottom = 50.0
+
+[node name="Titulo" type="Label" parent="Pausa/Janela"]
+offset_left = 12.0
+offset_top = 11.0
+offset_right = 252.0
+offset_bottom = 35.0
+theme_override_font_sizes/font_size = 16
+text = "Corrida pausada"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Total" type="Label" parent="Pausa/Janela"]
+offset_left = 12.0
+offset_top = 38.0
+offset_right = 252.0
+offset_bottom = 53.0
+text = "Moedas: 0 / 30"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Voltar" type="Button" parent="Pausa/Janela"]
+offset_left = 14.0
+offset_top = 64.0
+offset_right = 127.0
+offset_bottom = 86.0
+focus_neighbor_right = NodePath("../Continuar")
+text = "Voltar ao laboratório"
+
+[node name="Continuar" type="Button" parent="Pausa/Janela"]
+offset_left = 137.0
+offset_top = 64.0
+offset_right = 250.0
+offset_bottom = 86.0
+focus_neighbor_left = NodePath("../Voltar")
+text = "Continuar correndo"
+
+[node name="SomMoeda" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_som")

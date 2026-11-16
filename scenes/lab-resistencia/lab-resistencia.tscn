@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://jtphwp8mhiy5"]
+
+[ext_resource type="PackedScene" path="res://scenes/lab-resistencia/base-lab-resistencia.tscn" id="1_base"]
+[ext_resource type="PackedScene" path="res://scenes/astronauta/player.tscn" id="2_player"]
+[ext_resource type="PackedScene" path="res://scenes/lab-resistencia/fundo-lab-resistencia.tscn" id="3_fundo"]
+[ext_resource type="PackedScene" path="res://scenes/lab-resistencia/painel-central.tscn" id="4_painel"]
+[ext_resource type="PackedScene" path="res://scenes/ui/painel-treinamento.tscn" id="5_treinamento"]
+[ext_resource type="PackedScene" path="res://scenes/lab-resistencia/esteira.tscn" id="6_esteira"]
+[ext_resource type="PackedScene" path="res://scenes/lab-resistencia/pista-de-danca.tscn" id="7_pista"]
+[ext_resource type="Script" uid="uid://cnp2ovih0ugqe" path="res://scenes/lab-resistencia/lab_resistencia.gd" id="8_lab"]
+[ext_resource type="PackedScene" path="res://scenes/ui/convite-atividade.tscn" id="9_convite"]
+
+[sub_resource type="RectangleShape2D" id="LimiteHorizontal"]
+size = Vector2(448, 16)
+
+[sub_resource type="RectangleShape2D" id="LimiteVertical"]
+size = Vector2(16, 176)
+
+[sub_resource type="RectangleShape2D" id="LimitePainel"]
+size = Vector2(236, 112)
+
+[node name="LabResistencia" type="Node2D" unique_id=2065698881]
+texture_filter = 1
+script = ExtResource("8_lab")
+
+[node name="BaseCenario" parent="." unique_id=249975190 instance=ExtResource("1_base")]
+
+[node name="FundoLaboratorio" parent="." unique_id=1326514065 instance=ExtResource("3_fundo")]
+
+[node name="PainelCentral" parent="." unique_id=1459076019 instance=ExtResource("4_painel")]
+position = Vector2(116, 98)
+
+[node name="PistaDeDanca" parent="." unique_id=177379443 instance=ExtResource("7_pista")]
+position = Vector2(17, 123)
+
+[node name="Esteira" parent="." unique_id=2106653348 instance=ExtResource("6_esteira")]
+position = Vector2(369, 123)
+
+[node name="Colisoes" type="StaticBody2D" parent="." unique_id=1187891608]
+collision_mask = 0
+
+[node name="Fundo" type="CollisionShape2D" parent="Colisoes" unique_id=1442131699]
+position = Vector2(240, 104)
+shape = SubResource("LimiteHorizontal")
+
+[node name="Frente" type="CollisionShape2D" parent="Colisoes" unique_id=1408064786]
+position = Vector2(240, 280)
+shape = SubResource("LimiteHorizontal")
+
+[node name="Esquerda" type="CollisionShape2D" parent="Colisoes" unique_id=1923617782]
+position = Vector2(8, 192)
+shape = SubResource("LimiteVertical")
+
+[node name="Direita" type="CollisionShape2D" parent="Colisoes" unique_id=11052720]
+position = Vector2(472, 192)
+shape = SubResource("LimiteVertical")
+
+[node name="PainelCentral" type="CollisionShape2D" parent="Colisoes" unique_id=1547298851]
+position = Vector2(240, 158)
+shape = SubResource("LimitePainel")
+
+[node name="Player" parent="." unique_id=1841814596 instance=ExtResource("2_player")]
+position = Vector2(240, 237)
+
+[node name="Interface" type="CanvasLayer" parent="." unique_id=973328650]
+
+[node name="PainelTreinamento" parent="Interface" unique_id=980862131 instance=ExtResource("5_treinamento")]
+
+[node name="ConviteAtividade" parent="Interface" unique_id=107857305 instance=ExtResource("9_convite")]

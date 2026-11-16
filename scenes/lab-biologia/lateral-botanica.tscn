@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene load_steps=8 format=3]
 
 [ext_resource type="Texture2D" path="res://assets/laboratorios/mesa-lateral-sombra.png" id="1_sombra"]
 [ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-mesa.png" id="2_mesa"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-bandeja.png" id="4_bandeja"]
 [ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-sementes.png" id="5_sementes"]
 [ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-lupa.png" id="6_lupa"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-muda-feijao.png" id="7_muda"]
 
 [node name="LateralBotanica" type="Node2D"]
 texture_filter = 1
@@ -27,6 +28,12 @@ centered = false
 [node name="BandejaMudas" type="Sprite2D" parent="."]
 position = Vector2(8, 25)
 texture = ExtResource("4_bandeja")
+centered = false
+
+[node name="MudaFeijao" type="Sprite2D" parent="BandejaMudas"]
+visible = false
+position = Vector2(7, 2)
+texture = ExtResource("7_muda")
 centered = false
 
 [node name="Sementes" type="Sprite2D" parent="."]

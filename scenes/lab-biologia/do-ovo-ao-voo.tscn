@@ -1,0 +1,651 @@
+[gd_scene format=3]
+
+[ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="fonte"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/metamorfose-terrario.png" id="terrario"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/metamorfose-lagarta.png" id="lagarta"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/metamorfose-crisalida.png" id="crisalida"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/metamorfose-ovo.png" id="ovo"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/metamorfose-borboleta.png" id="borboleta"]
+[ext_resource type="Script" path="res://scenes/lab-biologia/do_ovo_ao_voo.gd" id="atividade"]
+[ext_resource type="Script" path="res://scenes/lab-biologia/terrario_metamorfose.gd" id="metamorfose"]
+[ext_resource type="Shader" path="res://scenes/lab-biologia/cor_asas_borboleta.gdshader" id="shader_asas"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialogo-astronauta.tscn" id="dialogo"]
+[ext_resource type="StyleBox" path="res://scenes/ui/faixa-instrucao.tres" id="faixa_instrucao"]
+
+[sub_resource type="ShaderMaterial" id="Asas"]
+resource_local_to_scene = true
+shader = ExtResource("shader_asas")
+
+[sub_resource type="ButtonGroup" id="SelecaoDeCor"]
+resource_local_to_scene = true
+
+[sub_resource type="Theme" id="Tema"]
+default_font = ExtResource("fonte")
+default_font_size = 8
+
+[sub_resource type="StyleBoxFlat" id="Moldura"]
+bg_color = Color(0.7882, 0.6510, 0.4510, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.1569, 0.2392, 0.2314, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="BaseTerrario"]
+bg_color = Color(0.3922, 0.5098, 0.4471, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2235, 0.3294, 0.3176, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Capa"]
+bg_color = Color(0.5725, 0.4392, 0.3137, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.3176, 0.3843, 0.3412, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Pagina"]
+bg_color = Color(0.9804, 0.9412, 0.8235, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8431, 0.7333, 0.5098, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Espaco"]
+bg_color = Color(0.9294, 0.8784, 0.7294, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.6471, 0.5529, 0.3922, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Carta"]
+bg_color = Color(0.9647, 0.9137, 0.7882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4314, 0.3804, 0.2980, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="CartaHover"]
+bg_color = Color(0.9882, 0.9529, 0.8471, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2353, 0.4078, 0.3882, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="CartaSelecionada"]
+bg_color = Color(1.0000, 0.9176, 0.7451, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.6431, 0.3333, 0.1255, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Foco"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3333, 0.4902, 0.4706, 1)
+antialiasing = false
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="CartaEncaixada"]
+bg_color = Color(0.9647, 0.9137, 0.7882, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2353, 0.4078, 0.3882, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Erro"]
+draw_center = false
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.702, 0.212, 0.165, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Laranja"]
+bg_color = Color(0.9608, 0.7608, 0.5373, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.5490, 0.2510, 0.1137, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="LaranjaEscolhida"]
+bg_color = Color(0.9608, 0.7608, 0.5373, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.5490, 0.2510, 0.1137, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Azul"]
+bg_color = Color(0.7490, 0.9137, 1.0000, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.1412, 0.4118, 0.5608, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="AzulEscolhida"]
+bg_color = Color(0.7490, 0.9137, 1.0000, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.1412, 0.4118, 0.5608, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Roxo"]
+bg_color = Color(0.9137, 0.8000, 1.0000, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4549, 0.2510, 0.5569, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="RoxoEscolhida"]
+bg_color = Color(0.9137, 0.8000, 1.0000, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.4549, 0.2510, 0.5569, 1)
+antialiasing = false
+
+[node name="DoOvoAoVoo" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Tema")
+script = ExtResource("atividade")
+
+[node name="Fundo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.1373, 0.2157, 0.2118, 1)
+
+[node name="Moldura" type="Panel" parent="."]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -128.0
+offset_right = 224.0
+offset_bottom = 128.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Moldura")
+
+[node name="Cabecalho" type="ColorRect" parent="Moldura"]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 446.0
+offset_bottom = 33.0
+mouse_filter = 2
+color = Color(0.2118, 0.3569, 0.3333, 1)
+
+[node name="Friso" type="ColorRect" parent="Moldura"]
+offset_left = 2.0
+offset_top = 33.0
+offset_right = 446.0
+offset_bottom = 35.0
+mouse_filter = 2
+color = Color(0.9020, 0.7686, 0.5137, 1)
+
+[node name="Titulo" type="Label" parent="Moldura"]
+offset_left = 14.0
+offset_top = 3.0
+offset_right = 434.0
+offset_bottom = 31.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.9765, 0.9294, 0.8118, 1)
+theme_override_font_sizes/font_size = 16
+text = "Do ovo ao voo"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sair" type="Button" parent="Moldura"]
+offset_left = 384.0
+offset_top = 6.0
+offset_right = 437.0
+offset_bottom = 29.0
+theme_override_colors/font_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_hover_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_pressed_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_focus_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_styles/normal = SubResource("Carta")
+theme_override_styles/hover = SubResource("CartaHover")
+theme_override_styles/pressed = SubResource("CartaSelecionada")
+theme_override_styles/focus = SubResource("Foco")
+text = "Sair"
+
+[node name="Terrario" type="Panel" parent="Moldura"]
+offset_left = 13.0
+offset_top = 44.0
+offset_right = 139.0
+offset_bottom = 164.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("BaseTerrario")
+
+[node name="Ilustracao" type="TextureRect" parent="Moldura/Terrario"]
+offset_left = 9.0
+offset_top = 4.0
+offset_right = 117.0
+offset_bottom = 116.0
+mouse_filter = 2
+texture = ExtResource("terrario")
+expand_mode = 1
+
+[node name="Metamorfose" type="Node2D" parent="Moldura/Terrario"]
+script = ExtResource("metamorfose")
+
+[node name="Ovo" type="Sprite2D" parent="Moldura/Terrario/Metamorfose"]
+visible = false
+texture = ExtResource("ovo")
+
+[node name="Lagarta" type="Sprite2D" parent="Moldura/Terrario/Metamorfose"]
+visible = false
+texture = ExtResource("lagarta")
+
+[node name="Crisalida" type="Sprite2D" parent="Moldura/Terrario/Metamorfose"]
+visible = false
+texture = ExtResource("crisalida")
+offset = Vector2(0, 10)
+
+[node name="Borboleta" type="Sprite2D" parent="Moldura/Terrario/Metamorfose"]
+visible = false
+material = SubResource("Asas")
+texture = ExtResource("borboleta")
+
+[node name="PedacosDeFolha" type="Node2D" parent="Moldura/Terrario/Metamorfose"]
+visible = false
+
+[node name="Pedaco1" type="Polygon2D" parent="Moldura/Terrario/Metamorfose/PedacosDeFolha"]
+color = Color(0.361, 0.49, 0.235, 1)
+polygon = PackedVector2Array(0, 0, 3, 0, 3, 2, 1, 3, 0, 3)
+
+[node name="Pedaco2" type="Polygon2D" parent="Moldura/Terrario/Metamorfose/PedacosDeFolha"]
+color = Color(0.565, 0.659, 0.369, 1)
+polygon = PackedVector2Array(5, -3, 7, -3, 7, -1, 5, -1)
+
+[node name="Pedaco3" type="Polygon2D" parent="Moldura/Terrario/Metamorfose/PedacosDeFolha"]
+color = Color(0.298, 0.4, 0.196, 1)
+polygon = PackedVector2Array(7, 3, 9, 3, 9, 5, 7, 5)
+
+[node name="Soltar" type="Button" parent="Moldura/Terrario"]
+visible = false
+offset_left = 35.0
+offset_top = 49.0
+offset_right = 91.0
+offset_bottom = 91.0
+accessibility_name = "Soltar a borboleta"
+theme_override_styles/focus = SubResource("Foco")
+theme_override_styles/hover = SubResource("Foco")
+theme_override_styles/pressed = SubResource("Foco")
+flat = true
+mouse_default_cursor_shape = 2
+
+[node name="Caderno" type="Panel" parent="Moldura"]
+offset_left = 147.0
+offset_top = 48.0
+offset_right = 435.0
+offset_bottom = 160.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Capa")
+
+[node name="PaginaEsquerda" type="Panel" parent="Moldura/Caderno"]
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 144.0
+offset_bottom = 105.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Pagina")
+
+[node name="PaginaDireita" type="Panel" parent="Moldura/Caderno"]
+offset_left = 144.0
+offset_top = 3.0
+offset_right = 284.0
+offset_bottom = 105.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Pagina")
+
+[node name="Dobra" type="ColorRect" parent="Moldura/Caderno"]
+offset_left = 143.0
+offset_top = 4.0
+offset_right = 145.0
+offset_bottom = 104.0
+mouse_filter = 2
+color = Color(0.8431, 0.7333, 0.5098, 1)
+
+[node name="Espaco1" type="Panel" parent="Moldura/Caderno"]
+offset_left = 13.0
+offset_top = 16.0
+offset_right = 70.0
+offset_bottom = 86.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Espaco")
+
+[node name="Espaco2" type="Panel" parent="Moldura/Caderno"]
+offset_left = 74.0
+offset_top = 16.0
+offset_right = 131.0
+offset_bottom = 86.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Espaco")
+
+[node name="Espaco3" type="Panel" parent="Moldura/Caderno"]
+offset_left = 157.0
+offset_top = 16.0
+offset_right = 214.0
+offset_bottom = 86.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Espaco")
+
+[node name="Espaco4" type="Panel" parent="Moldura/Caderno"]
+offset_left = 218.0
+offset_top = 16.0
+offset_right = 275.0
+offset_bottom = 86.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Espaco")
+
+[node name="TirarUltima" type="Button" parent="Moldura/Caderno"]
+offset_left = 86.0
+offset_top = 88.0
+offset_right = 202.0
+offset_bottom = 108.0
+theme_override_colors/font_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_hover_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_pressed_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_focus_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_disabled_color = Color(0.3569, 0.3373, 0.2706, 1)
+theme_override_styles/normal = SubResource("Carta")
+theme_override_styles/hover = SubResource("CartaHover")
+theme_override_styles/pressed = SubResource("CartaSelecionada")
+theme_override_styles/disabled = SubResource("Espaco")
+theme_override_styles/focus = SubResource("Foco")
+disabled = true
+text = "Tirar última carta"
+
+[node name="Instrucao" type="Label" parent="Moldura"]
+offset_left = 14.0
+offset_top = 167.0
+offset_right = 434.0
+offset_bottom = 191.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 0.9804, 0.902, 1)
+theme_override_constants/line_spacing = 0
+theme_override_styles/normal = ExtResource("faixa_instrucao")
+text = "Toque na carta que vem a seguir."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Escolhas" type="HBoxContainer" parent="Moldura"]
+visible = false
+offset_left = 14.0
+offset_top = 197.0
+offset_right = 434.0
+offset_bottom = 232.0
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="Laranja" type="Button" parent="Moldura/Escolhas"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_hover_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_pressed_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_focus_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_styles/normal = SubResource("Laranja")
+theme_override_styles/hover = SubResource("LaranjaEscolhida")
+theme_override_styles/pressed = SubResource("LaranjaEscolhida")
+theme_override_styles/hover_pressed = SubResource("LaranjaEscolhida")
+theme_override_styles/focus = SubResource("Foco")
+toggle_mode = true
+button_group = SubResource("SelecaoDeCor")
+text = "Laranja"
+
+[node name="Azul" type="Button" parent="Moldura/Escolhas"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_hover_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_pressed_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_focus_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_styles/normal = SubResource("Azul")
+theme_override_styles/hover = SubResource("AzulEscolhida")
+theme_override_styles/pressed = SubResource("AzulEscolhida")
+theme_override_styles/hover_pressed = SubResource("AzulEscolhida")
+theme_override_styles/focus = SubResource("Foco")
+toggle_mode = true
+button_group = SubResource("SelecaoDeCor")
+text = "Azul"
+
+[node name="Roxo" type="Button" parent="Moldura/Escolhas"]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_hover_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_pressed_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_focus_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_styles/normal = SubResource("Roxo")
+theme_override_styles/hover = SubResource("RoxoEscolhida")
+theme_override_styles/pressed = SubResource("RoxoEscolhida")
+theme_override_styles/hover_pressed = SubResource("RoxoEscolhida")
+theme_override_styles/focus = SubResource("Foco")
+toggle_mode = true
+button_group = SubResource("SelecaoDeCor")
+text = "Roxo"
+
+[node name="Voltar" type="Button" parent="Moldura"]
+visible = false
+offset_left = 148.0
+offset_top = 165.0
+offset_right = 300.0
+offset_bottom = 185.0
+theme_override_colors/font_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_hover_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_pressed_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_colors/font_focus_color = Color(0.1529, 0.2471, 0.2431, 1)
+theme_override_styles/normal = SubResource("Carta")
+theme_override_styles/hover = SubResource("CartaHover")
+theme_override_styles/pressed = SubResource("CartaSelecionada")
+theme_override_styles/focus = SubResource("Foco")
+text = "Voltar ao laboratório"
+
+[node name="DialogoAstronauta" parent="Moldura" instance=ExtResource("dialogo")]
+layout_mode = 1
+offset_left = 14.0
+offset_top = -69.0
+offset_right = -14.0
+offset_bottom = -7.0
+
+[node name="Cartas" type="Control" parent="."]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = 64.0
+offset_right = 210.0
+offset_bottom = 126.0
+mouse_filter = 2
+
+[node name="Lagarta" type="Button" parent="Cartas"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 98.0
+offset_bottom = 62.0
+accessibility_name = "Lagarta"
+theme_override_styles/normal = SubResource("Carta")
+theme_override_styles/hover = SubResource("CartaHover")
+theme_override_styles/pressed = SubResource("CartaSelecionada")
+theme_override_styles/hover_pressed = SubResource("CartaSelecionada")
+theme_override_styles/focus = SubResource("Foco")
+theme_override_styles/disabled = SubResource("CartaEncaixada")
+
+[node name="Ilustracao" type="TextureRect" parent="Cartas/Lagarta"]
+offset_left = 22.0
+offset_top = 9.0
+offset_right = 76.0
+offset_bottom = 43.0
+mouse_filter = 2
+texture = ExtResource("lagarta")
+expand_mode = 1
+
+[node name="Rotulo" type="Label" parent="Cartas/Lagarta"]
+offset_left = 2.0
+offset_top = 48.0
+offset_right = 96.0
+offset_bottom = 59.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.1529, 0.2471, 0.2431, 1)
+text = "Lagarta"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Borboleta" type="Button" parent="Cartas"]
+offset_left = 107.0
+offset_top = 0.0
+offset_right = 205.0
+offset_bottom = 62.0
+accessibility_name = "Borboleta adulta"
+theme_override_styles/normal = SubResource("Carta")
+theme_override_styles/hover = SubResource("CartaHover")
+theme_override_styles/pressed = SubResource("CartaSelecionada")
+theme_override_styles/hover_pressed = SubResource("CartaSelecionada")
+theme_override_styles/focus = SubResource("Foco")
+theme_override_styles/disabled = SubResource("CartaEncaixada")
+
+[node name="Ilustracao" type="TextureRect" parent="Cartas/Borboleta"]
+offset_left = 21.0
+offset_top = 4.0
+offset_right = 77.0
+offset_bottom = 46.0
+mouse_filter = 2
+texture = ExtResource("borboleta")
+expand_mode = 1
+
+[node name="Rotulo" type="Label" parent="Cartas/Borboleta"]
+offset_left = 2.0
+offset_top = 48.0
+offset_right = 96.0
+offset_bottom = 59.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.1529, 0.2471, 0.2431, 1)
+text = "Borboleta adulta"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ovo" type="Button" parent="Cartas"]
+offset_left = 214.0
+offset_top = 0.0
+offset_right = 312.0
+offset_bottom = 62.0
+accessibility_name = "Ovo"
+theme_override_styles/normal = SubResource("Carta")
+theme_override_styles/hover = SubResource("CartaHover")
+theme_override_styles/pressed = SubResource("CartaSelecionada")
+theme_override_styles/hover_pressed = SubResource("CartaSelecionada")
+theme_override_styles/focus = SubResource("Foco")
+theme_override_styles/disabled = SubResource("CartaEncaixada")
+
+[node name="Ilustracao" type="TextureRect" parent="Cartas/Ovo"]
+offset_left = 25.0
+offset_top = 7.0
+offset_right = 73.0
+offset_bottom = 43.0
+mouse_filter = 2
+texture = ExtResource("ovo")
+expand_mode = 1
+
+[node name="Rotulo" type="Label" parent="Cartas/Ovo"]
+offset_left = 2.0
+offset_top = 48.0
+offset_right = 96.0
+offset_bottom = 59.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.1529, 0.2471, 0.2431, 1)
+text = "Ovo"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Crisalida" type="Button" parent="Cartas"]
+offset_left = 321.0
+offset_top = 0.0
+offset_right = 419.0
+offset_bottom = 62.0
+accessibility_name = "Crisálida"
+theme_override_styles/normal = SubResource("Carta")
+theme_override_styles/hover = SubResource("CartaHover")
+theme_override_styles/pressed = SubResource("CartaSelecionada")
+theme_override_styles/hover_pressed = SubResource("CartaSelecionada")
+theme_override_styles/focus = SubResource("Foco")
+theme_override_styles/disabled = SubResource("CartaEncaixada")
+
+[node name="Ilustracao" type="TextureRect" parent="Cartas/Crisalida"]
+offset_left = 38.0
+offset_top = 5.0
+offset_right = 60.0
+offset_bottom = 47.0
+mouse_filter = 2
+texture = ExtResource("crisalida")
+expand_mode = 1
+
+[node name="Rotulo" type="Label" parent="Cartas/Crisalida"]
+offset_left = 2.0
+offset_top = 48.0
+offset_right = 96.0
+offset_bottom = 59.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.1529, 0.2471, 0.2431, 1)
+text = "Crisálida"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContornoErro" type="Panel" parent="Cartas"]
+visible = false
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Erro")

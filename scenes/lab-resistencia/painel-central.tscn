@@ -1,0 +1,46 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/lab-resistencia/painel-central.png" id="1_arte"]
+[ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="2_fonte"]
+[ext_resource type="Script" path="res://scenes/lab-resistencia/painel_central.gd" id="3_painel"]
+[ext_resource type="StyleBoxFlat" path="res://scenes/ui/placa-interacao.tres" id="4_placa"]
+
+[node name="PainelCentral" type="Node2D"]
+texture_filter = 1
+
+[node name="Estrutura" type="Sprite2D" parent="."]
+texture = ExtResource("1_arte")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 248, 118)
+
+[node name="ProgressoResistencia" type="Node2D" parent="."]
+script = ExtResource("3_painel")
+
+[node name="Titulo" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 137.0
+offset_bottom = 30.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.863, 0.933, 0.933, 1)
+theme_override_fonts/font = ExtResource("2_fonte")
+theme_override_font_sizes/font_size = 8
+text = "Treino de Resistência"
+vertical_alignment = 1
+
+[node name="Descricao" type="Label" parent="."]
+offset_left = 56.0
+offset_top = 43.0
+offset_right = 231.0
+offset_bottom = 69.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.675, 0.918, 1, 1)
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("2_fonte")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("4_placa")
+text = "Aumente sua resistência
+na pista de dança e na esteira."
+horizontal_alignment = 1
+vertical_alignment = 1

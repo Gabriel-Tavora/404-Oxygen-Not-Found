@@ -1,13 +1,25 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene load_steps=22 format=3]
 
-[ext_resource type="PackedScene" path="res://scenes/lab-biologia/bancada-biologia.tscn" id="1_bancada"]
+[ext_resource type="PackedScene" path="res://scenes/laboratorios/bancada-principal.tscn" id="1_bancada"]
 [ext_resource type="PackedScene" path="res://scenes/lab-biologia/fundo-lab-bio.tscn" id="2_fundo"]
 [ext_resource type="PackedScene" path="res://scenes/lab-biologia/base-lab-bio.tscn" id="3_base"]
 [ext_resource type="PackedScene" path="res://scenes/lab-biologia/lateral-botanica.tscn" id="4_botanica"]
 [ext_resource type="PackedScene" path="res://scenes/lab-biologia/lateral-metamorfose.tscn" id="5_metamorfose"]
 [ext_resource type="PackedScene" path="res://scenes/laboratorios/sinal-atividade.tscn" id="6_sinal"]
 [ext_resource type="PackedScene" path="res://scenes/astronauta/player.tscn" id="7_player"]
-[ext_resource type="PackedScene" path="res://scenes/ui/barra-conhecimento.tscn" id="8_conhecimento"]
+[ext_resource type="PackedScene" path="res://scenes/ui/painel-treinamento.tscn" id="8_treinamento"]
+[ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="9_fonte"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/metamorfose-borboleta.png" id="10_borboleta"]
+[ext_resource type="Shader" path="res://scenes/lab-biologia/cor_asas_borboleta.gdshader" id="11_asas"]
+[ext_resource type="Script" path="res://scenes/lab-biologia/borboleta_lab.gd" id="12_voo"]
+[ext_resource type="Script" path="res://scenes/lab-biologia/lab_bio.gd" id="13_lab"]
+[ext_resource type="PackedScene" path="res://scenes/ui/convite-atividade.tscn" id="14_convite"]
+[ext_resource type="PackedScene" path="res://scenes/laboratorios/porta-entre-labs.tscn" id="15_porta"]
+[ext_resource type="StyleBoxFlat" path="res://scenes/ui/placa-interacao.tres" id="16_placa"]
+
+[sub_resource type="ShaderMaterial" id="AsasBorboleta"]
+resource_local_to_scene = true
+shader = ExtResource("11_asas")
 
 [sub_resource type="RectangleShape2D" id="LimiteHorizontal"]
 size = Vector2(480, 16)
@@ -23,6 +35,7 @@ size = Vector2(56, 96)
 
 [node name="lab-bio" type="Node2D"]
 texture_filter = 1
+script = ExtResource("13_lab")
 metadata/resolucao_base = Vector2i(480, 288)
 metadata/secao_atual = "Lateral direita — metamorfose"
 
@@ -35,6 +48,24 @@ z_index = -4
 
 [node name="BancadaPrincipal" parent="Cenario" instance=ExtResource("1_bancada")]
 position = Vector2(96, 96)
+
+[node name="HudBancada" type="Node2D" parent="Cenario/BancadaPrincipal"]
+position = Vector2(16, 16)
+
+[node name="Comandos" type="Label" parent="Cenario/BancadaPrincipal/HudBancada"]
+offset_left = 16.0
+offset_top = 13.0
+offset_right = 240.0
+offset_bottom = 47.0
+theme_override_colors/font_color = Color(0.675, 0.918, 1, 1)
+theme_override_constants/line_spacing = 2
+theme_override_fonts/font = ExtResource("9_fonte")
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = ExtResource("16_placa")
+text = "Use WASD ou as setas para andar.
+Pise em um sinal para começar."
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="LateralBotanica" parent="Cenario" instance=ExtResource("4_botanica")]
 position = Vector2(24, 128)
@@ -75,13 +106,41 @@ shape = SubResource("ColisaoMesa")
 
 [node name="Sinais" type="Node2D" parent="."]
 
+[node name="SinalBotanica" parent="Sinais" instance=ExtResource("6_sinal")]
+z_index = 4
+position = Vector2(56, 236)
+atividade = &"botanica"
+tarefa = &"biologia/botanica"
+
 [node name="SinalBorboleta" parent="Sinais" instance=ExtResource("6_sinal")]
 z_index = 4
 position = Vector2(424, 236)
 atividade = &"borboleta"
+tarefa = &"biologia/borboleta"
+
+[node name="PortaEntreLabs" parent="." instance=ExtResource("15_porta")]
+z_index = 4
+position = Vector2(426, 80)
+destino = "res://scenes/lab-fisica/lab-fisica.tscn"
+
+[node name="Destino" parent="PortaEntreLabs" index="1"]
+text = "FÍSICA"
 
 [node name="Player" parent="." instance=ExtResource("7_player")]
 z_index = 5
 position = Vector2(240, 235)
 
-[node name="BarraConhecimento" parent="." instance=ExtResource("8_conhecimento")]
+[node name="BorboletaSolta" type="Sprite2D" parent="."]
+visible = false
+z_index = 6
+material = SubResource("AsasBorboleta")
+texture = ExtResource("10_borboleta")
+script = ExtResource("12_voo")
+
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="PainelTreinamento" parent="Interface" instance=ExtResource("8_treinamento")]
+
+[node name="ConviteAtividade" parent="Interface" instance=ExtResource("14_convite")]
+
+[editable path="PortaEntreLabs"]

@@ -6,8 +6,12 @@ ganha pontos de Conhecimento ao completar experiências.
 ## Como jogar
 
 Importe `project.godot` no **Godot 4.7** e pressione **F5** para abrir o
-laboratório de Física. Use **WASD** ou as **setas** para andar e pise em um sinal
-luminoso para receber o convite de uma atividade.
+laboratório de Biologia. Use **WASD** ou as **setas** para andar e pise em um sinal
+luminoso para receber o convite de uma atividade. Para ir à Física, aproxime-se
+da porta à direita no fundo da Biologia e pressione **E**. Na Física, use a porta
+à esquerda no fundo para voltar.
+
+## Laboratório de Física
 
 | Sinal | Missão | Controles |
 | --- | --- | --- |
@@ -17,12 +21,6 @@ luminoso para receber o convite de uma atividade.
 Use **Esc** para voltar ao laboratório. Para reabrir uma atividade, saia do
 sinal e pise nele novamente. A barra de Conhecimento soma um ponto pela
 primeira conclusão de cada missão durante a partida.
-
-## Laboratório de Biologia
-
-Abra [lab-bio.tscn](scenes/lab-biologia/lab-bio.tscn) no editor e pressione
-**F6** para explorar o cenário com o astronauta. O sinal da borboleta aguarda
-a integração com a atividade de ligar pontos.
 
 ## Estrutura do projeto
 

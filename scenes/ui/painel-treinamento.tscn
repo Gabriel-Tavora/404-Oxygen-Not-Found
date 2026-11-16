@@ -1,0 +1,170 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/painel_treinamento.gd" id="1_painel"]
+[ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="2_fonte"]
+[ext_resource type="PackedScene" path="res://scenes/ui/medidor-treinamento.tscn" id="3_medidor"]
+[ext_resource type="Texture2D" path="res://assets/ui/icones-treinamento.svg" id="4_icones"]
+[ext_resource type="Texture2D" path="res://assets/astronauta/astronauta.png" id="5_astronauta"]
+[ext_resource type="AudioStream" path="res://assets/ui/balao-fala.wav" id="6_som"]
+
+[sub_resource type="Theme" id="Tema"]
+default_font = ExtResource("2_fonte")
+default_font_size = 8
+
+[sub_resource type="AtlasTexture" id="Livro"]
+atlas = ExtResource("4_icones")
+region = Rect2(0, 0, 14, 14)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Pulso"]
+atlas = ExtResource("4_icones")
+region = Rect2(14, 0, 14, 14)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Cerebro"]
+atlas = ExtResource("4_icones")
+region = Rect2(28, 0, 14, 14)
+filter_clip = true
+
+[sub_resource type="AtlasTexture" id="Rosto"]
+atlas = ExtResource("5_astronauta")
+region = Rect2(28, 0, 17, 15)
+filter_clip = true
+
+[sub_resource type="StyleBoxFlat" id="Balao"]
+bg_color = Color(0.106, 0.18, 0.216, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.42, 0.529, 0.573, 1)
+shadow_color = Color(0.071, 0.137, 0.176, 0.55)
+shadow_size = 1
+shadow_offset = Vector2(1, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="MolduraRetrato"]
+bg_color = Color(0.376, 0.49, 0.533, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.106, 0.18, 0.216, 1)
+antialiasing = false
+
+[node name="PainelTreinamento" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture_filter = 1
+theme = SubResource("Tema")
+script = ExtResource("1_painel")
+
+[node name="Faixa" type="ColorRect" parent="."]
+anchor_right = 1.0
+offset_bottom = 18.0
+mouse_filter = 2
+color = Color(0.106, 0.18, 0.216, 1)
+
+[node name="Medidores" type="HBoxContainer" parent="Faixa"]
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -196.0
+offset_top = 1.0
+offset_right = 196.0
+offset_bottom = 17.0
+mouse_filter = 2
+theme_override_constants/separation = 5
+
+[node name="Conhecimento" parent="Faixa/Medidores" instance=ExtResource("3_medidor")]
+layout_mode = 2
+titulo = "Conhecimento"
+cor = Color(0.455, 0.808, 0.961, 1)
+icone = SubResource("Livro")
+laboratorios = Array[StringName]([&"fisica", &"biologia"])
+
+[node name="Resistencia" parent="Faixa/Medidores" instance=ExtResource("3_medidor")]
+layout_mode = 2
+titulo = "Resistência"
+cor = Color(1, 0.769, 0.486, 1)
+icone = SubResource("Pulso")
+laboratorios = Array[StringName]([&"resistencia"])
+
+[node name="Mental" parent="Faixa/Medidores" instance=ExtResource("3_medidor")]
+layout_mode = 2
+titulo = "Mental"
+cor = Color(0.851, 0.729, 1, 1)
+icone = SubResource("Cerebro")
+laboratorios = Array[StringName]([&"emocoes"])
+
+[node name="Foco" type="ColorRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.051, 0.086, 0.106, 0)
+
+[node name="Aviso" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -137.0
+offset_top = -43.0
+offset_right = 137.0
+offset_bottom = -9.0
+mouse_filter = 2
+
+[node name="Retrato" type="Panel" parent="Aviso"]
+offset_right = 34.0
+offset_bottom = 34.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("MolduraRetrato")
+
+[node name="Rosto" type="TextureRect" parent="Aviso/Retrato"]
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 33.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = SubResource("Rosto")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Balao" type="Panel" parent="Aviso"]
+offset_left = 43.0
+offset_top = 3.0
+offset_right = 274.0
+offset_bottom = 31.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Balao")
+
+[node name="Ponta" type="Polygon2D" parent="Aviso/Balao"]
+position = Vector2(1, 14)
+color = Color(0.42, 0.529, 0.573, 1)
+polygon = PackedVector2Array(-9, 0, 0, -5, 0, 5)
+
+[node name="Interior" type="Polygon2D" parent="Aviso/Balao/Ponta"]
+color = Color(0.106, 0.18, 0.216, 1)
+polygon = PackedVector2Array(-7, 0, 1, -4, 1, 4)
+
+[node name="Mensagem" type="Label" parent="Aviso/Balao"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_right = -6.0
+mouse_filter = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TempoAviso" type="Timer" parent="."]
+one_shot = true
+
+[node name="SomAviso" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_som")
+volume_db = -9.0

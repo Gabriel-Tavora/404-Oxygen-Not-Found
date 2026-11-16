@@ -1,0 +1,304 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/sala-emocoes/palavras_cruzadas.gd" id="1_script"]
+[ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="2_fonte"]
+
+[sub_resource type="StyleBoxFlat" id="Moldura"]
+bg_color = Color(0.101, 0.185, 0.219, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.67, 0.49, 0.3, 1)
+shadow_color = Color(0.025, 0.052, 0.066, 0.85)
+shadow_size = 2
+shadow_offset = Vector2(2, 3)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Tabuleiro"]
+bg_color = Color(0.065, 0.13, 0.16, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.28, 0.42, 0.43, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Botao"]
+bg_color = Color(0.16, 0.285, 0.31, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.28, 0.42, 0.43, 1)
+content_margin_left = 8.0
+content_margin_right = 8.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Sobre"]
+bg_color = Color(0.205, 0.37, 0.4, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.331, 0.661, 0.754, 1)
+content_margin_left = 8.0
+content_margin_right = 8.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Selecionado"]
+bg_color = Color(0.225, 0.393, 0.439, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.331, 0.661, 0.754, 1)
+content_margin_left = 8.0
+content_margin_right = 8.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Resolvido"]
+bg_color = Color(0.145, 0.25, 0.236, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.38, 0.57, 0.39, 1)
+content_margin_left = 8.0
+content_margin_right = 8.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Foco"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.96, 0.75, 0.426, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Acao"]
+bg_color = Color(0.205, 0.455, 0.42, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.36, 0.61, 0.545, 1)
+content_margin_left = 8.0
+content_margin_right = 8.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Campo"]
+bg_color = Color(0.065, 0.13, 0.16, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.28, 0.42, 0.43, 1)
+content_margin_left = 8.0
+content_margin_right = 8.0
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Papel"]
+bg_color = Color(0.955, 0.89, 0.741, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.715, 0.618, 0.433, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Ativa"]
+bg_color = Color(0.691, 0.881, 0.911, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.331, 0.661, 0.754, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Preenchida"]
+bg_color = Color(0.698, 0.819, 0.664, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.38, 0.57, 0.39, 1)
+anti_aliasing = false
+
+[sub_resource type="Theme" id="Tema"]
+default_font = ExtResource("2_fonte")
+default_font_size = 8
+Label/colors/font_color = Color(0.966, 0.923, 0.822, 1)
+Button/colors/font_color = Color(0.966, 0.923, 0.822, 1)
+Button/colors/font_hover_color = Color(0.966, 0.923, 0.822, 1)
+Button/colors/font_pressed_color = Color(0.9, 0.97, 0.98, 1)
+Button/colors/font_disabled_color = Color(0.70, 0.87, 0.73, 1)
+Button/styles/normal = SubResource("Botao")
+Button/styles/hover = SubResource("Sobre")
+Button/styles/pressed = SubResource("Selecionado")
+Button/styles/disabled = SubResource("Resolvido")
+Button/styles/focus = SubResource("Foco")
+LineEdit/colors/font_color = Color(0.966, 0.923, 0.822, 1)
+LineEdit/colors/font_placeholder_color = Color(0.62, 0.73, 0.75, 1)
+LineEdit/colors/caret_color = Color(0.92, 0.81, 0.57, 1)
+LineEdit/colors/selection_color = Color(0.28, 0.47, 0.55, 1)
+LineEdit/styles/normal = SubResource("Campo")
+LineEdit/styles/read_only = SubResource("Campo")
+LineEdit/styles/focus = SubResource("Foco")
+
+[node name="PalavrasCruzadas" type="Control"]
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Tema")
+script = ExtResource("1_script")
+celula_normal = SubResource("Papel")
+celula_ativa = SubResource("Ativa")
+celula_preenchida = SubResource("Preenchida")
+
+[node name="Fundo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.046, 0.086, 0.105, 0.72)
+
+[node name="Painel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -125.0
+offset_right = 224.0
+offset_bottom = 125.0
+theme_override_styles/panel = SubResource("Moldura")
+
+[node name="Cabecalho" type="ColorRect" parent="Painel"]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 446.0
+offset_bottom = 42.0
+mouse_filter = 2
+color = Color(0.157, 0.276, 0.3, 1)
+
+[node name="Friso" type="ColorRect" parent="Painel"]
+offset_left = 2.0
+offset_top = 42.0
+offset_right = 446.0
+offset_bottom = 43.0
+mouse_filter = 2
+color = Color(0.68, 0.51, 0.32, 1)
+
+[node name="Titulo" type="Label" parent="Painel"]
+offset_left = 16.0
+offset_top = 6.0
+offset_right = 284.0
+offset_bottom = 29.0
+theme_override_font_sizes/font_size = 16
+text = "Palavras cruzadas"
+vertical_alignment = 1
+
+[node name="Subtitulo" type="Label" parent="Painel"]
+offset_left = 16.0
+offset_top = 28.0
+offset_right = 300.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(0.74, 0.82, 0.81, 1)
+
+[node name="Contador" type="Label" parent="Painel"]
+offset_left = 294.0
+offset_top = 13.0
+offset_right = 343.0
+offset_bottom = 29.0
+theme_override_colors/font_color = Color(0.75, 0.9, 0.92, 1)
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Voltar" type="Button" parent="Painel"]
+offset_left = 358.0
+offset_top = 9.0
+offset_right = 432.0
+offset_bottom = 33.0
+text = "Voltar"
+
+[node name="Tabuleiro" type="Panel" parent="Painel"]
+offset_left = 14.0
+offset_top = 52.0
+offset_right = 194.0
+offset_bottom = 225.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Tabuleiro")
+
+[node name="Grade" type="Control" parent="Painel/Tabuleiro"]
+offset_left = 14.0
+offset_top = 10.0
+offset_right = 166.0
+offset_bottom = 162.0
+mouse_filter = 2
+
+[node name="TituloPistas" type="Label" parent="Painel"]
+offset_left = 208.0
+offset_top = 51.0
+offset_right = 430.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(0.743, 0.874, 0.86, 1)
+text = "Pistas"
+vertical_alignment = 1
+
+[node name="Pistas" type="VBoxContainer" parent="Painel"]
+offset_left = 208.0
+offset_top = 68.0
+offset_right = 434.0
+offset_bottom = 156.0
+theme_override_constants/separation = 2
+
+[node name="Dica" type="Label" parent="Painel"]
+offset_left = 208.0
+offset_top = 162.0
+offset_right = 434.0
+offset_bottom = 188.0
+autowrap_mode = 2
+vertical_alignment = 1
+
+[node name="Resposta" type="LineEdit" parent="Painel"]
+offset_left = 208.0
+offset_top = 195.0
+offset_right = 350.0
+offset_bottom = 225.0
+placeholder_text = "Sua resposta"
+max_length = 32
+keep_editing_on_text_submit = true
+context_menu_enabled = false
+virtual_keyboard_show_on_focus = true
+
+[node name="Conferir" type="Button" parent="Painel"]
+offset_left = 356.0
+offset_top = 195.0
+offset_right = 434.0
+offset_bottom = 225.0
+theme_override_styles/normal = SubResource("Acao")
+text = "Conferir"
+
+[node name="Rodape" type="Panel" parent="Painel"]
+offset_left = 14.0
+offset_top = 231.0
+offset_right = 434.0
+offset_bottom = 246.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Tabuleiro")
+
+[node name="Feedback" type="Label" parent="Painel/Rodape"]
+offset_left = 7.0
+offset_top = 0.0
+offset_right = 413.0
+offset_bottom = 15.0
+vertical_alignment = 1

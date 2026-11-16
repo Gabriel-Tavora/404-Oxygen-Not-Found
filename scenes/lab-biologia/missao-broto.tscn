@@ -1,0 +1,1028 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/lab-biologia/missao_broto.gd" id="1_script"]
+[ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="2_fonte"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-plantio.png" id="3_plantio"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-sementes.png" id="4_sementes"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-estufa.png" id="5_estufa"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-icones-missao.png" id="10_icones"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-crescimento.png" id="6_crescimento"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-lupa.png" id="7_lupa"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-bandeja.png" id="8_bandeja"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-muda-feijao.png" id="9_muda"]
+
+[sub_resource type="AtlasTexture" id="Vaso"]
+atlas = ExtResource("3_plantio")
+region = Rect2(0, 0, 26, 32)
+
+[sub_resource type="AtlasTexture" id="Feijao"]
+atlas = ExtResource("3_plantio")
+region = Rect2(28, 0, 8, 6)
+
+[sub_resource type="AtlasTexture" id="Terra"]
+atlas = ExtResource("3_plantio")
+region = Rect2(38, 0, 18, 8)
+
+[sub_resource type="AtlasTexture" id="Regador"]
+atlas = ExtResource("3_plantio")
+region = Rect2(58, 0, 22, 18)
+
+[sub_resource type="AtlasTexture" id="Raiz"]
+atlas = ExtResource("6_crescimento")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="Broto"]
+atlas = ExtResource("6_crescimento")
+region = Rect2(16, 0, 12, 24)
+
+[sub_resource type="AtlasTexture" id="Folhas"]
+atlas = ExtResource("6_crescimento")
+region = Rect2(32, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="Poca"]
+atlas = ExtResource("6_crescimento")
+region = Rect2(60, 0, 18, 6)
+
+[sub_resource type="AtlasTexture" id="Luz"]
+atlas = ExtResource("6_crescimento")
+region = Rect2(82, 0, 16, 13)
+
+[sub_resource type="AtlasTexture" id="Copa"]
+atlas = ExtResource("6_crescimento")
+region = Rect2(32, 3, 24, 10)
+
+[sub_resource type="AtlasTexture" id="DetalheBroto"]
+atlas = ExtResource("6_crescimento")
+region = Rect2(16, 6, 12, 18)
+
+[sub_resource type="AtlasTexture" id="IconeSemente"]
+atlas = ExtResource("10_icones")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="IconeRaiz"]
+atlas = ExtResource("10_icones")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="IconeBroto"]
+atlas = ExtResource("10_icones")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="IconeFolhas"]
+atlas = ExtResource("10_icones")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="IconeSol"]
+atlas = ExtResource("10_icones")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="IconeGota"]
+atlas = ExtResource("10_icones")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="StyleBoxFlat" id="Moldura"]
+bg_color = Color(0.9647, 0.9216, 0.8196, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.1373, 0.2431, 0.2431, 1)
+shadow_color = Color(0.0824, 0.1608, 0.1686, 0.6)
+shadow_size = 1
+shadow_offset = Vector2(3, 4)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Trilho"]
+bg_color = Color(0.9137, 0.851, 0.7216, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8039, 0.7294, 0.5765, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Pendente"]
+bg_color = Color(0.902, 0.8588, 0.7412, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.7804, 0.7176, 0.5569, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Atual"]
+bg_color = Color(0.9686, 0.8627, 0.5647, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.5922, 0.4078, 0.2588, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Completa"]
+bg_color = Color(0.749, 0.8549, 0.6667, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.4588, 0.5922, 0.4549, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Instrucao"]
+bg_color = Color(0.9765, 0.9412, 0.851, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(0.8588, 0.7843, 0.6314, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Botao"]
+bg_color = Color(0.2118, 0.451, 0.3569, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 3
+border_color = Color(0.1333, 0.2863, 0.2471, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="BotaoHover"]
+bg_color = Color(0.2824, 0.5255, 0.4157, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 3
+border_color = Color(0.1333, 0.2863, 0.2471, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="BotaoPressionado"]
+bg_color = Color(0.1608, 0.3412, 0.2745, 1)
+border_width_left = 1
+border_width_top = 2
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.1333, 0.2863, 0.2471, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="BotaoDesativado"]
+bg_color = Color(0.6627, 0.702, 0.6275, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.4863, 0.5686, 0.498, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Voltar"]
+bg_color = Color(0.902, 0.8392, 0.7098, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.698, 0.6118, 0.451, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="VoltarHover"]
+bg_color = Color(0.9647, 0.902, 0.7686, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.698, 0.6118, 0.451, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Foco"]
+bg_color = Color(1.0, 1.0, 1.0, 0.0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.4078, 0.2824, 0.1412, 1)
+draw_center = false
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+antialiasing = false
+
+[sub_resource type="StyleBoxEmpty" id="Ferramenta"]
+
+[sub_resource type="StyleBoxFlat" id="Cartao"]
+bg_color = Color(0.9451, 0.8667, 0.7059, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.6275, 0.4902, 0.3333, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="FerramentaAtiva"]
+bg_color = Color(1.0, 0.9412, 0.7294, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.5608, 0.3961, 0.2196, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="VasoAtivo"]
+bg_color = Color(0.9765, 0.9098, 0.6784, 0.1451)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.9765, 0.9098, 0.6784, 0.6902)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="AlvoLupa"]
+bg_color = Color(1.0, 0.9176, 0.7137, 0.098)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1.0, 0.9137, 0.6392, 0.8627)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Ampliacao"]
+bg_color = Color(0.1529, 0.302, 0.2824, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9608, 0.8353, 0.5294, 1)
+antialiasing = false
+
+[sub_resource type="StyleBoxFlat" id="Umidade"]
+bg_color = Color(0.9725, 0.9137, 0.7843, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0.6314, 0.498, 0.3451, 1)
+antialiasing = false
+
+[sub_resource type="Theme" id="Tema"]
+default_font = ExtResource("2_fonte")
+default_font_size = 8
+Button/colors/font_color = Color(1.0, 0.9647, 0.8549, 1)
+Button/colors/font_hover_color = Color(1.0, 0.9647, 0.8549, 1)
+Button/colors/font_focus_color = Color(1.0, 0.9647, 0.8549, 1)
+Button/colors/font_pressed_color = Color(1.0, 0.9647, 0.8549, 1)
+Button/styles/normal = SubResource("Botao")
+Button/styles/hover = SubResource("BotaoHover")
+Button/styles/pressed = SubResource("BotaoPressionado")
+Button/styles/disabled = SubResource("BotaoDesativado")
+Button/styles/focus = SubResource("Foco")
+
+[node name="MissaoBroto" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Tema")
+script = ExtResource("1_script")
+fase_pendente = SubResource("Pendente")
+fase_atual = SubResource("Atual")
+fase_completa = SubResource("Completa")
+
+[node name="Fundo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0902, 0.1608, 0.1686, 0.7216)
+
+[node name="Janela" type="Panel" parent="."]
+offset_left = -214.0
+offset_top = -125.0
+offset_right = 214.0
+offset_bottom = 125.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+theme_override_styles/panel = SubResource("Moldura")
+
+[node name="Cabecalho" type="ColorRect" parent="Janela"]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 426.0
+offset_bottom = 37.0
+mouse_filter = 2
+color = Color(0.1725, 0.3176, 0.2902, 1)
+
+[node name="BrilhoCabecalho" type="ColorRect" parent="Janela"]
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 425.0
+offset_bottom = 4.0
+mouse_filter = 2
+color = Color(0.3216, 0.4667, 0.4039, 1)
+
+[node name="FrisoCabecalho" type="ColorRect" parent="Janela"]
+offset_left = 2.0
+offset_top = 36.0
+offset_right = 426.0
+offset_bottom = 38.0
+mouse_filter = 2
+color = Color(0.7412, 0.6078, 0.3882, 1)
+
+[node name="Emblema" type="Panel" parent="Janela"]
+offset_left = 12.0
+offset_top = 7.0
+offset_right = 36.0
+offset_bottom = 31.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Completa")
+
+[node name="Folha" type="TextureRect" parent="Janela/Emblema"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 20.0
+offset_bottom = 20.0
+mouse_filter = 2
+texture = SubResource("IconeFolhas")
+stretch_mode = 5
+
+[node name="Titulo" type="Label" parent="Janela"]
+offset_left = 43.0
+offset_top = 4.0
+offset_right = 320.0
+offset_bottom = 34.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1.0, 0.9608, 0.851, 1)
+theme_override_font_sizes/font_size = 16
+text = "Missão Broto"
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Calendario" type="Panel" parent="Janela"]
+offset_left = 348.0
+offset_top = 7.0
+offset_right = 416.0
+offset_bottom = 31.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Atual")
+
+[node name="Sol" type="TextureRect" parent="Janela/Calendario"]
+offset_left = 5.0
+offset_top = 4.0
+offset_right = 21.0
+offset_bottom = 20.0
+mouse_filter = 2
+texture = SubResource("IconeSol")
+stretch_mode = 5
+
+[node name="Dia" type="Label" parent="Janela/Calendario"]
+offset_left = 23.0
+offset_top = 1.0
+offset_right = 65.0
+offset_bottom = 22.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.3255, 0.2314, 0.1882, 1)
+theme_override_font_sizes/font_size = 8
+text = "Dia 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Crescimento" type="Panel" parent="Janela"]
+offset_left = 10.0
+offset_top = 42.0
+offset_right = 418.0
+offset_bottom = 75.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Trilho")
+
+[node name="Fase1" type="Panel" parent="Janela/Crescimento"]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 101.0
+offset_bottom = 29.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Atual")
+
+[node name="Icone" type="TextureRect" parent="Janela/Crescimento/Fase1"]
+offset_left = 21.0
+offset_top = 4.0
+offset_right = 37.0
+offset_bottom = 20.0
+mouse_filter = 2
+texture = SubResource("IconeSemente")
+stretch_mode = 5
+
+[node name="Nome" type="Label" parent="Janela/Crescimento/Fase1"]
+offset_left = 41.0
+offset_top = 1.0
+offset_right = 95.0
+offset_bottom = 23.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.2196, 0.2941, 0.2392, 1)
+theme_override_font_sizes/font_size = 8
+text = "Feijão"
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Fase2" type="Panel" parent="Janela/Crescimento"]
+offset_left = 105.0
+offset_top = 4.0
+offset_right = 202.0
+offset_bottom = 29.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Pendente")
+
+[node name="Icone" type="TextureRect" parent="Janela/Crescimento/Fase2"]
+offset_left = 21.0
+offset_top = 4.0
+offset_right = 37.0
+offset_bottom = 20.0
+mouse_filter = 2
+texture = SubResource("IconeRaiz")
+stretch_mode = 5
+
+[node name="Nome" type="Label" parent="Janela/Crescimento/Fase2"]
+offset_left = 41.0
+offset_top = 1.0
+offset_right = 95.0
+offset_bottom = 23.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.2196, 0.2941, 0.2392, 1)
+theme_override_font_sizes/font_size = 8
+text = "Raiz"
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Fase3" type="Panel" parent="Janela/Crescimento"]
+offset_left = 206.0
+offset_top = 4.0
+offset_right = 303.0
+offset_bottom = 29.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Pendente")
+
+[node name="Icone" type="TextureRect" parent="Janela/Crescimento/Fase3"]
+offset_left = 21.0
+offset_top = 4.0
+offset_right = 37.0
+offset_bottom = 20.0
+mouse_filter = 2
+texture = SubResource("IconeBroto")
+stretch_mode = 5
+
+[node name="Nome" type="Label" parent="Janela/Crescimento/Fase3"]
+offset_left = 41.0
+offset_top = 1.0
+offset_right = 95.0
+offset_bottom = 23.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.2196, 0.2941, 0.2392, 1)
+theme_override_font_sizes/font_size = 8
+text = "Broto"
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Fase4" type="Panel" parent="Janela/Crescimento"]
+offset_left = 307.0
+offset_top = 4.0
+offset_right = 404.0
+offset_bottom = 29.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Pendente")
+
+[node name="Icone" type="TextureRect" parent="Janela/Crescimento/Fase4"]
+offset_left = 21.0
+offset_top = 4.0
+offset_right = 37.0
+offset_bottom = 20.0
+mouse_filter = 2
+texture = SubResource("IconeFolhas")
+stretch_mode = 5
+
+[node name="Nome" type="Label" parent="Janela/Crescimento/Fase4"]
+offset_left = 41.0
+offset_top = 1.0
+offset_right = 95.0
+offset_bottom = 23.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.2196, 0.2941, 0.2392, 1)
+theme_override_font_sizes/font_size = 8
+text = "Folhas"
+horizontal_alignment = 0
+vertical_alignment = 1
+
+[node name="Instrucao" type="Label" parent="Janela"]
+offset_left = 10.0
+offset_top = 184.0
+offset_right = 418.0
+offset_bottom = 215.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.1882, 0.2863, 0.2431, 1)
+theme_override_font_sizes/font_size = 12
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1
+theme_override_styles/normal = SubResource("Instrucao")
+theme_override_constants/line_spacing = 1
+autowrap_mode = 3
+
+[node name="Bancada" type="Control" parent="Janela"]
+offset_left = 10.0
+offset_top = 79.0
+offset_right = 418.0
+offset_bottom = 181.0
+mouse_filter = 2
+
+[node name="Estufa" type="TextureRect" parent="Janela/Bancada"]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 408.0
+offset_bottom = 102.0
+mouse_filter = 2
+texture = ExtResource("5_estufa")
+
+[node name="Feixe" type="Node2D" parent="Janela/Bancada"]
+visible = false
+
+[node name="Sementes" type="Button" parent="Janela/Bancada"]
+offset_left = 24.0
+offset_top = 22.0
+offset_right = 118.0
+offset_bottom = 84.0
+accessibility_name = "Feijão"
+toggle_mode = true
+theme_override_styles/normal = SubResource("Cartao")
+theme_override_styles/hover = SubResource("FerramentaAtiva")
+theme_override_styles/hover_pressed = SubResource("FerramentaAtiva")
+theme_override_styles/pressed = SubResource("FerramentaAtiva")
+theme_override_styles/disabled = SubResource("Ferramenta")
+theme_override_styles/focus = SubResource("Foco")
+
+[node name="Saquinho" type="TextureRect" parent="Janela/Bancada/Sementes"]
+offset_left = 14.0
+offset_top = 10.0
+offset_right = 56.0
+offset_bottom = 38.0
+mouse_filter = 2
+texture = ExtResource("4_sementes")
+
+[node name="Feijao" type="TextureRect" parent="Janela/Bancada/Sementes"]
+offset_left = 61.0
+offset_top = 23.0
+offset_right = 77.0
+offset_bottom = 35.0
+mouse_filter = 2
+texture = SubResource("Feijao")
+
+[node name="Nome" type="Label" parent="Janela/Bancada/Sementes"]
+offset_left = 0.0
+offset_top = 43.0
+offset_right = 94.0
+offset_bottom = 56.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.16, 0.24, 0.23, 1)
+text = "Feijão"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Terra" type="Button" parent="Janela/Bancada"]
+offset_left = 24.0
+offset_top = 22.0
+offset_right = 118.0
+offset_bottom = 84.0
+visible = false
+accessibility_name = "Terra"
+toggle_mode = true
+theme_override_styles/normal = SubResource("Cartao")
+theme_override_styles/hover = SubResource("FerramentaAtiva")
+theme_override_styles/hover_pressed = SubResource("FerramentaAtiva")
+theme_override_styles/pressed = SubResource("FerramentaAtiva")
+theme_override_styles/disabled = SubResource("Ferramenta")
+
+[node name="Icone" type="TextureRect" parent="Janela/Bancada/Terra"]
+offset_left = 20.0
+offset_top = 12.0
+offset_right = 74.0
+offset_bottom = 36.0
+mouse_filter = 2
+texture = SubResource("Terra")
+
+[node name="Nome" type="Label" parent="Janela/Bancada/Terra"]
+offset_left = 0.0
+offset_top = 43.0
+offset_right = 94.0
+offset_bottom = 56.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.16, 0.24, 0.23, 1)
+text = "Terra"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Vaso" type="Button" parent="Janela/Bancada"]
+offset_left = 158.0
+offset_top = 20.0
+offset_right = 238.0
+offset_bottom = 89.0
+accessibility_name = "Vaso"
+theme_override_styles/normal = SubResource("Ferramenta")
+theme_override_styles/hover = SubResource("VasoAtivo")
+theme_override_styles/pressed = SubResource("VasoAtivo")
+theme_override_styles/disabled = SubResource("Ferramenta")
+theme_override_styles/focus = SubResource("Foco")
+
+[node name="SombraVaso" type="ColorRect" parent="Janela/Bancada/Vaso"]
+offset_left = 17.0
+offset_top = 62.0
+offset_right = 64.0
+offset_bottom = 66.0
+mouse_filter = 2
+color = Color(0.1529, 0.2431, 0.2, 0.3333)
+
+[node name="Vidro" type="TextureRect" parent="Janela/Bancada/Vaso"]
+offset_left = 14.0
+offset_top = 2.0
+offset_right = 66.0
+offset_bottom = 66.0
+mouse_filter = 2
+texture = SubResource("Vaso")
+
+[node name="Acima" type="Control" parent="Janela/Bancada/Vaso"]
+offset_left = 14.0
+offset_top = -23.0
+offset_right = 66.0
+mouse_filter = 1
+
+[node name="Feijao" type="TextureRect" parent="Janela/Bancada/Vaso"]
+visible = false
+offset_left = 33.0
+offset_top = 36.0
+offset_right = 49.0
+offset_bottom = 48.0
+mouse_filter = 2
+texture = SubResource("Feijao")
+
+[node name="Terra" type="TextureRect" parent="Janela/Bancada/Vaso"]
+visible = false
+offset_left = 22.0
+offset_top = 33.0
+offset_right = 58.0
+offset_bottom = 49.0
+mouse_filter = 2
+texture = SubResource("Terra")
+
+[node name="Poca" type="TextureRect" parent="Janela/Bancada/Vaso"]
+visible = false
+offset_left = 22.0
+offset_top = 28.0
+offset_right = 58.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = SubResource("Poca")
+
+[node name="Raiz" type="TextureRect" parent="Janela/Bancada/Vaso"]
+visible = false
+offset_left = 30.0
+offset_top = 40.0
+offset_right = 54.0
+offset_bottom = 64.0
+mouse_filter = 2
+texture = SubResource("Raiz")
+
+[node name="Broto" type="TextureRect" parent="Janela/Bancada/Vaso"]
+visible = false
+offset_left = 30.0
+offset_top = -20.0
+offset_right = 54.0
+offset_bottom = 44.0
+mouse_filter = 2
+texture = SubResource("Broto")
+
+[node name="Folhas" type="TextureRect" parent="Janela/Bancada/Vaso"]
+visible = false
+offset_left = 22.0
+offset_top = -10.0
+offset_right = 70.0
+offset_bottom = 38.0
+mouse_filter = 2
+pivot_offset = Vector2(20, 46)
+texture = SubResource("Folhas")
+
+[node name="Agua" type="Node2D" parent="Janela/Bancada/Vaso"]
+visible = false
+
+[node name="RegadorEmUso" type="TextureRect" parent="Janela/Bancada/Vaso"]
+visible = false
+offset_right = 44.0
+offset_bottom = 36.0
+rotation = -0.28
+mouse_filter = 2
+texture = SubResource("Regador")
+
+[node name="ObservarRaiz" type="Button" parent="Janela/Bancada/Vaso"]
+visible = false
+offset_left = 25.0
+offset_top = 43.0
+offset_right = 57.0
+offset_bottom = 65.0
+accessibility_name = "Observar raiz"
+theme_override_styles/normal = SubResource("AlvoLupa")
+theme_override_styles/hover = SubResource("VasoAtivo")
+
+[node name="ObservarBroto" type="Button" parent="Janela/Bancada/Vaso"]
+visible = false
+offset_left = 27.0
+offset_top = -9.0
+offset_right = 59.0
+offset_bottom = 41.0
+accessibility_name = "Observar broto"
+theme_override_styles/normal = SubResource("AlvoLupa")
+theme_override_styles/hover = SubResource("VasoAtivo")
+
+[node name="ObservarFolhas" type="Button" parent="Janela/Bancada/Vaso"]
+visible = false
+offset_left = 20.0
+offset_top = -7.0
+offset_right = 71.0
+offset_bottom = 17.0
+accessibility_name = "Observar folhas"
+theme_override_styles/normal = SubResource("AlvoLupa")
+theme_override_styles/hover = SubResource("VasoAtivo")
+
+[node name="Luz" type="TextureRect" parent="Janela/Bancada"]
+offset_left = 69.0
+offset_top = 3.0
+offset_right = 101.0
+offset_bottom = 29.0
+visible = false
+mouse_filter = 2
+texture = SubResource("Luz")
+
+[node name="Umidade" type="Panel" parent="Janela/Bancada"]
+offset_left = 14.0
+offset_top = 52.0
+offset_right = 106.0
+offset_bottom = 86.0
+visible = false
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Umidade")
+
+[node name="EstadoTerra" type="Label" parent="Janela/Bancada/Umidade"]
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 90.0
+offset_bottom = 15.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.3255, 0.2314, 0.1882, 1)
+theme_override_font_sizes/font_size = 8
+text = "Terra seca"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Gota1" type="TextureRect" parent="Janela/Bancada/Umidade"]
+offset_left = 19.0
+offset_top = 16.0
+offset_right = 35.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = SubResource("IconeGota")
+stretch_mode = 5
+
+[node name="Gota2" type="TextureRect" parent="Janela/Bancada/Umidade"]
+offset_left = 38.0
+offset_top = 16.0
+offset_right = 54.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = SubResource("IconeGota")
+stretch_mode = 5
+
+[node name="Gota3" type="TextureRect" parent="Janela/Bancada/Umidade"]
+offset_left = 57.0
+offset_top = 16.0
+offset_right = 73.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = SubResource("IconeGota")
+stretch_mode = 5
+
+[node name="Regador" type="Button" parent="Janela"]
+offset_left = 317.0
+offset_top = 101.0
+offset_right = 396.0
+offset_bottom = 163.0
+accessibility_name = "Regador"
+disabled = true
+toggle_mode = true
+theme_override_styles/normal = SubResource("Cartao")
+theme_override_styles/hover = SubResource("FerramentaAtiva")
+theme_override_styles/hover_pressed = SubResource("FerramentaAtiva")
+theme_override_styles/pressed = SubResource("FerramentaAtiva")
+theme_override_styles/disabled = SubResource("Ferramenta")
+theme_override_styles/focus = SubResource("Foco")
+visible = false
+
+[node name="Icone" type="TextureRect" parent="Janela/Regador"]
+offset_left = 18.0
+offset_top = 6.0
+offset_right = 62.0
+offset_bottom = 42.0
+mouse_filter = 2
+texture = SubResource("Regador")
+
+[node name="Nome" type="Label" parent="Janela/Regador"]
+offset_left = 0.0
+offset_top = 43.0
+offset_right = 79.0
+offset_bottom = 56.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.16, 0.24, 0.23, 1)
+text = "Regador"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Bandeja" type="TextureRect" parent="Janela"]
+offset_left = 326.0
+offset_top = 103.0
+offset_right = 388.0
+offset_bottom = 159.0
+visible = false
+mouse_filter = 2
+texture = ExtResource("8_bandeja")
+
+[node name="MudaFeijao" type="TextureRect" parent="Janela/Bandeja"]
+visible = false
+offset_left = 14.0
+offset_top = 4.0
+offset_right = 50.0
+offset_bottom = 44.0
+mouse_filter = 2
+texture = ExtResource("9_muda")
+
+[node name="Lupa" type="Button" parent="Janela"]
+offset_left = 253.0
+offset_top = 101.0
+offset_right = 307.0
+offset_bottom = 163.0
+visible = false
+accessibility_name = "Lupa"
+toggle_mode = true
+theme_override_styles/normal = SubResource("Cartao")
+theme_override_styles/hover = SubResource("FerramentaAtiva")
+theme_override_styles/hover_pressed = SubResource("FerramentaAtiva")
+theme_override_styles/pressed = SubResource("FerramentaAtiva")
+
+[node name="Icone" type="TextureRect" parent="Janela/Lupa"]
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 44.0
+offset_bottom = 41.0
+mouse_filter = 2
+texture = ExtResource("7_lupa")
+stretch_mode = 5
+
+[node name="Nome" type="Label" parent="Janela/Lupa"]
+offset_left = 0.0
+offset_top = 43.0
+offset_right = 54.0
+offset_bottom = 56.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.16, 0.24, 0.23, 1)
+text = "Lupa"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Ampliacao" type="Panel" parent="Janela"]
+offset_left = 312.0
+offset_top = 87.0
+offset_right = 406.0
+offset_bottom = 171.0
+visible = false
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Ampliacao")
+
+[node name="Ponto" type="ColorRect" parent="Janela/Ampliacao"]
+offset_left = 45.0
+offset_top = 43.0
+offset_right = 49.0
+offset_bottom = 47.0
+mouse_filter = 2
+color = Color(0.61, 0.69, 0.57, 1)
+
+[node name="Raiz" type="TextureRect" parent="Janela/Ampliacao"]
+offset_left = 23.0
+offset_top = 10.0
+offset_right = 71.0
+offset_bottom = 58.0
+visible = false
+mouse_filter = 2
+texture = SubResource("Raiz")
+
+[node name="Broto" type="TextureRect" parent="Janela/Ampliacao"]
+offset_left = 29.0
+offset_top = 7.0
+offset_right = 65.0
+offset_bottom = 61.0
+visible = false
+mouse_filter = 2
+texture = SubResource("DetalheBroto")
+
+[node name="Folhas" type="TextureRect" parent="Janela/Ampliacao"]
+offset_left = 11.0
+offset_top = 19.0
+offset_right = 83.0
+offset_bottom = 49.0
+visible = false
+mouse_filter = 2
+texture = SubResource("Copa")
+
+[node name="Detalhe" type="Label" parent="Janela/Ampliacao"]
+offset_left = 2.0
+offset_top = 62.0
+offset_right = 92.0
+offset_bottom = 80.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1.0, 0.9529, 0.8078, 1)
+theme_override_font_sizes/font_size = 8
+text = "Lupa"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Plantar" type="Button" parent="Janela"]
+offset_left = 10.0
+offset_top = 219.0
+offset_right = 270.0
+offset_bottom = 242.0
+text = "Plantar feijão"
+theme_override_font_sizes/font_size = 12
+
+[node name="Regar" type="Button" parent="Janela"]
+offset_left = 10.0
+offset_top = 219.0
+offset_right = 270.0
+offset_bottom = 242.0
+visible = false
+text = "Regar o vaso"
+theme_override_font_sizes/font_size = 12
+
+[node name="Cobrir" type="Button" parent="Janela"]
+offset_left = 10.0
+offset_top = 219.0
+offset_right = 270.0
+offset_bottom = 242.0
+visible = false
+text = "Cobrir com terra"
+theme_override_font_sizes/font_size = 12
+
+[node name="Escorrer" type="Button" parent="Janela"]
+offset_left = 10.0
+offset_top = 219.0
+offset_right = 270.0
+offset_bottom = 242.0
+visible = false
+text = "Escorrer excesso"
+theme_override_font_sizes/font_size = 12
+
+[node name="MoverParaLuz" type="Button" parent="Janela"]
+offset_left = 10.0
+offset_top = 219.0
+offset_right = 270.0
+offset_bottom = 242.0
+visible = false
+text = "Mover para a luz"
+theme_override_font_sizes/font_size = 12
+
+[node name="ProximoDia" type="Button" parent="Janela"]
+offset_left = 10.0
+offset_top = 219.0
+offset_right = 270.0
+offset_bottom = 242.0
+visible = false
+text = "Próximo dia"
+theme_override_font_sizes/font_size = 12
+
+[node name="GuardarMuda" type="Button" parent="Janela"]
+offset_left = 10.0
+offset_top = 219.0
+offset_right = 270.0
+offset_bottom = 242.0
+visible = false
+text = "Colocar na bandeja"
+theme_override_font_sizes/font_size = 12
+
+[node name="Voltar" type="Button" parent="Janela"]
+offset_left = 280.0
+offset_top = 219.0
+offset_right = 418.0
+offset_bottom = 242.0
+text = "Voltar ao lab"
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.2784, 0.2392, 0.1686, 1)
+theme_override_colors/font_hover_color = Color(0.2784, 0.2392, 0.1686, 1)
+theme_override_colors/font_focus_color = Color(0.2784, 0.2392, 0.1686, 1)
+theme_override_colors/font_pressed_color = Color(0.2784, 0.2392, 0.1686, 1)
+theme_override_styles/normal = SubResource("Voltar")
+theme_override_styles/pressed = SubResource("Voltar")
+theme_override_styles/hover = SubResource("VoltarHover")
+
+
+[node name="Efeitos" type="Node2D" parent="Janela"]

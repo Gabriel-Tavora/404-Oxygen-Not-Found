@@ -1,0 +1,202 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/sala-emocoes/jogo_memoria.gd" id="1_script"]
+[ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="2_fonte"]
+
+[sub_resource type="StyleBoxFlat" id="Moldura"]
+bg_color = Color(0.101, 0.185, 0.219, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.67, 0.49, 0.3, 1)
+shadow_color = Color(0.025, 0.052, 0.066, 0.85)
+shadow_size = 2
+shadow_offset = Vector2(2, 3)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Mesa"]
+bg_color = Color(0.07, 0.132, 0.163, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.26, 0.4, 0.42, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Botao"]
+bg_color = Color(0.16, 0.285, 0.31, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.26, 0.4, 0.42, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Sobre"]
+bg_color = Color(0.21, 0.365, 0.386, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.557, 0.79, 0.8, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Revelada"]
+bg_color = Color(0.28, 0.444, 0.465, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.557, 0.79, 0.8, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Par"]
+bg_color = Color(0.189, 0.324, 0.283, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.45, 0.657, 0.473, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Foco"]
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.96, 0.75, 0.426, 1)
+anti_aliasing = false
+
+[sub_resource type="Theme" id="Tema"]
+default_font = ExtResource("2_fonte")
+default_font_size = 8
+Label/colors/font_color = Color(0.966, 0.923, 0.822, 1)
+Button/colors/font_color = Color(0.966, 0.923, 0.822, 1)
+Button/colors/font_hover_color = Color(0.966, 0.923, 0.822, 1)
+Button/colors/font_pressed_color = Color(0.966, 0.923, 0.822, 1)
+Button/styles/normal = SubResource("Botao")
+Button/styles/hover = SubResource("Sobre")
+Button/styles/pressed = SubResource("Revelada")
+Button/styles/hover_pressed = SubResource("Revelada")
+Button/styles/disabled = SubResource("Par")
+Button/styles/focus = SubResource("Foco")
+
+[node name="JogoMemoria" type="Control"]
+visible = false
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Tema")
+script = ExtResource("1_script")
+
+[node name="Fundo" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.046, 0.086, 0.105, 0.72)
+
+[node name="Painel" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -224.0
+offset_top = -125.0
+offset_right = 224.0
+offset_bottom = 125.0
+theme_override_styles/panel = SubResource("Moldura")
+
+[node name="Cabecalho" type="ColorRect" parent="Painel"]
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 446.0
+offset_bottom = 42.0
+mouse_filter = 2
+color = Color(0.157, 0.276, 0.3, 1)
+
+[node name="Friso" type="ColorRect" parent="Painel"]
+offset_left = 2.0
+offset_top = 42.0
+offset_right = 446.0
+offset_bottom = 43.0
+mouse_filter = 2
+color = Color(0.68, 0.51, 0.32, 1)
+
+[node name="Titulo" type="Label" parent="Painel"]
+offset_left = 16.0
+offset_top = 6.0
+offset_right = 276.0
+offset_bottom = 29.0
+theme_override_font_sizes/font_size = 16
+text = "Jogo da memória"
+vertical_alignment = 1
+
+[node name="Instrucao" type="Label" parent="Painel"]
+offset_left = 16.0
+offset_top = 28.0
+offset_right = 318.0
+offset_bottom = 39.0
+theme_override_colors/font_color = Color(0.74, 0.82, 0.81, 1)
+text = "Combine dois rostos com o mesmo sentimento."
+
+[node name="Contador" type="Label" parent="Painel"]
+offset_left = 275.0
+offset_top = 13.0
+offset_right = 343.0
+offset_bottom = 29.0
+theme_override_colors/font_color = Color(0.75, 0.9, 0.92, 1)
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Voltar" type="Button" parent="Painel"]
+offset_left = 358.0
+offset_top = 9.0
+offset_right = 432.0
+offset_bottom = 33.0
+text = "Voltar"
+
+[node name="Tabuleiro" type="Panel" parent="Painel"]
+offset_left = 14.0
+offset_top = 51.0
+offset_right = 434.0
+offset_bottom = 226.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Mesa")
+
+[node name="Grade" type="GridContainer" parent="Painel/Tabuleiro"]
+offset_left = 46.0
+offset_top = 3.0
+offset_right = 374.0
+offset_bottom = 171.0
+mouse_filter = 2
+columns = 4
+theme_override_constants/h_separation = 8
+theme_override_constants/v_separation = 6
+
+[node name="Rodape" type="Panel" parent="Painel"]
+offset_left = 14.0
+offset_top = 231.0
+offset_right = 434.0
+offset_bottom = 246.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Mesa")
+
+[node name="Feedback" type="Label" parent="Painel/Rodape"]
+offset_left = 8.0
+offset_top = 0.0
+offset_right = 412.0
+offset_bottom = 15.0
+vertical_alignment = 1
+
+[node name="TempoDeRevelacao" type="Timer" parent="."]
+wait_time = 1.2
+one_shot = true

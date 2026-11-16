@@ -1,14 +1,24 @@
-[gd_scene load_steps=17 format=3]
+[gd_scene load_steps=22 format=3]
 
 [ext_resource type="Script" path="res://scenes/ui/convite_atividade.gd" id="1_dialog"]
 [ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="2_font"]
 [ext_resource type="Texture2D" path="res://assets/ui/resistencia.png" id="3_shield"]
 [ext_resource type="Texture2D" path="res://assets/lab-fisica/magnetismo-ima.png" id="4_magnet"]
 [ext_resource type="Texture2D" path="res://assets/ui/icone-movimento.png" id="5_motion"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/metamorfose-borboleta.png" id="6_borboleta"]
+[ext_resource type="Texture2D" path="res://assets/lab-biologia/botanica-vaso.png" id="7_vaso"]
+[ext_resource type="Texture2D" path="res://assets/lab-resistencia/corrida-moeda.png" id="8_moeda"]
+[ext_resource type="Texture2D" path="res://assets/lab-resistencia/pista-de-danca.png" id="9_pista"]
+[ext_resource type="Texture2D" path="res://assets/sala-emocoes/quadro-palavras-cruzadas.png" id="10_quadro"]
+[ext_resource type="Texture2D" path="res://assets/sala-emocoes/verso-carta-memoria.png" id="11_memoria"]
 
 [sub_resource type="AtlasTexture" id="IconeIma"]
 atlas = ExtResource("4_magnet")
 region = Rect2(4, 8, 34, 33)
+
+[sub_resource type="AtlasTexture" id="IconeDanca"]
+atlas = ExtResource("9_pista")
+region = Rect2(0, 45, 94, 66)
 
 [sub_resource type="Theme" id="TemaConvite"]
 default_font = ExtResource("2_font")
@@ -176,6 +186,66 @@ offset_bottom = 32.0
 visible = false
 mouse_filter = 2
 texture = ExtResource("5_motion")
+
+[node name="IconeBorboleta" type="TextureRect" parent="Janela"]
+visible = false
+offset_left = 10.0
+offset_top = 9.0
+offset_right = 38.0
+offset_bottom = 30.0
+mouse_filter = 2
+texture = ExtResource("6_borboleta")
+
+[node name="IconeBotanica" type="TextureRect" parent="Janela"]
+visible = false
+offset_left = 10.0
+offset_top = 3.0
+offset_right = 38.0
+offset_bottom = 37.0
+mouse_filter = 2
+texture = ExtResource("7_vaso")
+
+[node name="IconeEsteira" type="TextureRect" parent="Janela"]
+visible = false
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 36.0
+offset_bottom = 32.0
+mouse_filter = 2
+texture = ExtResource("8_moeda")
+
+[node name="IconeDanca" type="TextureRect" parent="Janela"]
+visible = false
+offset_left = 7.0
+offset_top = 6.0
+offset_right = 41.0
+offset_bottom = 34.0
+mouse_filter = 2
+texture = SubResource("IconeDanca")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="IconePalavrasCruzadas" type="TextureRect" parent="Janela"]
+visible = false
+offset_left = 7.0
+offset_top = 6.0
+offset_right = 41.0
+offset_bottom = 34.0
+mouse_filter = 2
+texture = ExtResource("10_quadro")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="IconeMemoria" type="TextureRect" parent="Janela"]
+visible = false
+offset_left = 10.0
+offset_top = 5.0
+offset_right = 38.0
+offset_bottom = 33.0
+mouse_filter = 2
+texture = ExtResource("11_memoria")
+expand_mode = 1
+stretch_mode = 5
 
 [node name="Titulo" type="Label" parent="Janela"]
 offset_left = 47.0

@@ -1,0 +1,35 @@
+[gd_scene format=3]
+
+[node name="CartaMemoria" type="Button"]
+custom_minimum_size = Vector2(76, 52)
+toggle_mode = true
+
+[node name="Retrato" type="TextureRect" parent="."]
+offset_left = 20.0
+offset_top = 8.0
+offset_right = 56.0
+offset_bottom = 44.0
+mouse_filter = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Nome" type="Label" parent="."]
+offset_left = 2.0
+offset_top = 39.0
+offset_right = 74.0
+offset_bottom = 50.0
+mouse_filter = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Selo" type="Label" parent="."]
+offset_left = 55.0
+offset_top = 3.0
+offset_right = 73.0
+offset_bottom = 14.0
+visible = false
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.74, 0.92, 0.73, 1)
+text = "Par"
+horizontal_alignment = 1
+vertical_alignment = 1

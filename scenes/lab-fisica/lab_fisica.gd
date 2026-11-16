@@ -4,6 +4,7 @@ signal atividade_escolhida(atividade: StringName)
 
 @onready var _player = $Player
 @onready var _convite = $Interface/ConviteAtividade
+@onready var _treinamento = $Interface/PainelTreinamento
 @onready var _expedicao = $Interface/ExpedicaoMagnetica
 @onready var _lancamento = $Interface/LancamentoObliquo
 
@@ -28,6 +29,7 @@ func _iniciar_atividade(atividade: StringName) -> void:
 
 func _liberar_controles() -> void:
 	_player.controles_bloqueados = false
+	_treinamento.restaurar_apos_missao()
 
 
 func _ao_concluir_expedicao() -> void:
@@ -42,6 +44,7 @@ func _responder_convite(atividade: StringName, aceitou: bool) -> void:
 	if not aceitou:
 		_liberar_controles()
 		return
+	_treinamento.ocultar_durante_missao()
 	match atividade:
 		&"ima":
 			_expedicao.abrir()

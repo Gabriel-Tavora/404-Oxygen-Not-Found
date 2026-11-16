@@ -1,0 +1,66 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/lab-fisica/fundo-janela.png" id="1_janela"]
+[ext_resource type="Texture2D" path="res://assets/lab-fisica/fundo-janela-ceu.png" id="2_ceu"]
+[ext_resource type="Texture2D" path="res://assets/lab-fisica/fundo-janela-colinas.png" id="3_colinas"]
+[ext_resource type="Texture2D" path="res://assets/lab-fisica/fundo-janela-nuvens.png" id="4_nuvens"]
+[ext_resource type="Texture2D" path="res://assets/lab-fisica/fundo-janela-sol.png" id="5_sol"]
+[ext_resource type="Texture2D" path="res://assets/lab-resistencia/fundo-quadro.png" id="6_quadro"]
+[ext_resource type="Texture2D" path="res://assets/lab-resistencia/fundo-prateleiras.png" id="7_prateleiras"]
+[ext_resource type="Texture2D" path="res://assets/lab-resistencia/fundo-flamula.png" id="8_flamula"]
+
+[node name="FundoLaboratorio" type="Node2D"]
+texture_filter = 1
+
+[node name="FlamulaEsquerda" type="Sprite2D" parent="."]
+position = Vector2(29, 21)
+texture = ExtResource("8_flamula")
+centered = false
+
+[node name="Janela" type="Node2D" parent="."]
+position = Vector2(110, 20)
+
+[node name="Ceu" type="Sprite2D" parent="Janela"]
+position = Vector2(6, 6)
+texture = ExtResource("2_ceu")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 52, 42)
+
+[node name="Colinas" type="Sprite2D" parent="Janela"]
+position = Vector2(6, 6)
+texture = ExtResource("3_colinas")
+centered = false
+region_enabled = true
+region_rect = Rect2(23, 0, 52, 42)
+
+[node name="Sol" type="Sprite2D" parent="Janela"]
+position = Vector2(45, 13)
+texture = ExtResource("5_sol")
+centered = false
+
+[node name="Nuvens" type="Sprite2D" parent="Janela"]
+position = Vector2(6, 6)
+texture = ExtResource("4_nuvens")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 52, 42)
+
+[node name="Moldura" type="Sprite2D" parent="Janela"]
+texture = ExtResource("1_janela")
+centered = false
+
+[node name="QuadroResistencia" type="Sprite2D" parent="."]
+position = Vector2(189, 20)
+texture = ExtResource("6_quadro")
+centered = false
+
+[node name="Prateleiras" type="Sprite2D" parent="."]
+position = Vector2(303, 17)
+texture = ExtResource("7_prateleiras")
+centered = false
+
+[node name="FlamulaDireita" type="Sprite2D" parent="."]
+position = Vector2(414, 21)
+texture = ExtResource("8_flamula")
+centered = false

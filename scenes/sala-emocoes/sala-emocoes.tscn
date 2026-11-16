@@ -1,0 +1,171 @@
+[gd_scene format=3]
+
+[ext_resource type="Texture2D" path="res://assets/sala-emocoes/piso.png" id="1_piso"]
+[ext_resource type="Texture2D" path="res://assets/sala-emocoes/parede-e-vigas.png" id="2_parede"]
+[ext_resource type="Texture2D" path="res://assets/sala-emocoes/janela.png" id="3_janela"]
+[ext_resource type="PackedScene" path="res://scenes/astronauta/player.tscn" id="4_player"]
+[ext_resource type="Texture2D" path="res://assets/sala-emocoes/placa-sala.png" id="5_placa"]
+[ext_resource type="Texture2D" path="res://assets/sala-emocoes/arandela.png" id="6_arandela"]
+[ext_resource type="Texture2D" path="res://assets/sala-emocoes/quadro-palavras-cruzadas.png" id="7_quadro"]
+[ext_resource type="Texture2D" path="res://assets/sala-emocoes/mesa-memoria.png" id="8_mesa"]
+[ext_resource type="Texture2D" path="res://assets/sala-emocoes/cadeira-diario.png" id="9_cadeira"]
+[ext_resource type="Texture2D" path="res://assets/sala-emocoes/vaso-folhagem.png" id="10_vaso"]
+[ext_resource type="PackedScene" path="res://scenes/laboratorios/sinal-atividade.tscn" id="11_sinal"]
+[ext_resource type="PackedScene" path="res://scenes/ui/painel-treinamento.tscn" id="12_treinamento"]
+[ext_resource type="Script" path="res://scenes/sala-emocoes/sala_emocoes.gd" id="13_sala"]
+[ext_resource type="PackedScene" path="res://scenes/ui/convite-atividade.tscn" id="14_convite"]
+[ext_resource type="PackedScene" path="res://scenes/sala-emocoes/palavras-cruzadas.tscn" id="15_cruzadas"]
+[ext_resource type="PackedScene" path="res://scenes/sala-emocoes/jogo-memoria.tscn" id="16_memoria"]
+
+[sub_resource type="RectangleShape2D" id="LimiteHorizontal"]
+size = Vector2(454, 16)
+
+[sub_resource type="RectangleShape2D" id="LimiteLateral"]
+size = Vector2(13, 108)
+
+[sub_resource type="RectangleShape2D" id="BaseMesa"]
+size = Vector2(96, 26)
+
+[sub_resource type="RectangleShape2D" id="BaseCadeira"]
+size = Vector2(36, 26)
+
+[sub_resource type="RectangleShape2D" id="BaseVaso"]
+size = Vector2(20, 10)
+
+[node name="SalaEmocoes" type="Node2D"]
+y_sort_enabled = true
+texture_filter = 1
+script = ExtResource("13_sala")
+
+[node name="Cenario" type="Node2D" parent="."]
+
+[node name="Piso" type="Sprite2D" parent="Cenario"]
+position = Vector2(13, 168)
+texture = ExtResource("1_piso")
+centered = false
+
+[node name="ParedeEVigas" type="Sprite2D" parent="Cenario"]
+texture = ExtResource("2_parede")
+centered = false
+
+[node name="Janela" type="Sprite2D" parent="Cenario"]
+position = Vector2(152, 42)
+texture = ExtResource("3_janela")
+centered = false
+
+[node name="PlacaSala" type="Sprite2D" parent="Cenario"]
+position = Vector2(169, 18)
+texture = ExtResource("5_placa")
+centered = false
+
+[node name="ArandelaQuadro" type="Sprite2D" parent="Cenario"]
+position = Vector2(43, 48)
+texture = ExtResource("6_arandela")
+centered = false
+
+[node name="ArandelaMesa" type="Sprite2D" parent="Cenario"]
+position = Vector2(361, 97)
+texture = ExtResource("6_arandela")
+centered = false
+
+[node name="QuadroPalavrasCruzadas" type="Sprite2D" parent="Cenario"]
+position = Vector2(27, 72)
+texture = ExtResource("7_quadro")
+centered = false
+
+[node name="LimitesDaSala" type="StaticBody2D" parent="."]
+collision_mask = 0
+
+[node name="Fundo" type="CollisionShape2D" parent="LimitesDaSala"]
+position = Vector2(240, 160)
+shape = SubResource("LimiteHorizontal")
+
+[node name="Frente" type="CollisionShape2D" parent="LimitesDaSala"]
+position = Vector2(240, 284)
+shape = SubResource("LimiteHorizontal")
+
+[node name="Esquerda" type="CollisionShape2D" parent="LimitesDaSala"]
+position = Vector2(6.5, 222)
+shape = SubResource("LimiteLateral")
+
+[node name="Direita" type="CollisionShape2D" parent="LimitesDaSala"]
+position = Vector2(473.5, 222)
+shape = SubResource("LimiteLateral")
+
+[node name="MesaMemoria" type="StaticBody2D" parent="."]
+position = Vector2(341, 198)
+collision_mask = 0
+
+[node name="Sprite" type="Sprite2D" parent="MesaMemoria"]
+position = Vector2(0, -67)
+texture = ExtResource("8_mesa")
+centered = false
+
+[node name="Colisao" type="CollisionShape2D" parent="MesaMemoria"]
+position = Vector2(60, -13)
+shape = SubResource("BaseMesa")
+
+[node name="CadeiraMemoria" type="StaticBody2D" parent="."]
+position = Vector2(384, 224)
+collision_mask = 0
+
+[node name="Sprite" type="Sprite2D" parent="CadeiraMemoria"]
+position = Vector2(0, -48)
+texture = ExtResource("9_cadeira")
+centered = false
+
+[node name="Colisao" type="CollisionShape2D" parent="CadeiraMemoria"]
+position = Vector2(22, -13)
+shape = SubResource("BaseCadeira")
+
+[node name="VasoEsquerda" type="StaticBody2D" parent="."]
+position = Vector2(22, 193)
+collision_mask = 0
+
+[node name="Sprite" type="Sprite2D" parent="VasoEsquerda"]
+position = Vector2(0, -43)
+texture = ExtResource("10_vaso")
+centered = false
+
+[node name="Colisao" type="CollisionShape2D" parent="VasoEsquerda"]
+position = Vector2(17, -5)
+shape = SubResource("BaseVaso")
+
+[node name="VasoDireita" type="StaticBody2D" parent="."]
+position = Vector2(117, 202)
+collision_mask = 0
+
+[node name="Sprite" type="Sprite2D" parent="VasoDireita"]
+position = Vector2(0, -43)
+texture = ExtResource("10_vaso")
+centered = false
+flip_h = true
+
+[node name="Colisao" type="CollisionShape2D" parent="VasoDireita"]
+position = Vector2(17, -5)
+shape = SubResource("BaseVaso")
+
+[node name="Sinais" type="Node2D" parent="."]
+
+[node name="SinalPalavrasCruzadas" parent="Sinais" instance=ExtResource("11_sinal")]
+position = Vector2(84, 240)
+atividade = &"palavras_cruzadas"
+tarefa = &"emocoes/palavras_cruzadas"
+
+[node name="SinalMemoria" parent="Sinais" instance=ExtResource("11_sinal")]
+position = Vector2(406, 240)
+atividade = &"memoria"
+tarefa = &"emocoes/memoria"
+
+[node name="Player" parent="." instance=ExtResource("4_player")]
+position = Vector2(240, 258)
+
+[node name="Interface" type="CanvasLayer" parent="."]
+
+[node name="PainelTreinamento" parent="Interface" instance=ExtResource("12_treinamento")]
+
+[node name="ConviteAtividade" parent="Interface" instance=ExtResource("14_convite")]
+
+[node name="PalavrasCruzadas" parent="Interface" instance=ExtResource("15_cruzadas")]
+
+[node name="JogoMemoria" parent="Interface" instance=ExtResource("16_memoria")]

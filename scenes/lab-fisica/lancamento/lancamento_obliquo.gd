@@ -24,6 +24,8 @@ const CAIXAS: Array[float] = [199.0, 304.0, 408.0]
 const NOMES: Array[String] = ["verde", "amarela", "vermelha"]
 const CORES: Array[Color] = [Color("#8aeca7"), Color("#ffdb74"), Color("#ff8c83")]
 const VENTOS: Array[float] = [0.0, -67.0, 67.0]
+const ALTURAS_RAJADAS: Array[int] = [88, 104, 125, 143, 161, 177]
+const VELOCIDADE_RAJADAS := 92.0
 const MARINHO := Color("#142734")
 const AZUL := Color("#a2cbd8")
 
@@ -35,6 +37,7 @@ var _carga := 0.0
 var _carregando := false
 var _mirando := false
 var _tempo := 0.0
+var _tempo_vento := 0.0
 var _velocidade := Vector2.ZERO
 var _bola := ORIGEM
 var _aviso := ""
@@ -48,6 +51,7 @@ func _ready() -> void:
 func abrir() -> void:
 	_rodada = 0
 	_angulo = ANGULO_INICIAL
+	_tempo_vento = 0.0
 	_dialogo.hide()
 	_preparar("Acerte a caixa verde com a bola verde.")
 	show()
@@ -137,6 +141,7 @@ func _lancar() -> void:
 
 
 func _process(delta: float) -> void:
+	_tempo_vento += delta
 	match _estado:
 		Estado.PREPARANDO:
 			if _carregando:
@@ -185,6 +190,7 @@ func _avancar() -> void:
 
 func _draw() -> void:
 	_desenhar_sala()
+	_desenhar_rajadas()
 	for i in CAIXAS.size():
 		_desenhar_caixa(i)
 	var retrato := SPRITES.get_frame_texture(&"parado_leste", 0)
@@ -210,6 +216,25 @@ func _desenhar_sala() -> void:
 		draw_rect(Rect2(x, ALTURA_CHAO + 6, 7, 2), Color("#40616a"))
 	draw_rect(Rect2(35, 193, 42, 27), Color("#355965"))
 	draw_rect(Rect2(33, 193, 46, 3), Color("#8aa8a1"))
+
+
+func _desenhar_rajadas() -> void:
+	var sentido := signf(VENTOS[_rodada])
+	if sentido == 0.0 or _estado == Estado.CONCLUIDO:
+		return
+	var margem := 32.0
+	var percurso := size.x + margem * 2.0
+	var cor := Color(AZUL, 0.38)
+	for i in ALTURAS_RAJADAS.size():
+		var fase := float(i) / ALTURAS_RAJADAS.size()
+		var distancia := fposmod(_tempo_vento * VELOCIDADE_RAJADAS + percurso * fase, percurso)
+		var x := roundf(size.x * 0.5 + sentido * (distancia - percurso * 0.5))
+		var y := ALTURAS_RAJADAS[i]
+		var comprimento := 15 + (i % 3) * 5
+		var inicio := x - sentido * comprimento
+		draw_rect(Rect2(minf(inicio, x), y, comprimento, 1), cor)
+		draw_rect(Rect2(minf(x, x + sentido * 3), y - 1, 3, 1), cor)
+		draw_rect(Rect2(minf(x + sentido * 2, x + sentido * 4), y - 2, 2, 1), cor)
 
 
 func _desenhar_caixa(i: int) -> void:
