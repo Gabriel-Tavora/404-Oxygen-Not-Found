@@ -5,4 +5,4 @@ extends RefCounted
 const MAPA := "res://scenes/hub-missoes/mapa.tscn"
 
 ## Nó onde o jogador está (nome do nó dentro de "Nodes")
-static var current_node: StringName = &"casa_azul"
+static var current_node: StringName = &"cruz_3"

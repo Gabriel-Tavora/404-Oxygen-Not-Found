@@ -23,7 +23,7 @@ const CENA_ENCERRAMENTO := preload("res://scenes/encerramento/encerramento.tscn"
 const REDUCAO_AMBIENTE_MENU_DB := 4.0
 
 @export var world_name := "MAPA DE MISSÕES"
-@export var start_node: StringName = &"casa_azul"
+@export var start_node: StringName = &"cruz_3"
 
 @onready var player: OverworldPlayer = $Player
 @onready var nodes: Node2D = $Nodes

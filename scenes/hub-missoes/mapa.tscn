@@ -241,13 +241,7 @@ connections = Array[NodePath]([NodePath("../cruz_3")])
 [node name="cruz_3" type="Marker2D" parent="Nodes" unique_id=1465164476]
 position = Vector2(625, 800)
 script = ExtResource("s_node")
-connections = Array[NodePath]([NodePath("../casa_azul"), NodePath("../cruz_4")])
-
-[node name="casa_azul" type="Marker2D" parent="Nodes" unique_id=1786535804]
-position = Vector2(785, 792)
-script = ExtResource("s_node")
-display_name = "CASA AZUL"
-kind = 3
+connections = Array[NodePath]([NodePath("../cruz_4")])
 
 [node name="cruz_4" type="Marker2D" parent="Nodes" unique_id=992402391]
 position = Vector2(625, 885)

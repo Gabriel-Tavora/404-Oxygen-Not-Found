@@ -17,7 +17,7 @@ const FORCA_MAXIMA := 430.0
 const ANGULO_MINIMO := deg_to_rad(14.0)
 const ANGULO_MAXIMO := deg_to_rad(46.0)
 const ANGULO_INICIAL := deg_to_rad(34.0)
-const TEMPO_CARGA := 2.4
+const DISTANCIA_FORCA_MAXIMA := 220.0
 const RAIO_BOLA := 5.0
 const MEIA_ABERTURA := 24.0
 const CAIXAS: Array[float] = [199.0, 304.0, 408.0]
@@ -35,7 +35,6 @@ var _estado := Estado.PREPARANDO
 var _rodada := 0
 var _angulo := ANGULO_INICIAL
 var _carga := 0.0
-var _carregando := false
 var _mirando := false
 var _tempo := 0.0
 var _tempo_vento := 0.0
@@ -71,7 +70,6 @@ func _preparar(aviso: String) -> void:
 
 func _cancelar_mouse() -> void:
 	_mirando = false
-	_carregando = false
 	_carga = 0.0
 
 
@@ -81,24 +79,19 @@ func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion and _mirando:
 		_mirar(event.position)
 		accept_event()
-	elif event is InputEventMouseButton:
-		match event.button_index:
-			MOUSE_BUTTON_RIGHT:
-				_mirando = event.pressed
-				if _mirando:
-					_mirar(event.position)
-				accept_event()
-			MOUSE_BUTTON_LEFT:
-				if event.pressed:
-					_carregando = true
-					_carga = 0.0
-				elif _carregando:
-					_lancar()
-				accept_event()
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			_mirando = true
+			_mirar(event.position)
+		elif _mirando:
+			_mirar(event.position)
+			_lancar()
+		accept_event()
 
 
 func _mirar(ponto: Vector2) -> void:
 	var direcao := ponto - ORIGEM
+	_carga = minf(direcao.length() / DISTANCIA_FORCA_MAXIMA, 1.0)
 	if direcao.length_squared() > 16.0:
 		_angulo = clampf(atan2(-direcao.y, maxf(direcao.x, 0.0)), ANGULO_MINIMO, ANGULO_MAXIMO)
 
@@ -148,9 +141,6 @@ func _lancar() -> void:
 func _process(delta: float) -> void:
 	_tempo_vento += delta
 	match _estado:
-		Estado.PREPARANDO:
-			if _carregando:
-				_carga = minf(1.0, _carga + delta / TEMPO_CARGA)
 		Estado.EM_VOO:
 			_atualizar_bola(delta)
 		Estado.ACERTOU:
@@ -203,7 +193,7 @@ func _draw() -> void:
 	if not _personagem.visible:
 		var retrato := SPRITES.get_frame_texture(&"parado_leste", 0)
 		draw_texture(retrato, Vector2(38, 162))
-	if _estado == Estado.PREPARANDO:
+	if _mirando:
 		_desenhar_trajetoria()
 	if _estado in [Estado.PREPARANDO, Estado.EM_VOO]:
 		_desenhar_bola(_bola, CORES[_rodada])
@@ -316,7 +306,7 @@ func _desenhar_hud() -> void:
 
 	HUD.painel(self, Rect2(8, 234, 464, 46), Color("#f8ddc6"))
 	var dica := _aviso
-	var pronto := _estado == Estado.PREPARANDO and _carregando and _caixa_atingida(_velocidade_inicial()) == _rodada
+	var pronto := _mirando and _caixa_atingida(_velocidade_inicial()) == _rodada
 	if pronto:
 		dica = "Solte agora!"
 	elif _estado == Estado.EM_VOO:
@@ -330,10 +320,9 @@ func _desenhar_hud() -> void:
 	draw_string(FONTE_PIXEL, Vector2(16, 270), "Força", HORIZONTAL_ALIGNMENT_LEFT, -1, 8, HUD.TINTA)
 	draw_rect(Rect2(48, 262, 90, 11), HUD.CONTORNO)
 	draw_rect(Rect2(49, 263, 88, 9), Color("#d7a88f"))
-	if _estado == Estado.PREPARANDO:
+	if _mirando:
 		draw_rect(Rect2(49, 263, 6 + roundf(_carga * 82), 9), cor.darkened(0.18))
-	HUD.controle(self, 151, 43, "Direito", "Mirar", damasco)
-	HUD.controle(self, 235, 50, "Esquerdo", "Carregar e soltar", mel)
+	HUD.controle(self, 151, 140, "Botão esquerdo do mouse", "Arraste e solte", mel)
 	HUD.controle(self, 395, 26, "Esc", "Voltar", Color("#e9d3f4"))
 
 

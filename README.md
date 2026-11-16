@@ -20,7 +20,7 @@ Física e Biologia também ligam os dois laboratórios com **E**.
 | Sinal | Missão | Controles |
 | --- | --- | --- |
 | Esquerdo | Expedição magnética | Ande com **A/D** ou **←/→**, pule com **Espaço**, **W** ou **↑**, troque de polo com **X** e use o ímã com **E**. Colete as moedas e chegue à saída. |
-| Direito | Lançamento oblíquo | Mire com o botão direito do mouse. Segure o esquerdo para carregar e solte para lançar na caixa da mesma cor. O vento muda a cada rodada. |
+| Direito | Lançamento oblíquo | Segure o **botão esquerdo do mouse** e arraste para ajustar a mira e a força. Solte para lançar na caixa da mesma cor. O vento muda a cada rodada. |
 
 Use **Esc** para voltar ao laboratório. Para reabrir uma atividade, saia do
 sinal e pise nele novamente. A barra de Conhecimento soma um ponto pela
