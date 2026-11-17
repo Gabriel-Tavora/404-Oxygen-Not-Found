@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" path="res://assets/lab-resistencia/corrida-moeda.wav" id="4_som"]
 [ext_resource type="AudioStream" path="res://assets/lab-resistencia/corrida-impacto.wav" id="5_impacto"]
 [ext_resource type="PackedScene" path="res://scenes/ui/resultado-missao.tscn" id="resultado"]
+[ext_resource type="PackedScene" path="res://scenes/lab-fisica/personagem-missao.tscn" id="personagem"]
 
 [sub_resource type="StyleBoxFlat" id="Placa"]
 bg_color = Color(0.086, 0.174, 0.217, 1)
@@ -75,6 +76,11 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Tema")
 script = ExtResource("1_corrida")
+
+[node name="Personagem" parent="." instance=ExtResource("personagem")]
+scale = Vector2(0.32, 0.32)
+
+[node name="PrimeiroPlano" type="Node2D" parent="."]
 
 [node name="Placar" type="Panel" parent="."]
 offset_left = 12.0

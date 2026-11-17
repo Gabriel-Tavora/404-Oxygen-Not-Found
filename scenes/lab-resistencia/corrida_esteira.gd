@@ -19,6 +19,8 @@ class Fileira:
 	var barreira := -1
 
 
+@onready var _personagem := $Personagem
+@onready var _primeiro_plano: Node2D = $PrimeiroPlano
 @onready var _contador: Label = $Placar/Contador
 @onready var _objetivo: Label = $Placar/Objetivo
 @onready var _cor_objetivo_inicial := _objetivo.get_theme_color("font_color")
@@ -47,6 +49,8 @@ var _moedas := 0
 
 
 func _ready() -> void:
+	_personagem.aplicar_selecao()
+	_primeiro_plano.draw.connect(_desenhar_primeiro_plano)
 	_pausar.pressed.connect(_pausar_corrida)
 	_continuar.pressed.connect(_retomar)
 	$Pausa/Janela/Voltar.pressed.connect(func() -> void: fechado.emit())
@@ -77,7 +81,7 @@ func _reiniciar_corrida() -> void:
 	for indice in range(4):
 		_criar_fileira(0.60 - indice * ESPACAMENTO)
 	_ate_proxima = ESPACAMENTO - _fileiras.back().profundidade
-	queue_redraw()
+	_redesenhar()
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -132,7 +136,7 @@ func _physics_process(delta: float) -> void:
 	while _ate_proxima <= 0.0:
 		_criar_fileira(-_ate_proxima)
 		_ate_proxima += ESPACAMENTO
-	queue_redraw()
+	_redesenhar()
 
 
 func _criar_fileira(profundidade: float) -> void:
@@ -175,7 +179,7 @@ func _pegar_moeda() -> void:
 		_objetivo.text = "Missão concluída!"
 		_pausar.hide()
 		set_physics_process(false)
-		queue_redraw()
+		_redesenhar()
 		_resultado.mostrar("Corrida na esteira", "Você coletou as %d moedas!" % META_MOEDAS)
 		concluido.emit()
 
@@ -194,7 +198,7 @@ func _encerrar_por_colisao() -> void:
 	_som_impacto.play()
 	_falha.show()
 	_tentar_de_novo.grab_focus()
-	queue_redraw()
+	_redesenhar()
 
 
 func _resumo_moedas() -> String:
@@ -216,6 +220,11 @@ func _ponto_pista(profundidade: float, faixa: float) -> Vector2:
 	return Vector2(CENTRO + (faixa - 1.0) * largura_faixa, lerpf(40.0, 288.0, perspectiva))
 
 
+func _redesenhar() -> void:
+	queue_redraw()
+	_primeiro_plano.queue_redraw()
+
+
 func _draw() -> void:
 	draw_texture(FUNDO, Vector2.ZERO)
 	for faixa in [0.5, 1.5]:
@@ -225,15 +234,19 @@ func _draw() -> void:
 			if fim > 0.0 and inicio < 1.0:
 				_desenhar_faixa(faixa, maxf(0.0, inicio), fim)
 
-	var corredor_desenhado := false
 	for indice in range(_fileiras.size() - 1, -1, -1):
 		var fileira := _fileiras[indice]
-		if fileira.profundidade > PROFUNDIDADE_CORREDOR and not corredor_desenhado:
-			_desenhar_corredor()
-			corredor_desenhado = true
-		_desenhar_fileira(fileira)
-	if not corredor_desenhado:
-		_desenhar_corredor()
+		if fileira.profundidade > PROFUNDIDADE_CORREDOR:
+			break
+		_desenhar_fileira(self, fileira)
+	_desenhar_corredor()
+
+
+func _desenhar_primeiro_plano() -> void:
+	for indice in range(_fileiras.size() - 1, -1, -1):
+		var fileira := _fileiras[indice]
+		if fileira.profundidade > PROFUNDIDADE_CORREDOR:
+			_desenhar_fileira(_primeiro_plano, fileira)
 
 
 func _desenhar_faixa(faixa: float, inicio: float, fim: float) -> void:
@@ -249,23 +262,23 @@ func _desenhar_faixa(faixa: float, inicio: float, fim: float) -> void:
 	]), Color("#738795"))
 
 
-func _desenhar_fileira(fileira: Fileira) -> void:
+func _desenhar_fileira(camada: CanvasItem, fileira: Fileira) -> void:
 	var profundidade := fileira.profundidade
 	var escala := lerpf(0.62, 1.34, profundidade)
 	if fileira.barreira >= 0:
 		var ponto := _ponto_pista(profundidade, fileira.barreira)
 		var tamanho := (OBSTACULO.get_size() * escala).round()
 		var origem := ponto - Vector2(tamanho.x * 0.5, tamanho.y)
-		draw_rect(Rect2((ponto - Vector2(tamanho.x * 0.48, 3)).round(), Vector2(tamanho.x * 0.96, 4)), Color("#12222c99"))
-		draw_texture_rect(OBSTACULO, Rect2(origem.round(), tamanho), false)
+		camada.draw_rect(Rect2((ponto - Vector2(tamanho.x * 0.48, 3)).round(), Vector2(tamanho.x * 0.96, 4)), Color("#12222c99"))
+		camada.draw_texture_rect(OBSTACULO, Rect2(origem.round(), tamanho), false)
 	for faixa in fileira.moedas:
 		var ponto := _ponto_pista(profundidade, faixa)
 		var giro := absf(cos(_tempo * 5.0 + profundidade * 8.0))
 		var tamanho := (MOEDA.get_size() * escala * Vector2(lerpf(0.63, 1.02, giro), 1.0)).round()
 		var origem := ponto - Vector2(tamanho.x * 0.5, tamanho.y + 5.0)
-		draw_texture_rect(MOEDA, Rect2(origem.round(), tamanho), false)
+		camada.draw_texture_rect(MOEDA, Rect2(origem.round(), tamanho), false)
 		if giro > 0.84 and profundidade > 0.28:
-			_desenhar_brilho((origem + Vector2(tamanho.x + 3, 1)).round(), Color("#ffdf79"))
+			_desenhar_brilho(camada, (origem + Vector2(tamanho.x + 3, 1)).round(), Color("#ffdf79"))
 
 
 func _desenhar_corredor() -> void:
@@ -274,15 +287,20 @@ func _desenhar_corredor() -> void:
 	draw_rect(Rect2(pes + Vector2(-6, -3), Vector2(12, 6)), Color("#172a358c"))
 
 	var altura := _altura_salto()
-	var quadro := 0 if altura > 0.0 else int(_tempo * 15.0) % CORREDOR.get_frame_count(&"andar_norte")
-	var textura := CORREDOR.get_frame_texture(&"andar_norte", quadro)
 	var tinta := Color("#ffad8c") if _falha.visible else Color.WHITE
-	draw_texture_rect(textura, Rect2((pes - Vector2(19, 49 + altura)).round(), Vector2(38, 50)), false, tinta)
+	if _personagem.visible:
+		_personagem.position = (pes - Vector2(0, altura)).round()
+		_personagem.modulate = tinta
+		_personagem.definir_pose(&"walk_up", 0.0 if altura > 0.0 else _tempo * 2.0)
+	else:
+		var quadro := 0 if altura > 0.0 else int(_tempo * 15.0) % CORREDOR.get_frame_count(&"andar_norte")
+		var textura := CORREDOR.get_frame_texture(&"andar_norte", quadro)
+		draw_texture_rect(textura, Rect2((pes - Vector2(19, 49 + altura)).round(), Vector2(38, 50)), false, tinta)
 	if _brilho > 0.0:
 		var brilho := pes + Vector2(19, -26 - altura - (0.30 - _brilho) * 42.0)
-		_desenhar_brilho(brilho.round(), Color("#ffe283"))
+		_desenhar_brilho(self, brilho.round(), Color("#ffe283"))
 
 
-func _desenhar_brilho(ponto: Vector2, cor: Color) -> void:
-	draw_rect(Rect2(ponto - Vector2(2, 0), Vector2(5, 1)), cor)
-	draw_rect(Rect2(ponto - Vector2(0, 2), Vector2(1, 5)), cor)
+func _desenhar_brilho(camada: CanvasItem, ponto: Vector2, cor: Color) -> void:
+	camada.draw_rect(Rect2(ponto - Vector2(2, 0), Vector2(5, 1)), cor)
+	camada.draw_rect(Rect2(ponto - Vector2(0, 2), Vector2(1, 5)), cor)

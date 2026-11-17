@@ -13,7 +13,8 @@ const PRIMEIRO_MOVIMENTO := 4 * BATIDA
 const TEMPO_DE_PERCURSO := 1.42
 const JANELA_DE_ACERTO := 0.35
 const ACOES: Array[StringName] = [&"andar_esquerda", &"andar_baixo", &"andar_cima", &"andar_direita"]
-const PASSOS: Array[StringName] = [&"andar_oeste", &"andar_sul", &"andar_norte", &"andar_leste"]
+const PASSOS: Array[StringName] = [&"walk_right", &"walk_down", &"walk_up", &"walk_right"]
+const PASSOS_PADRAO: Array[StringName] = [&"andar_oeste", &"andar_sul", &"andar_norte", &"andar_leste"]
 const SEQUENCIA: Array[int] = [0, 1, 2, 3, 2, 1, 3, 0, 1, 2, 0, 3, 1, 0, 2, 3]
 const CORES: Array[Color] = [Color("#c18be9"), Color("#55d7ef"), Color("#79efb5"), Color("#ffbe63")]
 const ROTACOES: Array[float] = [-PI / 2, PI, 0.0, PI / 2]
@@ -39,6 +40,7 @@ class Movimento:
 		instante = novo_instante
 
 
+@onready var _personagem := $Personagem
 @onready var _alvos: Control = $Alvos
 @onready var _batida: AudioStreamPlayer = $Batida
 @onready var _som_acerto: AudioStreamPlayer = $SomAcerto
@@ -62,6 +64,7 @@ var _ultimo_aviso := -1.0
 
 
 func _ready() -> void:
+	_personagem.aplicar_selecao()
 	_contador.text = "0 / %d" % META
 	for faixa in range(ACOES.size()):
 		var alvo := _alvos.get_child(faixa) as Button
@@ -236,14 +239,22 @@ func _desenhar_palco() -> void:
 	var deslocamento := curva * DESLOCAMENTOS_PASSO[_faixa_ativa]
 	var pes := (Vector2(124, 211) + deslocamento).round()
 	draw_rect(Rect2(pes + Vector2(-12, -3), Vector2(24, 5)), Color("#193747bb"))
-	var textura := ASTRONAUTA.get_frame_texture(&"parado_sul", 0)
 	if dancando:
-		textura = ASTRONAUTA.get_frame_texture(PASSOS[_faixa_ativa], 0 if tempo_passo < 0.21 else 2)
 		var brilho := pes + Vector2(18, -40 - tempo_passo * 24.0).round()
 		draw_rect(Rect2(pes + Vector2(-11, -2), Vector2(22, 2)), CORES[_faixa_ativa].lightened(0.5))
 		draw_rect(Rect2(brilho + Vector2(-3, 0), Vector2(7, 1)), DOURADO)
 		draw_rect(Rect2(brilho + Vector2(0, -3), Vector2(1, 7)), DOURADO)
 	var salto := roundf(curva * 9.0) if dancando else roundf(sin(batida * TAU) * 2.0)
+	if _personagem.visible:
+		_personagem.position = pes - Vector2(0, salto)
+		if dancando:
+			_personagem.definir_pose(PASSOS[_faixa_ativa], tempo_passo, _faixa_ativa == 0)
+		else:
+			_personagem.definir_pose(&"idle_down")
+		return
+	var textura := ASTRONAUTA.get_frame_texture(&"parado_sul", 0)
+	if dancando:
+		textura = ASTRONAUTA.get_frame_texture(PASSOS_PADRAO[_faixa_ativa], 0 if tempo_passo < 0.21 else 2)
 	draw_texture_rect(textura, Rect2(pes - Vector2(24, 61 + salto), Vector2(48, 64)), false)
 
 

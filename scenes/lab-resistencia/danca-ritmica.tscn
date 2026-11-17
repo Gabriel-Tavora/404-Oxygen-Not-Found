@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" path="res://assets/lab-resistencia/danca-batida.wav" id="5_batida"]
 [ext_resource type="AudioStream" path="res://assets/lab-resistencia/corrida-moeda.wav" id="6_acerto"]
 [ext_resource type="PackedScene" path="res://scenes/ui/resultado-missao.tscn" id="resultado"]
+[ext_resource type="PackedScene" path="res://scenes/lab-fisica/personagem-missao.tscn" id="personagem"]
 
 [sub_resource type="StyleBoxFlat" id="Painel"]
 bg_color = Color(0.08, 0.16, 0.20, 1)
@@ -87,6 +88,9 @@ offset_right = 480.0
 offset_bottom = 288.0
 mouse_filter = 2
 color = Color(0.06, 0.14, 0.18, 0.18)
+
+[node name="Personagem" parent="." instance=ExtResource("personagem")]
+scale = Vector2(0.4, 0.4)
 
 [node name="Titulo" type="Label" parent="."]
 offset_left = 43.0
