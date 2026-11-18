@@ -90,6 +90,15 @@ focus_previous = NodePath("../Fechar")
 mouse_default_cursor_shape = 2
 text = "Voltar ao jogo"
 
+[node name="MenuInicial" type="Button" parent="Fundo/Janela/Botoes"]
+visible = false
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_right = NodePath(".")
+mouse_default_cursor_shape = 2
+text = "Voltar ao menu inicial"
+
 [node name="Fechar" type="Button" parent="Fundo/Janela/Botoes"]
 custom_minimum_size = Vector2(0, 22)
 layout_mode = 2
