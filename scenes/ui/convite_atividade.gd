@@ -107,7 +107,7 @@ func abrir(atividade: StringName, concluida: bool = false) -> bool:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if visible and event.is_action_pressed(&"ui_cancel"):
+	if visible and event.is_action_pressed(&"voltar_contexto"):
 		get_viewport().set_input_as_handled()
 		_responder(false)
 

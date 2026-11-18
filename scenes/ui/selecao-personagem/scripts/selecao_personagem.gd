@@ -194,6 +194,9 @@ func confirmar() -> void:
 		return
 	cards()[i_pers].piscar()
 	mochilas()[i_moch].piscar()
+	if Partida.foi_iniciada() and not Partida.nome_jogador.is_empty():
+		_confirmar_escolha(Partida.nome_jogador)
+		return
 	tela_nome.show()
 	campo_nome.grab_focus()
 	campo_nome.edit()
@@ -219,6 +222,10 @@ func _confirmar_nome() -> void:
 	var nome := campo_nome.text.strip_edges()
 	if _travado or nome.is_empty():
 		return
+	_confirmar_escolha(nome)
+
+
+func _confirmar_escolha(nome: String) -> void:
 	var primeiro_nome := PersonagemEscolhido.nome_jogador.is_empty()
 	_travado = true
 	var card: CardPersonagem = cards()[i_pers]

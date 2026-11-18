@@ -18,6 +18,14 @@ var _concluidas: Dictionary[StringName, bool] = {}
 var _comandante_apresentado := false
 
 
+func reiniciar() -> void:
+	_concluidas.clear()
+	_comandante_apresentado = false
+	embarque_liberado = false
+	lancamento_iniciado = false
+	atualizado.emit(0)
+
+
 func total_tarefas(laboratorio: StringName) -> int:
 	var tarefas: Array = TAREFAS_POR_LABORATORIO.get(laboratorio, [])
 	return tarefas.size()

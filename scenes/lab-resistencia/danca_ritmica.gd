@@ -46,8 +46,6 @@ class Movimento:
 @onready var _som_acerto: AudioStreamPlayer = $SomAcerto
 @onready var _contador: Label = $Contador
 @onready var _dica: Label = $Dica
-@onready var _pausa: ColorRect = $Pausa
-@onready var _continuar: Button = $Pausa/Janela/Continuar
 @onready var _resultado: ResultadoMissao = $Resultado
 
 var _movimentos: Array[Movimento] = []
@@ -72,10 +70,9 @@ func _ready() -> void:
 		alvo.position = area.position
 		alvo.size = area.size
 		alvo.pressed.connect(_tentar_movimento.bind(faixa))
-	$Pausar.pressed.connect(_alternar_pausa)
-	_continuar.pressed.connect(_alternar_pausa)
+	$Pausar.pressed.connect(MenuPausa.abrir)
+	$Voltar.pressed.connect(_fechar)
 	_resultado.voltar_solicitado.connect(_fechar)
-	$Pausa/Janela/Voltar.pressed.connect(_fechar)
 
 	var musica := _batida.stream.duplicate() as AudioStreamWAV
 	_duracao_musica = musica.get_length()
@@ -88,11 +85,9 @@ func _ready() -> void:
 
 
 func _input(evento: InputEvent) -> void:
-	if evento.is_action_pressed(&"ui_cancel"):
+	if evento.is_action_pressed(&"voltar_contexto"):
 		get_viewport().set_input_as_handled()
-		_alternar_pausa()
-		return
-	if _pausa.visible:
+		_fechar()
 		return
 	for faixa in range(ACOES.size()):
 		if evento.is_action_pressed(ACOES[faixa]):
@@ -102,8 +97,6 @@ func _input(evento: InputEvent) -> void:
 
 
 func _process(_delta: float) -> void:
-	if _pausa.visible:
-		return
 	_atualizar_relogio()
 	_atualizar_movimentos()
 	if _tempo < PRIMEIRO_MOVIMENTO - JANELA_DE_ACERTO:
@@ -137,7 +130,7 @@ func _atualizar_movimentos() -> void:
 
 
 func _tentar_movimento(faixa: int) -> void:
-	if _resultado.visible or _pausa.visible or _tempo < PRIMEIRO_MOVIMENTO - JANELA_DE_ACERTO:
+	if _resultado.visible or _tempo < PRIMEIRO_MOVIMENTO - JANELA_DE_ACERTO:
 		return
 	if _movimentos.is_empty() or absf(_movimentos[0].instante - _tempo) > JANELA_DE_ACERTO:
 		_mostrar_aviso("Espere a seta chegar", DOURADO)
@@ -164,6 +157,7 @@ func _encerrar_rodada() -> void:
 	_batida.stop()
 	_alvos.hide()
 	$Pausar.hide()
+	$Voltar.hide()
 	$Instrucao.hide()
 	_dica.hide()
 	_resultado.mostrar("Dança no ritmo", "Você acertou %d passos no ritmo!" % META)
@@ -180,16 +174,6 @@ func _mostrar_dica(texto: String, cor: Color) -> void:
 	if _dica.text != texto:
 		_dica.text = texto
 		_dica.add_theme_color_override("font_color", cor)
-
-
-func _alternar_pausa() -> void:
-	var pausada := not _pausa.visible
-	_batida.stream_paused = pausada
-	_som_acerto.stream_paused = pausada
-	_pausa.visible = pausada
-	if pausada:
-		$Pausa/Janela/Total.text = "%d / %d passos certos" % [_acertos, META]
-		_continuar.grab_focus()
 
 
 func _fechar() -> void:

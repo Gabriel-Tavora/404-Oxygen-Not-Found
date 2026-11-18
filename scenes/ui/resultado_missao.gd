@@ -20,7 +20,7 @@ func mostrar(atividade: String, resumo: String) -> void:
 
 
 func _unhandled_input(evento: InputEvent) -> void:
-	if is_visible_in_tree() and evento.is_action_pressed(&"ui_cancel"):
+	if is_visible_in_tree() and evento.is_action_pressed(&"voltar_contexto"):
 		get_viewport().set_input_as_handled()
 		_voltar_ao_laboratorio()
 

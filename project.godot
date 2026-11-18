@@ -20,6 +20,8 @@ ProgressoConhecimento="*res://scenes/laboratorios/progresso_conhecimento.gd"
 BorboletaSolta="*res://scenes/lab-biologia/borboleta_solta.gd"
 SomBotoes="*res://scenes/ui/som_botoes.gd"
 TrilhaAmbiente="*res://scenes/ui/trilha_ambiente.gd"
+MenuPausa="*res://scenes/ui/menu-pausa.tscn"
+Partida="*res://scenes/ui/cronometro-partida.tscn"
 
 [display]
 
@@ -33,6 +35,11 @@ window/stretch/aspect="ignore"
 
 [input]
 
+voltar_contexto={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":77,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 usar_porta={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":16,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)

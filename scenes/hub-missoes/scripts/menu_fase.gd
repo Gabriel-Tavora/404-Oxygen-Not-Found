@@ -2,7 +2,7 @@ class_name MenuFase
 extends Control
 ## Menu que aparece quando o personagem chega a uma área.
 ## Mesmo estilo da tela de seleção (painel de madeira, moldura azul, seta).
-## ← → escolhem, Enter/Espaço confirmam, Esc = sair. Mouse também funciona.
+## ← → escolhem, Enter/Espaço confirmam, M fecha o painel. Mouse também funciona.
 
 signal escolhido(comecar: bool)
 signal treino_escolhido(laboratorio: StringName)
@@ -157,7 +157,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			foco.pressed.emit()
 		else:
 			botoes[indice].pressed.emit()
-	elif event.is_action_pressed(&"ui_cancel"):
+	elif event.is_action_pressed(&"voltar_contexto"):
 		botoes[1].pressed.emit()
 	else:
 		return

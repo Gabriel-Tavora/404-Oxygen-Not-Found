@@ -1,0 +1,113 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/menu_pausa.gd" id="1_script"]
+[ext_resource type="FontFile" path="res://assets/ui/lab-pixel.fnt" id="2_fonte"]
+[ext_resource type="StyleBox" path="res://scenes/ui/placa-interacao.tres" id="3_placa"]
+
+[sub_resource type="StyleBoxFlat" id="Botao"]
+bg_color = Color(0.13, 0.24, 0.3, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.32, 0.54, 0.64, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="BotaoSobre"]
+bg_color = Color(0.19, 0.35, 0.43, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="Foco"]
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.60, 0.88, 1, 1)
+anti_aliasing = false
+
+[sub_resource type="Theme" id="Tema"]
+default_font = ExtResource("2_fonte")
+default_font_size = 10
+Button/colors/font_color = Color(0.89, 0.95, 0.98, 1)
+Button/styles/focus = SubResource("Foco")
+Button/styles/hover = SubResource("BotaoSobre")
+Button/styles/normal = SubResource("Botao")
+Button/styles/pressed = SubResource("BotaoSobre")
+
+[node name="MenuPausa" type="CanvasLayer"]
+process_mode = 3
+layer = 110
+visible = false
+script = ExtResource("1_script")
+
+[node name="Fundo" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_filter = 1
+color = Color(0.04, 0.08, 0.11, 0.7)
+theme = SubResource("Tema")
+
+[node name="Janela" type="Panel" parent="Fundo"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -102.0
+offset_top = -63.0
+offset_right = 102.0
+offset_bottom = 63.0
+theme_override_styles/panel = ExtResource("3_placa")
+
+[node name="Titulo" type="Label" parent="Fundo/Janela"]
+anchor_right = 1.0
+offset_top = 11.0
+offset_bottom = 33.0
+theme_override_colors/font_color = Color(0.60, 0.88, 1, 1)
+theme_override_font_sizes/font_size = 16
+text = "Jogo pausado"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Botoes" type="VBoxContainer" parent="Fundo/Janela"]
+anchor_right = 1.0
+offset_left = 23.0
+offset_top = 41.0
+offset_right = -23.0
+theme_override_constants/separation = 6
+
+[node name="Continuar" type="Button" parent="Fundo/Janela/Botoes"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Fechar")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../Fechar")
+focus_next = NodePath("../Fechar")
+focus_previous = NodePath("../Fechar")
+mouse_default_cursor_shape = 2
+text = "Voltar ao jogo"
+
+[node name="Fechar" type="Button" parent="Fundo/Janela/Botoes"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+focus_neighbor_left = NodePath(".")
+focus_neighbor_top = NodePath("../Continuar")
+focus_neighbor_right = NodePath(".")
+focus_neighbor_bottom = NodePath("../Continuar")
+focus_next = NodePath("../Continuar")
+focus_previous = NodePath("../Continuar")
+mouse_default_cursor_shape = 2
+text = "Fechar o jogo"
+
+[node name="Dica" type="Label" parent="Fundo/Janela"]
+anchor_right = 1.0
+offset_top = 100.0
+offset_bottom = 116.0
+theme_override_colors/font_color = Color(0.75, 0.88, 0.92, 1)
+theme_override_font_sizes/font_size = 8
+text = "Esc para voltar"
+horizontal_alignment = 1
+vertical_alignment = 1

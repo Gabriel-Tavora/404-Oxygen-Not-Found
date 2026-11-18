@@ -58,6 +58,7 @@ func _ready() -> void:
 	_atualizar_rota_foguete(start)
 	_mostrar_placa(start)
 	hud.fade_in()
+	Partida.iniciar(PersonagemEscolhido.nome_jogador)
 	ProgressoConhecimento.apresentar_comandante()
 
 
@@ -79,7 +80,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if _busy or menu.aberto:
 		return
 	if player.moving:
-		if event.is_action_pressed(&"ui_cancel") and player.cancelar_caminhada_automatica():
+		if event.is_action_pressed(&"voltar_contexto") and player.cancelar_caminhada_automatica():
 			get_viewport().set_input_as_handled()
 			return
 		for action: StringName in MOVE_DIRECTIONS:
@@ -87,7 +88,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				get_viewport().set_input_as_handled()
 				return
 		return
-	if not event.is_action_pressed(&"ui_cancel"):
+	if not event.is_action_pressed(&"voltar_contexto"):
 		return
 	get_viewport().set_input_as_handled()
 	_trocar_cena(SELECAO)
@@ -174,6 +175,7 @@ func _on_menu(comecar: bool) -> void:
 		return
 	if node.kind == MapNode.Kind.EMBARQUE and ProgressoConhecimento.embarque_liberado:
 		_busy = true
+		Partida.concluir()
 		ProgressoConhecimento.lancamento_iniciado = true
 		_rota_foguete.hide()
 		_ambiente.stop()

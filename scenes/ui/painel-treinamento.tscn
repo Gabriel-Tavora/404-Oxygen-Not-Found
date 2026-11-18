@@ -180,7 +180,21 @@ offset_bottom = -5.0
 mouse_default_cursor_shape = 2
 focus_mode = 0
 theme_override_styles/normal = ExtResource("7_placa")
-text = "Esc para o mapa"
+text = "M volta ao hub"
+
+[node name="Pausar" type="Button" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -177.0
+offset_top = -21.0
+offset_right = -110.0
+offset_bottom = -5.0
+mouse_default_cursor_shape = 2
+focus_mode = 0
+theme_override_styles/normal = ExtResource("7_placa")
+text = "Esc pausa"
 
 [node name="SomAviso" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_som")

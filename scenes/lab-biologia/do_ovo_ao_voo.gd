@@ -64,7 +64,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if not _resultado.visible and event.is_action_pressed(&"ui_cancel"):
+	if not _resultado.visible and event.is_action_pressed(&"voltar_contexto"):
 		get_viewport().set_input_as_handled()
 		_voltar_ao_laboratorio()
 

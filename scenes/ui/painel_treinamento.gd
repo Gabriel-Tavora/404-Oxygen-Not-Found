@@ -27,10 +27,11 @@ func _ready() -> void:
 	ProgressoConhecimento.missao_finalizada.connect(_registrar_resultado)
 	_tempo_aviso.timeout.connect(_encerrar_aviso)
 	$VoltarAoMapa.pressed.connect(_voltar_ao_mapa)
+	$Pausar.pressed.connect(MenuPausa.abrir)
 
 
 func _unhandled_input(evento: InputEvent) -> void:
-	if evento.is_action_pressed(&"ui_cancel"):
+	if evento.is_action_pressed(&"voltar_contexto"):
 		_voltar_ao_mapa()
 
 
@@ -45,6 +46,7 @@ func _voltar_ao_mapa() -> void:
 
 
 func ocultar_durante_missao() -> void:
+	Partida.definir_missao(true)
 	_encerrar_zoom()
 	_tempo_aviso.stop()
 	_som_aviso.stop()
@@ -53,6 +55,7 @@ func ocultar_durante_missao() -> void:
 
 
 func restaurar_apos_missao() -> void:
+	Partida.definir_missao(false)
 	show()
 	if not _laboratorio_pendente.is_empty():
 		_mostrar_resultado(_laboratorio_pendente, _premiada_pendente)

@@ -11,9 +11,11 @@ ou as **setas** para chegar à Base de Lançamento, à Biblioteca (Biologia),
 à Academia (Resistência) ou à Sala das Emoções. O sinal vermelho da Base de
 Lançamento mostra os treinos e o progresso necessários para o embarque.
 
-Pise em um sinal luminoso para receber o convite de uma atividade. Fora de uma
-missão, use **Esc** ou o botão **Mapa** para voltar ao hub. As portas no fundo de
-Física e Biologia também ligam os dois laboratórios com **E**.
+Use **Esc** durante o jogo para abrir a pausa, voltar à partida ou fechar o jogo.
+No hub, use **M** para trocar de personagem. Dentro de um laboratório, use **M**
+ou o botão **M volta ao hub** para retornar ao mapa. Pise em um sinal luminoso
+para receber o convite de uma atividade. As portas no fundo de Física e
+Biologia também ligam os dois laboratórios com **E**.
 
 ## Laboratório de Física
 
@@ -22,7 +24,7 @@ Física e Biologia também ligam os dois laboratórios com **E**.
 | Esquerdo | Expedição magnética | Ande com **A/D** ou **←/→**, pule com **Espaço**, **W** ou **↑**, troque de polo com **X** e use o ímã com **E**. Colete as moedas e chegue à saída. |
 | Direito | Lançamento oblíquo | Segure o **botão esquerdo do mouse** e arraste para ajustar a mira e a força. Solte para lançar na caixa da mesma cor. O vento muda a cada rodada. |
 
-Use **Esc** para voltar ao laboratório. Para reabrir uma atividade, saia do
+Use **M** para voltar ao laboratório. Para reabrir uma atividade, saia do
 sinal e pise nele novamente. A barra de Conhecimento soma um ponto pela
 primeira conclusão de cada missão durante a partida.
 

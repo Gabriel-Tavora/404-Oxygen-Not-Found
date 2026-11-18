@@ -6,6 +6,11 @@ var esta_solta := false
 var cor_asas := Color.TRANSPARENT
 
 
+func reiniciar() -> void:
+	esta_solta = false
+	cor_asas = Color.TRANSPARENT
+
+
 func soltar(cor: Color) -> void:
 	esta_solta = true
 	cor_asas = cor

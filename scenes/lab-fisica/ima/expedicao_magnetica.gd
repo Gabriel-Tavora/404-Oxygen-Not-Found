@@ -36,6 +36,7 @@ const FUNDO_TECLA := HUD.BRILHO
 @onready var _resultado: ResultadoMissao = $Resultado
 @onready var _personagem := $Personagem
 @onready var _primeiro_plano: Node2D = $PrimeiroPlano
+@onready var _som_moeda: AudioStreamPlayer = $SomMoeda
 var _corpo: CharacterBody2D
 var _pontes: Array[CollisionShape2D] = []
 var _abertas: Array[float] = []
@@ -173,6 +174,8 @@ func _registrar_progresso() -> void:
 	for i in MOEDAS.size():
 		if not _coletadas.has(i) and centro.distance_to(MOEDAS[i]) < 18.0:
 			_coletadas[i] = true
+			_som_moeda.pitch_scale = 1.35 if _coletadas.size() == MOEDAS.size() else 1.0
+			_som_moeda.play()
 	if absf(_corpo.position.x - SAIDA.x) >= 15.0 or not _corpo.is_on_floor():
 		return
 	if _coletadas.size() < MOEDAS.size():
@@ -194,7 +197,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 	if not visible or _terminou or not event is InputEventKey or not event.pressed or event.echo:
 		return
 	var tecla: Key = event.physical_keycode if event.physical_keycode != 0 else event.keycode
-	if tecla == KEY_ESCAPE:
+	if event.is_action_pressed(&"voltar_contexto"):
 		_fechar()
 	elif tecla in [KEY_SPACE, KEY_W, KEY_UP]:
 		_pulou = true
@@ -432,5 +435,6 @@ func _desenhar_interface(alvo: int) -> void:
 	HUD.controle(_primeiro_plano, 16, 32, "A   D", "Mover", damasco)
 	HUD.controle(_primeiro_plano, 105, 42, "Espaço", "Pular", mel)
 	HUD.controle(_primeiro_plano, 203, 17, "X", "Trocar polo", menta)
-	HUD.controle(_primeiro_plano, 299, 17, "E", "Usar ímã", Color("#c9defa"))
-	HUD.controle(_primeiro_plano, 391, 26, "Esc", "Voltar", Color("#e9d3f4"))
+	HUD.controle(_primeiro_plano, 291, 17, "E", "Usar ímã", Color("#c9defa"))
+	HUD.controle(_primeiro_plano, 359, 13, "M", "Voltar", Color("#e9d3f4"))
+	HUD.controle(_primeiro_plano, 412, 22, "Esc", "Pausa", Color("#e9d3f4"))

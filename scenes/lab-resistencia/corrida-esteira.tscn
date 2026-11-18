@@ -123,6 +123,14 @@ offset_bottom = 30.0
 focus_mode = 0
 text = "Esc  Pausar"
 
+[node name="Voltar" type="Button" parent="."]
+offset_left = 290.0
+offset_top = 10.0
+offset_right = 376.0
+offset_bottom = 30.0
+focus_mode = 0
+text = "M  Voltar"
+
 [node name="Controles" type="PanelContainer" parent="."]
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -153,61 +161,6 @@ text = "A/D  Trocar de faixa"
 [node name="Pular" type="Label" parent="Controles/Margens/Linhas"]
 layout_mode = 2
 text = "Espaço/W  Pular"
-
-[node name="Pausa" type="ColorRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.04, 0.085, 0.11, 0.67)
-
-[node name="Janela" type="Panel" parent="Pausa"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -132.0
-offset_top = -50.0
-offset_right = 132.0
-offset_bottom = 50.0
-
-[node name="Titulo" type="Label" parent="Pausa/Janela"]
-offset_left = 12.0
-offset_top = 11.0
-offset_right = 252.0
-offset_bottom = 35.0
-theme_override_font_sizes/font_size = 16
-text = "Corrida pausada"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Total" type="Label" parent="Pausa/Janela"]
-offset_left = 12.0
-offset_top = 38.0
-offset_right = 252.0
-offset_bottom = 53.0
-text = "Moedas: 0 / 30"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Voltar" type="Button" parent="Pausa/Janela"]
-offset_left = 14.0
-offset_top = 64.0
-offset_right = 127.0
-offset_bottom = 86.0
-focus_neighbor_right = NodePath("../Continuar")
-text = "Voltar ao laboratório"
-
-[node name="Continuar" type="Button" parent="Pausa/Janela"]
-offset_left = 137.0
-offset_top = 64.0
-offset_right = 250.0
-offset_bottom = 86.0
-focus_neighbor_left = NodePath("../Voltar")
-text = "Continuar correndo"
 
 [node name="Falha" type="ColorRect" parent="."]
 visible = false

@@ -1,0 +1,40 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/partida.gd" id="1_script"]
+[ext_resource type="FontFile" path="res://assets/ui/PixelifySans-Medium.woff" id="2_fonte"]
+
+[sub_resource type="StyleBoxFlat" id="Visor"]
+bg_color = Color(0.0627, 0.1059, 0.1804, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.36, 0.64, 0.8, 1)
+anti_aliasing = false
+
+[node name="Partida" type="CanvasLayer"]
+layer = 12
+script = ExtResource("1_script")
+
+[node name="Visor" type="Panel" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -39.0
+offset_right = 39.0
+offset_top = 6.0
+offset_bottom = 20.0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("Visor")
+
+[node name="Tempo" type="Label" parent="Visor"]
+accessibility_name = "Tempo de partida"
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme_override_fonts/font = ExtResource("2_fonte")
+theme_override_font_sizes/font_size = 11
+theme_override_colors/font_color = Color(0.79, 0.93, 1, 1)
+text = "00:00.000"
+horizontal_alignment = 1
+vertical_alignment = 1

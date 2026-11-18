@@ -167,7 +167,7 @@ func _notification(what: int) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _etapa != Etapa.MUDA_GUARDADA and event.is_action_pressed(&"ui_cancel"):
+	if _etapa != Etapa.MUDA_GUARDADA and event.is_action_pressed(&"voltar_contexto"):
 		get_viewport().set_input_as_handled()
 		if _item_arrastado != null:
 			get_viewport().gui_cancel_drag()
@@ -534,7 +534,7 @@ func _colocar_na_bandeja(posicao: Vector2, dado: Variant) -> void:
 	_atualizar_fases()
 	_atualizar_controles()
 	_voltar.hide()
-	await get_tree().create_timer(0.55).timeout
+	await get_tree().create_timer(0.55, false).timeout
 	_resultado.mostrar("Missão Broto", "Você cultivou um pé de feijão. Sua muda ficou na bandeja do laboratório.")
 	concluido.emit()
 

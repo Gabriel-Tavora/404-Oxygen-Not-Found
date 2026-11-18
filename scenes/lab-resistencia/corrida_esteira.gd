@@ -25,9 +25,7 @@ class Fileira:
 @onready var _objetivo: Label = $Placar/Objetivo
 @onready var _cor_objetivo_inicial := _objetivo.get_theme_color("font_color")
 @onready var _pausar: Button = $Pausar
-@onready var _pausa: Control = $Pausa
-@onready var _continuar: Button = $Pausa/Janela/Continuar
-@onready var _total_pausa: Label = $Pausa/Janela/Total
+@onready var _voltar: Button = $Voltar
 @onready var _falha: Control = $Falha
 @onready var _total_falha: Label = $Falha/Janela/Total
 @onready var _tentar_de_novo: Button = $Falha/Janela/TentarDeNovo
@@ -51,9 +49,8 @@ var _moedas := 0
 func _ready() -> void:
 	_personagem.aplicar_selecao()
 	_primeiro_plano.draw.connect(_desenhar_primeiro_plano)
-	_pausar.pressed.connect(_pausar_corrida)
-	_continuar.pressed.connect(_retomar)
-	$Pausa/Janela/Voltar.pressed.connect(func() -> void: fechado.emit())
+	_pausar.pressed.connect(MenuPausa.abrir)
+	_voltar.pressed.connect(func() -> void: fechado.emit())
 	$Falha/Janela/Voltar.pressed.connect(func() -> void: fechado.emit())
 	_tentar_de_novo.pressed.connect(_reiniciar_corrida)
 	_resultado.voltar_solicitado.connect(func() -> void: fechado.emit())
@@ -87,16 +84,9 @@ func _reiniciar_corrida() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if _resultado.visible:
 		return
-	if _falha.visible:
-		if event.is_action_pressed(&"ui_cancel"):
-			get_viewport().set_input_as_handled()
-		return
-	if event.is_action_pressed(&"ui_cancel"):
-		if _pausa.visible:
-			_retomar()
-		else:
-			_pausar_corrida()
-	elif _pausa.visible:
+	if event.is_action_pressed(&"voltar_contexto"):
+		fechado.emit()
+	elif _falha.visible:
 		return
 	elif event.is_action_pressed(&"andar_esquerda"):
 		_faixa = maxi(0, _faixa - 1)
@@ -111,7 +101,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if _pausa.visible or _falha.visible:
+	if _falha.visible:
 		return
 
 	_tempo += delta
@@ -178,18 +168,11 @@ func _pegar_moeda() -> void:
 		_objetivo.add_theme_color_override("font_color", Color("#aff0c1"))
 		_objetivo.text = "Missão concluída!"
 		_pausar.hide()
+		_voltar.hide()
 		set_physics_process(false)
 		_redesenhar()
 		_resultado.mostrar("Corrida na esteira", "Você coletou as %d moedas!" % META_MOEDAS)
 		concluido.emit()
-
-
-func _pausar_corrida() -> void:
-	if _falha.visible:
-		return
-	_total_pausa.text = _resumo_moedas()
-	_pausa.show()
-	_continuar.grab_focus()
 
 
 func _encerrar_por_colisao() -> void:
@@ -203,10 +186,6 @@ func _encerrar_por_colisao() -> void:
 
 func _resumo_moedas() -> String:
 	return "Moedas: %d / %d" % [_moedas, META_MOEDAS]
-
-
-func _retomar() -> void:
-	_pausa.hide()
 
 
 func _altura_salto() -> float:

@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" path="res://scenes/ui/menu-inicial/menu_inicial.gd" id="1_script"]
 [ext_resource type="Texture2D" path="res://assets/ui/ad-astra-menu.png" id="2_arte"]
+[ext_resource type="FontFile" path="res://assets/ui/PixelifySans-Medium.woff" id="3_fonte"]
+[ext_resource type="PackedScene" path="res://scenes/ui/ranking.tscn" id="4_ranking"]
 
 [sub_resource type="AtlasTexture" id="ArteIniciar"]
 atlas = ExtResource("2_arte")
@@ -17,6 +19,61 @@ modulate_color = Color(1.07, 1.07, 1.07, 1)
 [sub_resource type="StyleBoxTexture" id="BotaoPressionado"]
 texture = SubResource("ArteIniciar")
 modulate_color = Color(0.87, 0.87, 0.87, 1)
+
+[sub_resource type="StyleBoxFlat" id="BotaoCreditos"]
+bg_color = Color(0.0627, 0.1, 0.18, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.36, 0.64, 0.8, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="BotaoCreditosAtivo"]
+bg_color = Color(0.13, 0.23, 0.36, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.65, 0.87, 1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+anti_aliasing = false
+
+[sub_resource type="Theme" id="TemaCreditos"]
+default_font = ExtResource("3_fonte")
+
+[sub_resource type="StyleBoxFlat" id="BotaoSair"]
+bg_color = Color(0.54, 0.12, 0.16, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.9, 0.42, 0.44, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="BotaoSairAtivo"]
+bg_color = Color(0.68, 0.18, 0.22, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(1, 0.69, 0.67, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_left = 8
+corner_radius_bottom_right = 8
+anti_aliasing = false
 
 [node name="MenuInicial" type="Control"]
 accessibility_name = "Ad Astra"
@@ -70,4 +127,99 @@ theme_override_styles/pressed = SubResource("BotaoPressionado")
 theme_override_styles/hover_pressed = SubResource("BotaoPressionado")
 theme_override_styles/focus = SubResource("BotaoSemSobreposicao")
 
+[node name="Creditos" type="Button" parent="Tela"]
+layout_mode = 0
+offset_left = 500.0
+offset_top = 869.0
+offset_right = 716.0
+offset_bottom = 947.0
+focus_neighbor_right = NodePath("../Ranking")
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("3_fonte")
+theme_override_font_sizes/font_size = 43
+theme_override_styles/normal = SubResource("BotaoCreditos")
+theme_override_styles/hover = SubResource("BotaoCreditosAtivo")
+theme_override_styles/pressed = SubResource("BotaoCreditosAtivo")
+theme_override_styles/focus = SubResource("BotaoCreditosAtivo")
+text = "Créditos"
+
+[node name="Ranking" type="Button" parent="Tela"]
+layout_mode = 0
+offset_left = 732.0
+offset_top = 869.0
+offset_right = 948.0
+offset_bottom = 947.0
+focus_neighbor_left = NodePath("../Creditos")
+focus_neighbor_right = NodePath("../Sair")
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("3_fonte")
+theme_override_font_sizes/font_size = 43
+theme_override_styles/normal = SubResource("BotaoCreditos")
+theme_override_styles/hover = SubResource("BotaoCreditosAtivo")
+theme_override_styles/pressed = SubResource("BotaoCreditosAtivo")
+theme_override_styles/focus = SubResource("BotaoCreditosAtivo")
+text = "Ranking"
+
+[node name="Sair" type="Button" parent="Tela"]
+layout_mode = 0
+offset_left = 964.0
+offset_top = 869.0
+offset_right = 1180.0
+offset_bottom = 947.0
+focus_neighbor_left = NodePath("../Ranking")
+mouse_default_cursor_shape = 2
+theme_override_fonts/font = ExtResource("3_fonte")
+theme_override_font_sizes/font_size = 43
+theme_override_styles/normal = SubResource("BotaoSair")
+theme_override_styles/hover = SubResource("BotaoSairAtivo")
+theme_override_styles/pressed = SubResource("BotaoSair")
+theme_override_styles/focus = SubResource("BotaoSairAtivo")
+text = "Sair"
+
+[node name="PainelCreditos" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = SubResource("TemaCreditos")
+color = Color(0.0235, 0.0431, 0.0784, 1)
+
+[node name="Conteudo" type="VBoxContainer" parent="PainelCreditos"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 8.0
+offset_right = -12.0
+offset_bottom = -8.0
+theme_override_constants/separation = 6
+
+[node name="Titulo" type="Label" parent="PainelCreditos/Conteudo"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.89, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 25
+text = "CRÉDITOS"
+horizontal_alignment = 1
+
+[node name="Lista" type="VBoxContainer" parent="PainelCreditos/Conteudo"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 3
+alignment = 1
+
+[node name="Voltar" type="Button" parent="PainelCreditos/Conteudo"]
+custom_minimum_size = Vector2(96, 28)
+layout_mode = 2
+size_flags_horizontal = 4
+mouse_default_cursor_shape = 2
+text = "Voltar"
+
+[node name="Ranking" parent="." instance=ExtResource("4_ranking")]
+layout_mode = 1
+
 [connection signal="pressed" from="Tela/Iniciar" to="." method="_abrir_selecao"]
+[connection signal="pressed" from="Tela/Creditos" to="." method="_abrir_creditos"]
+[connection signal="pressed" from="Tela/Sair" to="." method="_sair_do_jogo"]
+[connection signal="pressed" from="PainelCreditos/Conteudo/Voltar" to="." method="_fechar_creditos"]

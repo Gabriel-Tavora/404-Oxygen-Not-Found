@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://1tpdpaun84av"]
 
-[ext_resource type="AudioStream" path="res://assets/hub-missoes/ambiente-hub.ogg" id="a_ambiente"]
+[ext_resource type="AudioStream" uid="uid://dhcpfu4g2jmw5" path="res://assets/hub-missoes/ambiente-hub.ogg" id="a_ambiente"]
 [ext_resource type="FontFile" uid="uid://dhpfe25h7xenb" path="res://assets/ui/PixelifySans-Medium.woff" id="f_med"]
 [ext_resource type="Texture2D" uid="uid://na2yfe4rh0qx" path="res://assets/hub-missoes/hologramas/academia_0.png" id="h_academia_0"]
 [ext_resource type="Texture2D" uid="uid://dd3raadlsge2n" path="res://assets/hub-missoes/hologramas/academia_1.png" id="h_academia_1"]
@@ -23,7 +23,7 @@
 [ext_resource type="Script" uid="uid://c7kmw3fe14tt" path="res://scenes/hub-missoes/scripts/menu_fase.gd" id="s_menu"]
 [ext_resource type="Script" uid="uid://cun1omg3jvqiv" path="res://scenes/hub-missoes/scripts/map_node.gd" id="s_node"]
 [ext_resource type="Script" uid="uid://jv2dcxvk6kl1" path="res://scenes/hub-missoes/scripts/overworld_player.gd" id="s_player"]
-[ext_resource type="Script" path="res://scenes/hub-missoes/scripts/rota_foguete.gd" id="s_rota"]
+[ext_resource type="Script" uid="uid://cleblb0sw4os2" path="res://scenes/hub-missoes/scripts/rota_foguete.gd" id="s_rota"]
 [ext_resource type="Texture2D" uid="uid://belqrtap4odbs" path="res://assets/hub-missoes/menu_botao.png" id="t_botao"]
 [ext_resource type="Texture2D" uid="uid://17ijdjn8vpfs" path="res://assets/hub-missoes/mapa.png" id="t_mapa"]
 [ext_resource type="Texture2D" uid="uid://d0fn1qp25jdec" path="res://assets/hub-missoes/menu_painel.png" id="t_painel"]
@@ -150,7 +150,7 @@ font_color = Color(0.16, 0.22, 0.27, 1)
 texture_filter = 1
 script = ExtResource("s_mapa")
 
-[node name="AmbienteHub" type="AudioStreamPlayer" parent="."]
+[node name="AmbienteHub" type="AudioStreamPlayer" parent="." unique_id=1427555770]
 stream = ExtResource("a_ambiente")
 volume_db = -13.0
 autoplay = true
@@ -181,11 +181,12 @@ autoplay = "default"
 frame_progress = 0.6
 centered = false
 
-[node name="RotaFoguete" type="Node2D" parent="."]
+[node name="RotaFoguete" type="Node2D" parent="." unique_id=367246385]
 visible = false
 script = ExtResource("s_rota")
 
 [node name="Nodes" type="Node2D" parent="." unique_id=1453497104]
+visible = false
 
 [node name="academia" type="Marker2D" parent="Nodes" unique_id=1755858466]
 position = Vector2(395, 437)
@@ -292,7 +293,8 @@ connections = Array[NodePath]([NodePath("../biblioteca")])
 position = Vector2(310, 1203)
 script = ExtResource("s_node")
 display_name = "BIBLIOTECA · BIOLOGIA"
-descricao = "Cultive um broto e observe a metamorfose.\nA porta interna leva à Física."
+descricao = "Cultive um broto e observe a metamorfose.
+A porta interna leva à Física."
 laboratorio = &"biologia"
 kind = 0
 level_scene = "res://scenes/lab-biologia/lab-bio.tscn"
@@ -382,6 +384,7 @@ offset_left = 20.0
 offset_top = 12.0
 offset_right = -20.0
 offset_bottom = 74.0
+grow_horizontal = 2
 text = "FASE"
 label_settings = SubResource("ls_tit")
 horizontal_alignment = 1
@@ -396,6 +399,8 @@ offset_left = 50.0
 offset_top = 86.0
 offset_right = -50.0
 offset_bottom = -186.0
+grow_horizontal = 2
+grow_vertical = 2
 label_settings = SubResource("ls_desc")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -419,6 +424,7 @@ offset_left = 50.0
 offset_top = 89.0
 offset_right = -50.0
 offset_bottom = 148.0
+grow_horizontal = 2
 label_settings = SubResource("ls_desc")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -447,6 +453,7 @@ offset_left = 90.0
 offset_top = -138.0
 offset_right = 420.0
 offset_bottom = -38.0
+grow_vertical = 0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 flat = true
@@ -485,6 +492,7 @@ offset_left = 460.0
 offset_top = -138.0
 offset_right = 790.0
 offset_bottom = -38.0
+grow_vertical = 0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 flat = true
@@ -520,7 +528,6 @@ offset_left = 98.0
 offset_top = 261.0
 offset_right = 422.0
 offset_bottom = 383.0
-mouse_filter = 2
 texture = ExtResource("t_sel")
 patch_margin_left = 20
 patch_margin_top = 20

@@ -73,6 +73,12 @@ func _cancelar_mouse() -> void:
 	_carga = 0.0
 
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_PAUSED and _mirando:
+		_cancelar_mouse()
+		queue_redraw()
+
+
 func _gui_input(event: InputEvent) -> void:
 	if _estado != Estado.PREPARANDO:
 		return
@@ -97,7 +103,7 @@ func _mirar(ponto: Vector2) -> void:
 
 
 func _unhandled_key_input(event: InputEvent) -> void:
-	if visible and _estado != Estado.CONCLUIDO and event.is_action_pressed(&"ui_cancel"):
+	if visible and _estado != Estado.CONCLUIDO and event.is_action_pressed(&"voltar_contexto"):
 		get_viewport().set_input_as_handled()
 		_fechar()
 
@@ -322,8 +328,9 @@ func _desenhar_hud() -> void:
 	draw_rect(Rect2(49, 263, 88, 9), Color("#d7a88f"))
 	if _mirando:
 		draw_rect(Rect2(49, 263, 6 + roundf(_carga * 82), 9), cor.darkened(0.18))
-	HUD.controle(self, 151, 140, "Botão esquerdo do mouse", "Arraste e solte", mel)
-	HUD.controle(self, 395, 26, "Esc", "Voltar", Color("#e9d3f4"))
+	HUD.controle(self, 151, 105, "Mouse esquerdo", "Arraste e solte", mel)
+	HUD.controle(self, 359, 13, "M", "Voltar", Color("#e9d3f4"))
+	HUD.controle(self, 412, 22, "Esc", "Pausa", Color("#e9d3f4"))
 
 
 func _desenhar_vento() -> void:

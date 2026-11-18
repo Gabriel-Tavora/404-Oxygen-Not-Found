@@ -98,8 +98,8 @@ func abrir() -> void:
 	_selecionar_pista(0)
 
 
-func _input(event: InputEvent) -> void:
-	if visible and not _resultado.visible and event.is_action_pressed(&"ui_cancel"):
+func _unhandled_input(event: InputEvent) -> void:
+	if visible and not _resultado.visible and not _resposta.is_editing() and event.is_action_pressed(&"voltar_contexto"):
 		get_viewport().set_input_as_handled()
 		_fechar()
 

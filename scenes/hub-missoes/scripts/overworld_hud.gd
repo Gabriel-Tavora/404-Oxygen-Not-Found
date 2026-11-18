@@ -51,9 +51,10 @@ func _draw() -> void:
 	var font := ThemeDB.fallback_font
 	var w := size.x
 	var hgt := size.y
-	_panel(Rect2(6, 6, 176, 26))
+	_panel(Rect2(6, 6, 176, 36))
 	_text(font, Vector2(12, 17), world_name, 9, Color("8ad8ff"))
-	_text(font, Vector2(12, 27), "WASD / Setas · Esc troca personagem", 8, Color.WHITE)
+	_text(font, Vector2(12, 27), "WASD / Setas · Esc pausa", 8, Color.WHITE)
+	_text(font, Vector2(12, 37), "M troca de personagem", 8, Color.WHITE)
 	# Placa do ponto atual
 	if location != "":
 		var fs := int(10 * px)
