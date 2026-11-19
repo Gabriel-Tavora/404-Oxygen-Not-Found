@@ -3,6 +3,7 @@ extends CanvasLayer
 const Creditos = preload("res://scenes/encerramento/creditos.gd")
 const MENU_INICIAL := "res://scenes/ui/menu-inicial/menu-inicial.tscn"
 const DURACAO_ESCURECIMENTO := 0.65
+const DURACAO_CREDITOS := 12.0
 const ENTRADA_DO_ASTRONAUTA := 22.0 / 30.0
 
 @onready var _escurecimento: ColorRect = $Escurecimento
@@ -27,7 +28,6 @@ func _ready() -> void:
 	set_process(false)
 	get_tree().paused = true
 	_video.finished.connect(_mostrar_creditos)
-	_musica.finished.connect(_mostrar_tela_final)
 	_pular.pressed.connect(_mostrar_tela_final)
 	_jogar_de_novo.pressed.connect(_reiniciar_treinamento)
 	_botao_ranking.pressed.connect(_abrir_ranking)
@@ -62,6 +62,7 @@ func _mostrar_creditos() -> void:
 	Creditos.preencher_lista(_lista)
 	_creditos.show()
 	_pular.grab_focus()
+	get_tree().create_timer(DURACAO_CREDITOS).timeout.connect(_mostrar_tela_final)
 
 
 func _mostrar_tela_final() -> void:

@@ -156,7 +156,7 @@ custom_minimum_size = Vector2(148, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_default_cursor_shape = 2
-text = "Jogar de novo"
+text = "Reiniciar"
 
 [node name="Ranking" type="Button" parent="Fim/Conteudo"]
 custom_minimum_size = Vector2(148, 32)
@@ -177,7 +177,7 @@ custom_minimum_size = Vector2(148, 32)
 layout_mode = 2
 size_flags_horizontal = 4
 mouse_default_cursor_shape = 2
-text = "Sair do jogo"
+text = "Fechar jogo"
 
 [node name="Ranking" parent="." instance=ExtResource("5_ranking")]
 
