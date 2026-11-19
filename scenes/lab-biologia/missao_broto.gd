@@ -100,7 +100,6 @@ var _previa_regador: TextureRect
 var _tempo_regando := 0.0
 var _despejando := false
 var _posicao_ponteiro := Vector2.ZERO
-var _ajuste_previa_vaso := Vector2.ZERO
 var _instrucao_antes_do_arraste := ""
 var _instrucao_antes_da_lupa := ""
 var _pulso_bandeja: Tween
@@ -210,7 +209,11 @@ func _iniciar_arraste(item: Button, previa: Control, instrucao: String) -> void:
 	_fechar_lupa()
 	_instrucao_antes_do_arraste = _instrucao.text
 	_item_arrastado = item
-	item.set_drag_preview(previa)
+	# O Godot move o controle raiz para o cursor. O deslocamento fica no filho.
+	var ancora := Control.new()
+	ancora.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	ancora.add_child(previa)
+	item.set_drag_preview(ancora)
 	_instrucao.text = instrucao
 	_atualizar_controles()
 
@@ -442,8 +445,7 @@ func _arrastar_vaso(_posicao: Vector2) -> Variant:
 		return _vaso
 	var previa := Control.new()
 	previa.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	_ajuste_previa_vaso = _vaso.make_canvas_position_local(_posicao_ponteiro)
-	previa.position = -_ajuste_previa_vaso
+	previa.position = -_vaso.size / 2.0
 	for filho in _vaso.get_children():
 		if filho is TextureRect and filho.visible:
 			var imagem := _criar_imagem(filho)
@@ -457,7 +459,7 @@ func _arrastar_vaso(_posicao: Vector2) -> Variant:
 
 func _posicao_vaso_solto() -> Vector2:
 	var bancada := _vaso.get_parent() as Control
-	return bancada.make_canvas_position_local(_posicao_ponteiro) - _ajuste_previa_vaso
+	return bancada.make_canvas_position_local(_posicao_ponteiro) - _vaso.size / 2.0
 
 
 func _mover_para_luz(posicao: Vector2, dado: Variant) -> void:
